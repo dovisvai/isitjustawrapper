@@ -1,0 +1,64 @@
+{
+  "slug": "github-copilot",
+  "name": "GitHub Copilot",
+  "vendor": "GitHub (Microsoft)",
+  "category": "coding",
+  "url": "https://github.com/features/copilot",
+  "pricing": {
+    "tier": "Pro (individual)",
+    "monthlyUsd": 10,
+    "billingNote": "Individual Pro plan billed monthly; an annual rate is advertised lower. Free, Business and Enterprise tiers are priced separately and are not covered by this entry.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "A developer using it most working days: about 4,000 inline completions and 150 chat turns a month. Completions are priced against a small fast model, chat against a mid-tier one.",
+    "components": [
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 6000000,
+          "outputTokens": 240000
+        },
+        "note": "4,000 inline completions, each sending ~1,500 tokens of surrounding file context"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 900000,
+          "outputTokens": 120000
+        },
+        "note": "150 chat turns with repository context attached"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "At this usage the subscription is priced at roughly what the inference alone is estimated to cost, before any of the editor integration work.",
+  "verdictReasoning": "The estimated inference cost lands within a few percent of the sticker price, which means essentially none of the $10 is markup on tokens at this volume. Whatever the plan is buying — the editor extensions, the context-gathering that makes completions relevant, the request routing — is not being funded by a margin on the model. Lighter users subsidise heavier ones, which is how a flat fee works, but the flat fee itself is not the interesting number here.",
+  "valueAddTags": [
+    "integrations",
+    "scale-infra",
+    "distribution"
+  ],
+  "valueAddNotes": "The hard part is not calling a model, it is deciding what to send it: which files, which symbols, how much of the buffer, fast enough that the suggestion arrives before you have typed past it. That retrieval and latency work is the product. The IDE extensions across VS Code, JetBrains, Neovim and Visual Studio are a long maintenance tail that no individual replicates.",
+  "whatYouLose": "Sub-second inline completion inside your editor, the context selection that makes those completions relevant, and extensions maintained against several IDEs that each break on their own schedule.",
+  "diyPath": "Continue.dev or Tabby wired to an API key, or a local model through Ollama for completion-only use. Both are real options and both leave you owning the context-gathering and the latency tuning.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "GitHub Copilot plans",
+      "url": "https://github.com/features/copilot/plans"
+    },
+    {
+      "kind": "docs",
+      "label": "GitHub Copilot documentation",
+      "url": "https://docs.github.com/en/copilot"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

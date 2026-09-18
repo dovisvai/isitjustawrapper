@@ -1,0 +1,69 @@
+{
+  "slug": "descript-creator",
+  "name": "Descript Creator",
+  "vendor": "Descript",
+  "category": "video",
+  "url": "https://www.descript.com",
+  "pricing": {
+    "tier": "Creator",
+    "monthlyUsd": 35,
+    "billingNote": "$35/month month-to-month; the same tier is advertised at $24/month on annual billing, which cuts the multiple below by roughly a third. Hobbyist and Business tiers sit either side. The page's monthly/annual toggle makes it easy to read the wrong figure — this one is the month-to-month price.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "A working podcaster or video editor: 20 hours of audio transcribed a month, 40 generative edits or overdubs, plus the rendering and storage that a video tool carries whether or not a model runs.",
+    "components": [
+      {
+        "modelId": "asr-standard",
+        "units": {
+          "audioMinutes": 1200
+        },
+        "note": "20 hours of recordings transcribed with speaker separation"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 320000,
+          "outputTokens": 24000
+        },
+        "note": "40 generative edits, overdubs and summaries"
+      }
+    ],
+    "extras": [
+      {
+        "label": "Rendering and media storage",
+        "monthlyUsd": 4,
+        "note": "Video export and project storage are real recurring costs that no token or transcription rate captures. This allowance is deliberately generous, which makes the multiple smaller rather than larger."
+      }
+    ]
+  },
+  "verdict": "fair",
+  "verdictSummary": "A low single-digit multiple once rendering and storage are counted, on a product where the editing model rather than the inference is the thing being sold.",
+  "verdictReasoning": "Transcription is cheap and getting cheaper, which makes a naive reading of this look worse than it is. The product is not transcription: it is editing video by editing text, and the engineering that keeps a multitrack timeline synchronised with an edited transcript is the actual work. Storage and rendering also cost real money continuously. The honest pressure on this price is that the transcription half is now nearly free, and that gap will widen.",
+  "valueAddTags": [
+    "ux-craft",
+    "scale-infra",
+    "integrations"
+  ],
+  "valueAddNotes": "Text-based editing of a multitrack timeline is a genuinely novel interface and the hard part of the product. Around it sit rendering, storage, collaboration and export pipelines, none of which appear in an inference bill.",
+  "whatYouLose": "Editing video by deleting words. Every cheaper path gives you a transcript and leaves you to cut the timeline yourself, which is the labour the product exists to remove.",
+  "diyPath": "Whisper for transcription, then a conventional editor. Costs a fraction of this in compute and considerably more of your time, which for a working editor is the expensive resource.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Descript pricing",
+      "url": "https://www.descript.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing (transcription)",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

@@ -1,0 +1,62 @@
+{
+  "slug": "chatbase-hobby",
+  "name": "Chatbase Hobby",
+  "vendor": "Chatbase",
+  "category": "support",
+  "url": "https://www.chatbase.co",
+  "pricing": {
+    "tier": "Hobby",
+    "monthlyUsd": 40,
+    "billingNote": "Billed monthly. Tiers are bounded by message credits and the number of chatbots rather than by seats, and messages beyond the allowance are billed on top of the subscription.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "A small business support bot answering 1,000 messages a month over its own documentation: each answer retrieves a few passages, sends roughly 6,000 tokens of context, and returns 400.",
+    "components": [
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 6000000,
+          "outputTokens": 400000
+        },
+        "note": "1,000 answers over retrieved passages"
+      },
+      {
+        "modelId": "embedding-standard",
+        "units": {
+          "inputTokens": 1500000
+        },
+        "note": "embedding the site and documentation the bot answers from"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Retrieval over your own documents, wired to a chat widget, using a pipeline that has been standard since 2023 and is available free in several open tools.",
+  "verdictReasoning": "Point it at a website, chunk, embed, retrieve, answer. The hosting, the widget and the ingestion of awkward source formats are real work, and for a small business with no engineer they are the entire reason to pay. What the price is not buying is anything about the answering itself, which runs on a licensed model doing the most documented task in the field. Compare this against Intercom Fin in the same category: one charges for a bot, the other charges only when a conversation is actually resolved, and that difference is the whole argument.",
+  "valueAddTags": [
+    "ux-craft",
+    "integrations"
+  ],
+  "valueAddNotes": "Ingesting a messy website into a usable index without anyone writing a scraper, and a widget that drops into a page. For a business without engineers that is a genuine service; it is also the part that is easiest to replace as the tooling commoditises.",
+  "whatYouLose": "Hosting, the embed widget, and never thinking about chunking. Someone has to run the thing, and if it is not the vendor it is you.",
+  "diyPath": "Open tools such as AnythingLLM, Flowise or Open WebUI do the same pipeline over your own key, self-hosted. Cheaper per message by a wide margin, and you own the uptime.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Chatbase pricing",
+      "url": "https://www.chatbase.co/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

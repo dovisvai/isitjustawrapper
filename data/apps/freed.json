@@ -1,0 +1,63 @@
+{
+  "slug": "freed",
+  "name": "Freed",
+  "vendor": "Freed AI",
+  "category": "healthcare",
+  "url": "https://www.getfreed.ai",
+  "pricing": {
+    "tier": "Core",
+    "monthlyUsd": 79,
+    "billingNote": "Core tier, per clinician per month on monthly billing. The page also lists Starter at $39 and Premier at $119 monthly ($104 annual), and shows promotional strikethrough pricing, so what counts as list price moves. Group and health-system pricing is quoted rather than published.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "A clinician seeing 80 patients a month at about 18 minutes each: 1,440 minutes of consultation audio transcribed, then a structured clinical note generated per visit.",
+    "components": [
+      {
+        "modelId": "asr-standard",
+        "units": {
+          "audioMinutes": 1440
+        },
+        "note": "80 visits × ~18 minutes of consultation audio"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 960000,
+          "outputTokens": 96000
+        },
+        "note": "structured SOAP note generated from each transcript"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "An estimated single-digit multiple over inference, against a product whose real costs are the regulated environment it operates in rather than the tokens.",
+  "verdictReasoning": "This is the clearest case on the site for why the multiple does not decide the verdict. A clinical scribe carries a BAA, audit logging, data residency commitments, retention policy and the liability that follows a note entering a patient record. Those obligations cost money whether or not a single token is generated, and none of them appear in a token bill. The multiple would still be defensible at several times this figure.",
+  "valueAddTags": [
+    "compliance-regulatory",
+    "eval-harness",
+    "ux-craft"
+  ],
+  "valueAddNotes": "HIPAA obligations and a signed BAA, retention and deletion policy, audit trails, and the quality work that separates a usable clinical note from a summary. Errors here are patient-safety events, not bad output, and the review loop that catches them is a real ongoing cost.",
+  "whatYouLose": "The BAA and the compliance posture behind it. Self-hosting this for a practice means you personally own HIPAA exposure, breach notification duties, and whatever a wrong note does to a patient record.",
+  "diyPath": "Whisper self-hosted plus a note-generation prompt is technically straightforward and genuinely cheap. It is also the option that puts you, not a vendor, on the wrong end of a HIPAA audit. Cost is not the binding constraint for this category.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Freed pricing",
+      "url": "https://www.getfreed.ai/pricing"
+    },
+    {
+      "kind": "docs",
+      "label": "Freed security and compliance",
+      "url": "https://www.getfreed.ai/security"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

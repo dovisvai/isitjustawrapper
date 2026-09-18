@@ -1,0 +1,66 @@
+{
+  "slug": "chatpdf-plus",
+  "name": "ChatPDF Plus",
+  "vendor": "ChatPDF",
+  "category": "research",
+  "url": "https://www.chatpdf.com",
+  "pricing": {
+    "tier": "Plus",
+    "monthlyUsd": 19.99,
+    "billingNote": "US list price, billed monthly; annual billing is advertised lower. ChatPDF prices regionally — the same Plus plan has been observed at roughly $9 equivalent in some markets (289 THB in Thailand), so what a reader pays depends on where they are. This entry uses the US price because that is what most readers of this site will be shown. A free tier with page and document caps exists.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "30 documents of about 40 pages each, embedded once on upload, then 200 questions answered over the retrieved passages rather than the whole document.",
+    "components": [
+      {
+        "modelId": "embedding-standard",
+        "units": {
+          "inputTokens": 720000
+        },
+        "note": "30 documents × 40 pages × ~600 tokens per page, embedded once"
+      },
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 1200000,
+          "outputTokens": 100000
+        },
+        "note": "200 questions answered over ~6k tokens of retrieved passages each"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Textbook retrieval over uploaded PDFs at an estimated multiple around fifteen, using techniques that are now standard and widely available free.",
+  "verdictReasoning": "Chunk, embed, retrieve, answer. The pipeline is the one described in every retrieval tutorial published since 2023, and the same capability now ships inside assistant products people already pay for. The upload-and-ask interface is clean and the parsing handles awkward PDFs better than a naive script would. Neither observation moves this off the estimated multiple, because neither is what the fifteen-fold is buying.",
+  "valueAddTags": [
+    "ux-craft"
+  ],
+  "valueAddNotes": "PDF parsing is genuinely messier than it looks — scanned pages, multi-column layouts, tables that lose their structure. Handling that well is real work. It is a smaller share of this price than the interface is.",
+  "whatYouLose": "Drag, drop, ask. No setup, no keys, no chunking decisions. For occasional use that convenience is the entire proposition.",
+  "diyPath": "Upload the PDF directly to any major assistant — most now accept documents on free or existing paid tiers. For volume, a local retrieval tool such as AnythingLLM or Open WebUI does the same pipeline over your own key.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "ChatPDF home page (plan description)",
+      "url": "https://www.chatpdf.com"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "There is no crawlable pricing page at all: /pricing returns 404 and the home page describes the Plus plan without naming a figure."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11",
+    "note": "Restored to the US list price on 2026-08-11. Regional pricing variance is recorded in the billing note and remains an open question with the vendor."
+  },
+  "lastReviewed": "2026-08-11"
+}

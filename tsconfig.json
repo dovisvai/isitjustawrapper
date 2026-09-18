@@ -1,0 +1,13 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*.ts", "**/*.astro"],
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    // Cloudflare Pages Functions in functions/ are compiled by wrangler, not by
+    // Astro, but they live in this project so their globals belong here.
+    "types": ["astro/client", "@cloudflare/workers-types"]
+  }
+}

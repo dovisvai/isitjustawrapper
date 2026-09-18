@@ -1,0 +1,229 @@
+---
+import '../styles/global.css';
+import '../styles/components.css';
+import { CONTACT_EMAIL, REPO_URL } from '../schema.ts';
+
+interface Props {
+  title: string;
+  description: string;
+  current?: string;
+}
+
+const { title, description, current } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+/*
+ * One nav definition drives both the desktop row and the mobile dock, so the two can
+ * never disagree about what exists. Icons are inline stroke paths rather than a font or
+ * a library: nothing on this site loads from a third-party host, and a 24px geometric
+ * stroke matches the interface's own grammar.
+ */
+const nav = [
+  {
+    href: '/',
+    label: 'Directory',
+    short: 'Directory',
+    key: 'directory',
+    icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>',
+  },
+  {
+    href: '/methodology',
+    label: 'Methodology',
+    short: 'Method',
+    key: 'methodology',
+    icon: '<path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 8h7M8 12h7"/>',
+  },
+  {
+    href: '/calculator',
+    label: 'Calculator',
+    short: 'Calc',
+    key: 'calculator',
+    icon: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/>',
+  },
+  {
+    href: '/corrections',
+    label: 'Corrections',
+    short: 'Fixes',
+    key: 'corrections',
+    icon: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  },
+  {
+    href: '/stats',
+    label: 'Stats',
+    short: 'Stats',
+    key: 'stats',
+    icon: '<path d="M5 20v-8M12 20V4M19 20v-6"/>',
+  },
+  {
+    href: '/sponsor',
+    label: 'Sponsor',
+    short: 'Sponsor',
+    key: 'sponsor',
+    icon: '<path d="M20.6 13.4 12 22l-9-9V4h9l8.6 8.6a2 2 0 0 1 0 2.8z"/><circle cx="7.6" cy="7.6" r="1.4"/>',
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    {/* viewport-fit=cover so env(safe-area-inset-*) resolves, which the dock needs to
+        clear the iOS home indicator. */}
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    {/* No third-party scripts, fonts, or trackers anywhere on this site. See /stats. */}
+
+    {/*
+      Runs before first paint, deliberately inline and unbundled: a deferred
+      module would let the system palette render first and then snap to the
+      chosen one, which is worse than having no toggle.
+    */}
+    <script is:inline>
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark' || saved === 'auto') {
+          document.documentElement.dataset.theme = saved;
+        }
+      } catch {
+        /* storage disabled — fall through to the stylesheet default, which is dark */
+      }
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell site-header__inner">
+        <a class="wordmark" href="/">Is it just a <span>wrapper</span>?</a>
+        <nav class="site-nav" aria-label="Primary">
+          {
+            nav.map((item) => (
+              <a href={item.href} aria-current={current === item.key ? 'page' : undefined}>
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" type="button" hidden>
+          <span class="theme-toggle__glyph" id="theme-toggle-glyph" aria-hidden="true">◐</span>
+          <span id="theme-toggle-label">Auto</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="main" class="shell">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <p>
+          <strong>Every cost figure here is an estimate produced by this project</strong>, not a disclosure by any
+          vendor. Estimates are computed from a published rate card against a stated usage assumption; change the
+          assumption and the number changes. Prices are recorded with the date they were checked and link to their
+          source.
+        </p>
+        <p>
+          Verdicts are the opinion of this project, reached using the <a href="/methodology">published methodology</a>.
+          They describe how a product is built and priced. They are not claims about any company's honesty, legality or
+          conduct.
+        </p>
+        <p>
+          Product names and logos are trademarks of their respective owners, used here to identify the products
+          discussed. This site is not affiliated with, endorsed by, or sponsored by any product listed.
+          <a href="/corrections">Corrections</a> are published in full, dated, with the change described — including
+          the ones we found ourselves.
+        </p>
+        <p class="mono small">
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ·
+          <a href="/methodology#corrections">File a correction</a> · <a href={REPO_URL}>Source on GitHub</a> · Data
+          licensed CC BY 4.0 · Code MIT
+        </p>
+      </div>
+    </footer>
+
+    {/* Mobile only; the desktop row above is hidden at the same breakpoint. */}
+    <nav class="dock" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a href={item.href} aria-current={current === item.key ? 'page' : undefined}>
+            <svg
+              class="dock__icon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              set:html={item.icon}
+            />
+            {/* Short form here only — the dock has six items across a phone; the desktop
+                row above has room for the real words. */}
+            <span class="dock__label">{item.short}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <script>
+      // Dark is the design's default, so the cycle starts there. Following the
+      // operating system stays available as an explicit third state rather than
+      // being the implicit one.
+      type Mode = 'dark' | 'light' | 'auto';
+      const ORDER: Mode[] = ['dark', 'light', 'auto'];
+      const FACE: Record<Mode, [glyph: string, label: string]> = {
+        dark: ['●', 'Dark'],
+        light: ['○', 'Light'],
+        auto: ['◐', 'Auto'],
+      };
+
+      const button = document.getElementById('theme-toggle');
+      const glyph = document.getElementById('theme-toggle-glyph');
+      const label = document.getElementById('theme-toggle-label');
+
+      if (button && glyph && label) {
+        button.hidden = false;
+
+        const stored = (): Mode => {
+          try {
+            const value = localStorage.getItem('theme');
+            return value === 'light' || value === 'auto' ? value : 'dark';
+          } catch {
+            return 'dark';
+          }
+        };
+
+        const apply = (mode: Mode) => {
+          // Always stamped, never removed: with dark as the stylesheet default, an
+          // absent attribute means dark, so `auto` needs to say so explicitly.
+          document.documentElement.dataset.theme = mode;
+
+          const [face, name] = FACE[mode];
+          glyph.textContent = face;
+          label.textContent = name;
+          button.setAttribute(
+            'aria-label',
+            `Colour theme: ${name}${mode === 'auto' ? ' (following your system)' : ''}. Activate to change.`,
+          );
+
+          try {
+            if (mode === 'dark') localStorage.removeItem('theme');
+            else localStorage.setItem('theme', mode);
+          } catch {
+            /* storage unavailable; the choice simply will not persist */
+          }
+        };
+
+        apply(stored());
+        button.addEventListener('click', () => apply(ORDER[(ORDER.indexOf(stored()) + 1) % ORDER.length]!));
+      }
+    </script>
+  </body>
+</html>

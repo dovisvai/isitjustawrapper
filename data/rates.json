@@ -1,0 +1,149 @@
+{
+  "updatedOn": "2026-08-11",
+  "note": "Archetype rates, not vendor-specific quotes. Entries cite a tier of model ('mid-tier frontier text model') rather than a named product, because naming one vendor's model would make every estimate on the site wrong the day that vendor repriced. Each archetype is set at a representative published rate for its tier and links to a real rate card so the number can be audited. Costs are computed from this file at build time; no entry stores a cost figure of its own. When a rate here changes, every affected estimate on the site changes with it in one commit.",
+  "models": {
+    "frontier-large": {
+      "label": "Large frontier text model",
+      "note": "Top-tier reasoning model. Representative of the most expensive publicly listed general-purpose text APIs.",
+      "units": {
+        "inputTokens": { "usdPer": 15, "per": 1000000, "display": "input tokens" },
+        "outputTokens": { "usdPer": 75, "per": 1000000, "display": "output tokens" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "Anthropic API pricing",
+        "url": "https://claude.com/pricing"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "frontier-mid": {
+      "label": "Mid-tier frontier text model",
+      "note": "The default workhorse tier. Most products in this directory are estimated against this unless their task obviously needs more or less.",
+      "units": {
+        "inputTokens": { "usdPer": 3, "per": 1000000, "display": "input tokens" },
+        "outputTokens": { "usdPer": 15, "per": 1000000, "display": "output tokens" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "Anthropic API pricing",
+        "url": "https://claude.com/pricing"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "frontier-small": {
+      "label": "Small fast text model",
+      "note": "Cheap, low-latency tier used for autocomplete, classification and short-form generation.",
+      "units": {
+        "inputTokens": { "usdPer": 0.8, "per": 1000000, "display": "input tokens" },
+        "outputTokens": { "usdPer": 4, "per": 1000000, "display": "output tokens" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "OpenAI API pricing",
+        "url": "https://openai.com/api/pricing/"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "frontier-nano": {
+      "label": "Nano text model",
+      "note": "The cheapest hosted tier, appropriate for inline completion where latency matters more than depth.",
+      "units": {
+        "inputTokens": { "usdPer": 0.1, "per": 1000000, "display": "input tokens" },
+        "outputTokens": { "usdPer": 0.4, "per": 1000000, "display": "output tokens" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "OpenAI API pricing",
+        "url": "https://openai.com/api/pricing/"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "embedding-standard": {
+      "label": "Text embedding model",
+      "units": {
+        "inputTokens": { "usdPer": 0.02, "per": 1000000, "display": "embedded tokens" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "OpenAI API pricing",
+        "url": "https://openai.com/api/pricing/"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "asr-standard": {
+      "label": "Speech-to-text transcription",
+      "note": "Hosted transcription billed per minute of audio. Self-hosting an open ASR model is cheaper again; see each entry's DIY path.",
+      "units": {
+        "audioMinutes": { "usdPer": 0.006, "per": 1, "display": "audio minutes", "displaySingular": "audio minute" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "OpenAI API pricing",
+        "url": "https://openai.com/api/pricing/"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "tts-standard": {
+      "label": "Text-to-speech synthesis",
+      "units": {
+        "characters": { "usdPer": 15, "per": 1000000, "display": "synthesised characters" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "OpenAI API pricing",
+        "url": "https://openai.com/api/pricing/"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "image-gen-api": {
+      "label": "Hosted image generation",
+      "units": {
+        "images": { "usdPer": 0.035, "per": 1, "display": "images", "displaySingular": "image" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "Replicate pricing",
+        "url": "https://replicate.com/pricing"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "gpu-hour-highend": {
+      "label": "Rented high-end GPU",
+      "note": "A100/H100-class rental, for video and music generation where a mid-range card is not a credible substitute. Used where a product trains its own generative media models and publishes no comparable API.",
+      "units": {
+        "gpuHours": { "usdPer": 2.5, "per": 1, "display": "GPU-hours", "displaySingular": "GPU-hour" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "RunPod GPU pricing",
+        "url": "https://www.runpod.io/pricing"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "gpu-hour-commodity": {
+      "label": "Rented commodity GPU",
+      "note": "Mid-range rental GPU (L4/A10 class) for running open weights yourself. Used where a product has no comparable public API and the honest alternative is self-hosting.",
+      "units": {
+        "gpuHours": { "usdPer": 0.6, "per": 1, "display": "GPU-hours", "displaySingular": "GPU-hour" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "RunPod GPU pricing",
+        "url": "https://www.runpod.io/pricing"
+      },
+      "checkedOn": "2026-08-11"
+    },
+    "web-search-api": {
+      "label": "Web search API",
+      "units": {
+        "queries": { "usdPer": 6, "per": 1000, "display": "search queries" }
+      },
+      "source": {
+        "kind": "rate-card",
+        "label": "Brave Search API pricing",
+        "url": "https://brave.com/search/api/"
+      },
+      "checkedOn": "2026-08-11"
+    }
+  }
+}

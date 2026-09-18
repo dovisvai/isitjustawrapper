@@ -1,0 +1,55 @@
+{
+  "slug": "runway-standard",
+  "name": "Runway Standard",
+  "vendor": "Runway",
+  "category": "video",
+  "url": "https://runway.com",
+  "pricing": {
+    "tier": "Standard",
+    "monthlyUsd": 15,
+    "billingNote": "$15/month billed monthly; $12/month equivalent on annual billing, which the page advertises as 20% off. Standard includes 625 credits a month; Pro is $35 monthly and Max $95 monthly. Credits buy generation time, so heavy months need top-ups.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "The included 625 credits, roughly two minutes of finished generated video. Runway publishes no comparable API for its own models, so the comparison is the honest alternative: running open video weights on rented high-end GPUs.",
+    "components": [
+      {
+        "modelId": "gpu-hour-highend",
+        "units": {
+          "gpuHours": 2.4
+        },
+        "note": "~2 minutes of generated video; video models need an A100/H100-class card, not a mid-range one"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A low single-digit multiple over the rented hardware an equivalent open model would need, on a product whose own video models are the reason to buy it.",
+  "verdictReasoning": "Video generation is the most compute-hungry category in this directory, and it is priced here against high-end GPU rental rather than the cheap mid-range card used elsewhere, because a weaker card is not a credible substitute. The models are trained in-house, so the same argument that defends other model-owners applies: a multiple over a substitute that does not produce the same output is a weak argument. Credits also make the price behave like metered billing once you exceed the allowance, which the sticker price hides.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra",
+    "ux-craft"
+  ],
+  "valueAddNotes": "In-house video models plus the queueing and GPU fleet to serve them, and an editing surface around generation that turns clips into something finishable. Open video weights exist and are usable; matching this output is not a matter of renting a bigger card.",
+  "whatYouLose": "The specific models, the queue that returns a clip in minutes rather than when your rented instance gets round to it, and the editing tools wrapped around generation.",
+  "diyPath": "Open video weights such as the Wan or LTX families on a rented A100, or ComfyUI locally with enough VRAM. Genuinely cheaper per second, substantially more setup, and different output.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Runway pricing",
+      "url": "https://runway.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "RunPod GPU pricing",
+      "url": "https://www.runpod.io/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

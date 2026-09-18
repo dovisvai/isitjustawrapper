@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      # Schema, references, arithmetic. Fails the PR on a malformed entry.
+      - name: Validate data
+        run: npm run validate
+
+      - name: Build
+        run: npm run build
+
+      # Advisory on pull requests: it tells a contributor their entry still needs
+      # a human check, without blocking the PR that adds it. The deploy is where
+      # this is enforced — see README, "Before you publish".
+      - name: Publication gate (advisory)
+        run: npm run check:publish
+        continue-on-error: true

@@ -1,0 +1,66 @@
+---
+import { money, multiple, count, rateUnit, price } from '../lib/format.ts';
+import type { Entry } from '../lib/data.ts';
+
+interface Props {
+  entry: Entry;
+}
+
+const { entry } = Astro.props;
+const { app, cost } = entry;
+---
+
+<div class="receipt">
+  <h3 class="receipt__heading">Estimated monthly inference cost</h3>
+
+  {
+    cost.lines.map((line, i) => (
+      <>
+        <div class="receipt__line">
+          <span class="receipt__label">
+            {count(line.count)} {line.display}
+          </span>
+          <span class="receipt__leader" aria-hidden="true" />
+          <span class="receipt__amount">{money(line.usd)}</span>
+        </div>
+        <p class="receipt__note">
+          {line.modelLabel} at {rateUnit(line.usdPer, line.per, line.display, line.displaySingular)}
+          {/* The component note describes the whole component, so print it once
+              rather than repeating it under every unit line of that component. */}
+          {line.note && cost.lines[i - 1]?.componentIndex !== line.componentIndex ? ` · ${line.note}` : ''}
+        </p>
+      </>
+    ))
+  }
+
+  {
+    cost.extras.map((extra) => (
+      <>
+        <div class="receipt__line">
+          <span class="receipt__label">{extra.label}</span>
+          <span class="receipt__leader" aria-hidden="true" />
+          <span class="receipt__amount">{money(extra.usd)}</span>
+        </div>
+        {extra.note && <p class="receipt__note">{extra.note}</p>}
+      </>
+    ))
+  }
+
+  <div class="receipt__line receipt__total">
+    <span class="receipt__label">Estimated cost</span>
+    <span class="receipt__leader" aria-hidden="true"></span>
+    <span class="receipt__amount">{money(cost.totalUsd)}</span>
+  </div>
+
+  <div class="receipt__line">
+    <span class="receipt__label">Price paid ({app.pricing.tier})</span>
+    <span class="receipt__leader" aria-hidden="true"></span>
+    <span class="receipt__amount">{price(app.pricing.monthlyUsd)}</span>
+  </div>
+
+  {/* The tear-off stub: the one number people screenshot. */}
+  <div class="receipt__stub">
+    <span class="receipt__stub-label">Estimated markup</span>
+    <span class="receipt__stub-value">{multiple(cost.markupMultiple)}</span>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadCorrections } from '../lib/data.ts';
+import { longDate } from '../lib/format.ts';
+import { CONTACT_EMAIL } from '../schema.ts';
+
+const corrections = loadCorrections();
+const bySource = corrections.reduce<Record<string, number>>((acc, c) => {
+  acc[c.raisedBy] = (acc[c.raisedBy] ?? 0) + 1;
+  return acc;
+}, {});
+---
+
+<Base
+  title="Corrections — Is it just a wrapper?"
+  description="Every correction made to this dataset, dated, with what changed and who raised it."
+  current="corrections"
+>
+  <h1>Corrections</h1>
+  <p class="lede">
+    Every change to a published figure, dated, with what it was and what it became. Vendors will write in; this page is
+    the answer, and publishing it is what makes the project a reference rather than an argument.
+  </p>
+
+  <div class="form-head">
+    <dl class="field-grid">
+      <div class="field">
+        <dt class="field__label">Corrections logged</dt>
+        <dd class="field__value">{corrections.length}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Raised by vendors</dt>
+        <dd class="field__value">{bySource.vendor ?? 0}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Raised by readers</dt>
+        <dd class="field__value">{bySource.reader ?? 0}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Found by us</dt>
+        <dd class="field__value">{(bySource.maintainer ?? 0) + (bySource['price-watch'] ?? 0)}</dd>
+      </div>
+    </dl>
+  </div>
+
+  {
+    corrections.length === 0 ? (
+      <p class="empty-state">No corrections yet. That is not a boast — the dataset is young.</p>
+    ) : (
+      <ul class="log">
+        {corrections.map((c) => (
+          <li>
+            <span class="log__date">
+              {longDate(c.date)} · raised by {c.raisedBy}
+              {c.slug && (
+                <>
+                  {' · '}
+                  <a href={`/app/${c.slug}`}>{c.slug}</a>
+                </>
+              )}
+            </span>
+            <p style="margin:.35rem 0 .4rem"><strong>What was wrong:</strong> {c.summary}</p>
+            <p style="margin:0"><strong>What changed:</strong> {c.change}</p>
+            {c.prUrl && (
+              <p class="small" style="margin:.4rem 0 0">
+                <a href={c.prUrl} rel="noopener" target="_blank">
+                  See the change
+                </a>
+              </p>
+            )}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <div class="notice" style="margin-top:2rem">
+    <strong class="notice__title">Found something wrong?</strong>
+    <p>
+      Open a pull request against the entry's JSON file, or email
+      <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Factual errors are fixed on sight and logged here. See
+      <a href="/methodology#corrections"> the corrections policy</a> for what we commit to.
+    </p>
+  </div>
+</Base>

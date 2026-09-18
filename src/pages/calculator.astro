@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Calculator from '../components/Calculator.astro';
+import { loadEntries } from '../lib/data.ts';
+
+const entries = loadEntries();
+---
+
+<Base
+  title="Calculator — Is it just a wrapper?"
+  description="Recompute any product's markup against your own monthly usage and the price you actually pay."
+  current="calculator"
+>
+  <h1>Calculator</h1>
+  <p class="lede">
+    Every multiple in the directory rests on an assumption about how much you use a thing. Yours is different. Put your
+    own numbers in.
+  </p>
+
+  <Calculator entries={entries} />
+
+  <div class="stack" style="margin-top:2rem">
+    <section class="clause">
+      <h2>What this does and does not do</h2>
+      <p>
+        It scales our usage assumption up or down and recomputes the estimate against the same rate card. That answers
+        "what if I use it twice as much" honestly.
+      </p>
+      <p>
+        It does not know the shape of your usage. If your mix differs from ours — far longer outputs, much shorter
+        context — the estimate drifts, and no percentage in the box above fixes that. The per-product pages state each
+        assumption in plain language so you can see how far from you it is.
+      </p>
+      <p class="small muted">
+        Nothing you type here leaves your browser. There is no analytics on this page, or any other page — see
+        <a href="/stats">stats</a> for what is counted and how.
+      </p>
+    </section>
+  </div>
+</Base>

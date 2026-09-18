@@ -1,0 +1,60 @@
+{
+  "slug": "google-ai-pro",
+  "name": "Google AI Pro",
+  "vendor": "Google",
+  "category": "assistant",
+  "url": "https://gemini.google.com",
+  "pricing": {
+    "tier": "AI Pro",
+    "monthlyUsd": 19.99,
+    "billingNote": "$19.99/month. The tier bundles cloud storage and features across Workspace, so a subscriber is buying more than the assistant this entry prices. Google has repackaged and renamed it more than once, which makes this row go stale faster than most. Multi-month free trials are commonly offered.",
+    "checkedOn": "2026-09-18"
+  },
+  "usageAssumption": {
+    "description": "A daily user with 200 conversations a month, each carrying roughly 12,000 tokens of accumulated context and returning 800, answered by a large frontier model.",
+    "components": [
+      {
+        "modelId": "frontier-large",
+        "units": {
+          "inputTokens": 2400000,
+          "outputTokens": 160000
+        },
+        "note": "200 conversations at typical consumer thread length"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A first-party assistant subscription priced below what the same conversations would cost through a published API, before counting the storage and product bundling attached to it.",
+  "verdictReasoning": "Like the other assistant subscriptions here, there is no wrapper to price: the vendor trains the model and sells access to it. The estimate is also unfair to Google in a way worth naming — the tier bundles storage and features across several products that no token rate captures, so the real gap is wider than shown. What the arithmetic does illustrate is how heavily consumer AI tiers are subsidised at the top of the usage distribution.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra",
+    "distribution"
+  ],
+  "valueAddNotes": "Models trained in-house and served at a scale nobody else operates, reaching users inside products they already have open. The bundling is the strategy: the subscription is priced as a way into an ecosystem rather than as a margin on inference.",
+  "whatYouLose": "The specific models, and the integration into mail, documents and search that is the actual reason most subscribers stay. None of that is reproducible with an API key.",
+  "diyPath": "The same models are available through the API, which is cheaper for light use and more expensive at the volume assumed here. Open-weight models run locally at no marginal cost and are a different product.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Google One AI plans",
+      "url": "https://one.google.com/about/google-ai-plans/"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Google AI pricing",
+      "url": "https://ai.google.dev/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "Google serves regional prices and rounded figures to automated requests ($20 rather than the US list price of $19.99), so an automated match against the recorded figure fails even when nothing has changed. Confirmed by hand."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-09-18"
+  },
+  "lastReviewed": "2026-09-18"
+}

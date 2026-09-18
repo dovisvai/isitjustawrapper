@@ -1,0 +1,91 @@
+name: Price or fact correction
+description: A price, tier, billing term or other fact on the site is wrong.
+title: "[correction] "
+labels: ["accuracy"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Factual errors are corrected on sight, without argument.** A wrong price, tier or billing term gets fixed and
+        logged publicly — you do not need to persuade anyone.
+
+        If you think a *verdict* is wrong rather than a fact, use the **Verdict dispute** template instead. Verdicts are
+        opinion, and they get a different and slower conversation.
+
+        Vendors are welcome here and get the same treatment as everyone else.
+
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry
+      description: The product name, or the page URL.
+      placeholder: https://isitjustawrapper.com/app/example-product
+    validations:
+      required: true
+
+  - type: dropdown
+    id: what
+    attributes:
+      label: What is wrong
+      options:
+        - The price
+        - The tier name
+        - The billing term or period
+        - A source link
+        - The usage assumption
+        - Something else
+    validations:
+      required: true
+
+  - type: input
+    id: correct-figure
+    attributes:
+      label: What it should say
+      description: If it is a price, give the figure and the currency.
+      placeholder: "$29/month"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: billing
+    attributes:
+      label: Which billing period does that figure belong to?
+      description: >
+        This matters more than anything else on the form. The site always lists the month-to-month price, and pricing
+        pages very often default their toggle to annual — which makes a product look roughly half as expensive as it is
+        without commitment.
+      options:
+        - Month-to-month (no annual commitment)
+        - Annual billing, shown as a monthly equivalent
+        - One-off or usage-based
+        - Not sure
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Pricing page URL
+      description: A page anyone can open without an account. If no such page exists, say so below.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What the page shows
+      description: >
+        Paste the relevant text, or drag in a screenshot. A screenshot showing the monthly/annual toggle state is the
+        single most useful thing you can attach.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: affiliation
+    attributes:
+      label: Before you file
+      options:
+        - label: I checked the page myself just now, rather than relying on a search result or a cached figure.
+          required: true
+        - label: I work for, or represent, the vendor in question.
+          required: false

@@ -1,0 +1,60 @@
+{
+  "slug": "lovable-pro",
+  "name": "Lovable Pro",
+  "vendor": "Lovable",
+  "category": "coding",
+  "url": "https://lovable.dev",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 25,
+    "billingNote": "$25/month. Lovable meters usage in credits and heavy building exhausts a monthly allowance quickly, so the sticker price understates what an active user actually spends. The pricing page renders client-side and cannot be machine-checked.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "100 build messages a month inside the included allowance. Each one sends the working state of an application — roughly 40,000 tokens — and returns around 4,000 tokens of edits across several files.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 4000000,
+          "outputTokens": 400000
+        },
+        "note": "100 build turns; whole-project context makes the input side dominate"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "Prompt-to-application building where each turn resends a whole project as context, leaving very little room between the subscription and its own token bill.",
+  "verdictReasoning": "Agentic building has an unusual cost shape: the model must see the application to change it, so every turn is enormous on the input side, and a month of active use approaches or exceeds the fee. That is why the plans are credit-metered rather than flat — the vendor cannot afford flat pricing at this cost structure, which is itself evidence about where the money goes. The orchestration around the model, applying multi-file edits without corrupting a working project, is the engineering; the deployment and hosting attached to it are further cost this estimate ignores.",
+  "valueAddTags": [
+    "orchestration",
+    "scale-infra",
+    "ux-craft"
+  ],
+  "valueAddNotes": "Multi-file edits that apply cleanly to a running application, with preview and deployment attached, is the boring hard part. The model call is the trivial component of a build turn; keeping the project coherent across turns is not.",
+  "whatYouLose": "Building without a local environment, and a deployed URL at the end of it. For someone who does not have a toolchain, that is the entire proposition rather than a convenience.",
+  "diyPath": "An agentic coding tool such as Aider or Cline against your own API key, plus your own hosting. Comparable capability, no credit ceiling, and you own the setup and the deployment.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Lovable pricing",
+      "url": "https://lovable.dev/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing table renders entirely client-side; no dollar figure appears in the served HTML for an automated check to match against."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

@@ -1,0 +1,25 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), browsing-topics=()
+  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+
+# The site loads no third-party script, style, font or image, so the policy above can be
+# this strict. If you ever add one, you have a decision to make rather than a header to
+# loosen.
+#
+# Two directives need explaining.
+#
+# script-src: the 'self' above is a PLACEHOLDER. Astro inlines small scripts into the
+# HTML instead of emitting files, so 'self' alone blocks the theme toggle, the table's
+# search and sort, and the calculator. `npm run build` runs scripts/csp-hashes.ts, which
+# reads the real build output and rewrites this line in dist/_headers with a sha256 hash
+# per inline script. Edit that script, not this line — anything written here by hand is
+# overwritten at build time.
+#
+# style-src carries 'unsafe-inline' because the pages use inline style attributes (the
+# table's per-row animation delay, for one) and CSP hashes cannot cover style attributes
+# at all — only <style> elements. On a static site with no user-supplied content this is
+# a small exposure, and it buys back the ability to keep script-src genuinely strict,
+# which is where cross-site scripting actually lives.

@@ -1,0 +1,45 @@
+---
+import { VERDICT_META } from '../lib/format.ts';
+import type { Verdict } from '../schema.ts';
+
+interface Props {
+  verdict: Verdict;
+  /** Chips link to the methodology so the definition is always one click away. */
+  link?: boolean;
+  /**
+   * `dot` is the table variant: a bare coloured lamp with no word beside it, because
+   * thirty repeated labels are noise once the summary bar above has taught the mapping.
+   * The word is still there for assistive technology and on hover — colour is the only
+   * *visual* carrier here, never the only carrier.
+   */
+  dot?: boolean;
+}
+
+const { verdict, link = true, dot = false } = Astro.props;
+const meta = VERDICT_META[verdict];
+const Tag = link ? 'a' : 'span';
+const title = `${meta.label} — ${meta.short}`;
+---
+
+{
+  dot ? (
+    <Tag
+      class={`verdict-dot verdict-dot--${verdict}`}
+      href={link ? `/methodology#verdict-${verdict}` : undefined}
+      title={title}
+    >
+      <span class="visually-hidden">{meta.label}</span>
+    </Tag>
+  ) : (
+    <Tag
+      class={`chip chip--${verdict}`}
+      href={link ? `/methodology#verdict-${verdict}` : undefined}
+      title={link ? `${title}. Read how this is decided.` : undefined}
+    >
+      <span class="chip__glyph" aria-hidden="true">
+        {meta.glyph}
+      </span>
+      {meta.label}
+    </Tag>
+  )
+}

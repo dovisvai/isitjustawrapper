@@ -1,0 +1,65 @@
+name: Verdict dispute
+description: You think a product's verdict is wrong, but the figures are right.
+title: "[verdict] "
+labels: ["verdict"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Verdicts are opinion, reached using the [published methodology](https://isitjustawrapper.com/methodology) and
+        set out alongside the figures and sources they rest on. They are not claims about any company's honesty,
+        legality or conduct.
+
+        We are not obliged to change one. We *are* obliged to take the argument seriously, reply, and — where you make
+        a point we cannot answer — either revise the entry or publish your position on it so readers see both sides.
+
+        The strongest argument here is almost never about the number. It is about what the price buys that is not the
+        model.
+
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry
+      placeholder: https://isitjustawrapper.com/app/example-product
+    validations:
+      required: true
+
+  - type: dropdown
+    id: proposed
+    attributes:
+      label: What do you think the verdict should be?
+      options:
+        - Fair — the markup is defensible
+        - Steep — high for what it buys
+        - Wrapper — the markup is the product
+    validations:
+      required: true
+
+  - type: textarea
+    id: argument
+    attributes:
+      label: What does the price buy that is not the model?
+      description: >
+        Evals and quality work, data pipelines, integrations, compliance obligations, scale and latency guarantees,
+        people in the loop, interface work, orchestration, distribution. Be specific — "we work hard on it" is not
+        something a reader can weigh.
+    validations:
+      required: true
+
+  - type: textarea
+    id: assumption
+    attributes:
+      label: Is our usage assumption wrong for a typical customer?
+      description: >
+        Every multiple rests on a stated month of usage. If that assumption is unrepresentative, say what a typical
+        customer actually does — this is frequently the real disagreement.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: affiliation
+    attributes:
+      label: Disclosure
+      options:
+        - label: I work for, or represent, the vendor in question.
+          required: false

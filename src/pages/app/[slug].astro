@@ -1,0 +1,190 @@
+---
+import Base from '../../layouts/Base.astro';
+import VerdictChip from '../../components/VerdictChip.astro';
+import CostReceipt from '../../components/CostReceipt.astro';
+import Calculator from '../../components/Calculator.astro';
+import { loadEntries } from '../../lib/data.ts';
+import { VERDICT_META, TAG_LABELS, CATEGORY_LABELS, longDate, price, money, multiple } from '../../lib/format.ts';
+
+export async function getStaticPaths() {
+  return loadEntries().map((entry, _i, all) => ({
+    params: { slug: entry.app.slug },
+    props: { entry, all },
+  }));
+}
+
+const { entry, all } = Astro.props;
+const { app, cost, watch, isStale, ageDays } = entry;
+const meta = VERDICT_META[app.verdict];
+const verified = app.verification.status === 'verified';
+---
+
+<Base
+  title={`${app.name} — estimated ${multiple(cost.markupMultiple)} markup · Is it just a wrapper?`}
+  description={app.verdictSummary}
+>
+  {
+    !verified && (
+      <div class="notice notice--stop">
+        <strong class="notice__title">
+          {app.verification.status === 'auto-observed' ? 'Machine-checked only' : 'Not verified'}
+        </strong>
+        <p>
+          {app.verification.status === 'auto-observed'
+            ? `An automated check found this price on the vendor's pricing page on ${longDate(app.verification.checkedOn!)}, but no human has confirmed it. Treat it as provisional.`
+            : 'No one has confirmed this price against the vendor’s own pricing page. Do not quote this entry.'}
+          {app.verification.note && <> {app.verification.note}</>}
+        </p>
+      </div>
+    )
+  }
+
+  {
+    watch && watch.status !== 'ok' && watch.status !== 'new' && (
+      <div class="notice notice--warn">
+        <strong class="notice__title">Price watcher · {watch.status}</strong>
+        <p>
+          Checked {longDate(watch.checkedOn)}. {watch.detail}
+        </p>
+      </div>
+    )
+  }
+
+  {
+    isStale && (
+      <div class="notice notice--warn">
+        <strong class="notice__title">Stale</strong>
+        <p>This entry was last reviewed {ageDays} days ago. Prices move; treat every figure here as out of date.</p>
+      </div>
+    )
+  }
+
+  <h1>{app.name}</h1>
+  <p class="lede">{app.verdictSummary}</p>
+
+  <div class={`verdict-banner verdict-banner--${app.verdict}`}>
+    <VerdictChip verdict={app.verdict} />
+    <p>{meta.definition}</p>
+  </div>
+
+  <div class="form-head">
+    <dl class="field-grid">
+      <div class="field">
+        <dt class="field__label">Vendor</dt>
+        <dd class="field__value">{app.vendor}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Category</dt>
+        <dd class="field__value">{CATEGORY_LABELS[app.category]}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Tier</dt>
+        <dd class="field__value">{app.pricing.tier}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Price / month</dt>
+        <dd class="field__value">{price(app.pricing.monthlyUsd)}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Est. API cost</dt>
+        <dd class="field__value">{money(cost.totalUsd)}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Est. markup</dt>
+        <dd class="field__value">{multiple(cost.markupMultiple)}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Price checked</dt>
+        <dd class="field__value">{longDate(app.pricing.checkedOn)}</dd>
+      </div>
+      <div class="field">
+        <dt class="field__label">Verification</dt>
+        <dd class="field__value">{app.verification.status}</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="stack">
+    <section class="clause">
+      <span class="clause__number">§1 · Billing</span>
+      <h2>What the price actually is</h2>
+      <p>{app.pricing.billingNote}</p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§2 · Assumption</span>
+      <h2>The usage this is priced against</h2>
+      <p>{app.usageAssumption.description}</p>
+      <p class="small muted">
+        Someone using it half as much sees double the multiple. The assumption is the argument — if you disagree with
+        it, the number below is not about you. Change it in the <a href="#calculator">calculator</a>.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§3 · Arithmetic</span>
+      <h2>The cost math, in full</h2>
+      <CostReceipt entry={entry} />
+      <p class="small muted" style="margin-top:.7rem">
+        Rates come from a <a href="/methodology#rates">dated rate card</a> of representative published API prices, not
+        from the vendor. Nobody outside these companies knows what they actually pay; volume discounts and in-house
+        serving both push real costs below these figures, which makes every multiple here a floor rather than a ceiling.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§4 · Reasoning</span>
+      <h2>Why this verdict, not the number</h2>
+      <p>{app.verdictReasoning}</p>
+      <h3 style="margin-top:1rem">What the price buys besides tokens</h3>
+      <ul class="tag-row" style="margin-bottom:.7rem">
+        {app.valueAddTags.map((t) => <li class="tag">{TAG_LABELS[t]}</li>)}
+      </ul>
+      <p>{app.valueAddNotes}</p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§5 · Leaving</span>
+      <h2>What you lose if you leave</h2>
+      <p>{app.whatYouLose}</p>
+      <h3 style="margin-top:1rem">The honest cheaper path</h3>
+      <p>{app.diyPath}</p>
+    </section>
+
+    <section class="clause" id="calculator">
+      <span class="clause__number">§6 · Your numbers</span>
+      <h2>Recompute it for yourself</h2>
+      <Calculator entries={all} slug={app.slug} />
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§7 · Sources</span>
+      <h2>Where every number came from</h2>
+      <ul class="source-list">
+        {
+          app.sources.map((s) => (
+            <li>
+              <span class="kind">{s.kind}</span>
+              <a href={s.url} rel="nofollow noopener" target="_blank">
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+        {
+          cost.modelIds.map((id) => (
+            <li>
+              <span class="kind">rate</span>
+              <a href={`/methodology#rates`}>Rate card entry: {id}</a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="small muted" style="margin-top:.8rem">
+        Price recorded {longDate(app.pricing.checkedOn)} · entry last reviewed {longDate(app.lastReviewed)}. Think
+        something here is wrong? <a href="/methodology#corrections">File a correction</a> — we publish them, including
+        the ones that embarrass us.
+      </p>
+    </section>
+  </div>
+</Base>

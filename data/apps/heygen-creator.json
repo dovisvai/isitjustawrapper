@@ -1,0 +1,62 @@
+{
+  "slug": "heygen-creator",
+  "name": "HeyGen Creator",
+  "vendor": "HeyGen",
+  "category": "video",
+  "url": "https://www.heygen.com",
+  "pricing": {
+    "tier": "Creator",
+    "monthlyUsd": 29,
+    "billingNote": "$29/month billed monthly; the page offers annual billing at a lower effective rate without printing the figure. Pro is $49 and Business $149 monthly. Tiers are bounded by video minutes and avatar slots rather than by seats.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "30 minutes of finished avatar video a month: a script synthesised to speech, then a trained avatar rendered and lip-synced to it. HeyGen publishes no comparable API for its own avatar models, so the comparison is assembling the same thing from commodity speech synthesis and open video weights on rented hardware.",
+    "components": [
+      {
+        "modelId": "tts-standard",
+        "units": {
+          "characters": 27000
+        },
+        "note": "30 minutes of narration at roughly 900 characters a minute"
+      },
+      {
+        "modelId": "gpu-hour-highend",
+        "units": {
+          "gpuHours": 3
+        },
+        "note": "avatar rendering and lip-sync for 30 minutes of output"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A low single-digit multiple over rented hardware, for avatar models trained in-house that the open alternatives visibly do not match.",
+  "verdictReasoning": "Talking-head video is the category where the gap between a product and its open substitute is easiest to see: open lip-sync models exist and produce output that reads as uncanny within a second. HeyGen trains its own avatar models and carries the consent and likeness infrastructure that selling a person's face requires, which is a legal obligation rather than a compute cost and appears nowhere in a GPU bill. The pressure on this price is that avatar quality is improving fast in the open, not that the markup is unexplained.",
+  "valueAddTags": [
+    "proprietary-model",
+    "compliance-regulatory",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Avatar models trained in-house, plus consent capture and likeness verification for anyone whose face becomes an avatar. That consent apparatus is a real and growing obligation as likeness law tightens, and it is the part a self-built pipeline quietly skips.",
+  "whatYouLose": "Avatar quality that does not read as synthetic, and the consent framework that makes using a person's likeness commercially defensible. The second one matters more than it sounds.",
+  "diyPath": "Open lip-sync models such as the Wav2Lip or LatentSync families over a commodity speech API, on a rented GPU. Substantially cheaper, visibly rougher, and the likeness permissions become entirely your problem.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "HeyGen pricing",
+      "url": "https://www.heygen.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "RunPod GPU pricing",
+      "url": "https://www.runpod.io/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

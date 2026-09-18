@@ -1,0 +1,56 @@
+{
+  "slug": "claude-pro",
+  "name": "Claude Pro",
+  "vendor": "Anthropic",
+  "category": "assistant",
+  "url": "https://claude.com",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 20,
+    "billingNote": "$20/month billed monthly; $17/month equivalent on an annual plan billed at $200 up front. Max tiers start at $100/month and are not covered by this entry. Usage limits apply and tighten at peak times.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "A daily user with 150 substantial conversations a month, each carrying roughly 15,000 tokens of accumulated context and returning 800 tokens, answered by a large frontier model.",
+    "components": [
+      {
+        "modelId": "frontier-large",
+        "units": {
+          "inputTokens": 2250000,
+          "outputTokens": 120000
+        },
+        "note": "150 conversations; context grows through a thread, so input dominates"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "At a daily user's volume the subscription costs less than the same conversations would through the vendor's own API, so the plan is priced below its own inference bill.",
+  "verdictReasoning": "There is no wrapper here to price: the subscription buys access to the model the vendor trains, from the vendor. The arithmetic is only interesting for what it says about flat pricing — a heavy user is subsidised by lighter ones, and the published API rate for the same conversations exceeds the fee. Read the multiple as a statement about the included allowance rather than about the company's economics, which the usage limits exist to manage.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra",
+    "ux-craft"
+  ],
+  "valueAddNotes": "The weights are trained in-house, so the model is the product rather than a layer over one. Around it sits serving capacity, long-context handling, and the interface work that turns a completion endpoint into something usable without an API key.",
+  "whatYouLose": "The specific model, its context handling, and the ability to use it without managing keys or a client. Nothing about this is reproducible with someone else's API, because the model is the thing you are buying.",
+  "diyPath": "Use the API directly with any client. At light usage that is cheaper than the subscription; at the volume assumed here it is estimated to cost roughly twice as much, and you take on rate-limit handling and a client of your own.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Claude pricing",
+      "url": "https://claude.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

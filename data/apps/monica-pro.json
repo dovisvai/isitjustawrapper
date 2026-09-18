@@ -1,0 +1,60 @@
+{
+  "slug": "monica-pro",
+  "name": "Monica Pro",
+  "vendor": "Monica",
+  "category": "assistant",
+  "url": "https://monica.im",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 8.3,
+    "billingNote": "$8.30/month. Tiers are bounded by a monthly quota of 'advanced' queries against frontier models, with cheaper models unmetered, so the quota matters more than the fee. Annual billing is advertised lower.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "150 substantive queries a month against a frontier model — the quota the paid tier exists to sell — each carrying roughly 4,000 tokens of page or document context and returning 600.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 600000,
+          "outputTokens": 90000
+        },
+        "note": "150 quota-consuming queries; lighter ones route to cheaper models"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "A browser extension that forwards your question to models it licenses from other companies, priced above what those companies charge for the same calls.",
+  "verdictReasoning": "This is the clearest architecture in the directory: there is no model here, only routing. The extension is genuinely well made — summarising the page you are on, without a copy-paste round trip, is a real convenience — and offering several vendors' models behind one subscription has value for someone who does not want several subscriptions. But the thing being sold sits entirely between the user and someone else's API, which is what the word describes. Note that the same convenience argument defends it: for a non-technical user, an extension that works everywhere is worth more than a cheaper key they would never configure.",
+  "valueAddTags": [
+    "ux-craft",
+    "distribution",
+    "orchestration"
+  ],
+  "valueAddNotes": "One subscription across several vendors' models, in a sidebar on every page, with sensible routing between cheap and expensive models. The routing is the only engineering that is hard to copy, and it is invisible to the person paying.",
+  "whatYouLose": "A model in the sidebar of every page you visit, and not having to choose which vendor to subscribe to. For someone who would otherwise pay for two assistants, the bundle may genuinely be cheaper.",
+  "diyPath": "Any first-party assistant subscription, or an open browser extension such as Sider's free tier or a self-hosted equivalent pointed at your own API key. The key costs what the tokens cost.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Monica pricing",
+      "url": "https://monica.im/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "Pricing renders client-side and changes with the monthly/annual toggle, so no dollar figure appears in the served HTML."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadEntries, loadCorrections } from '../lib/data.ts';
+import { SPONSOR_SLOT_COUNT } from '../schema.ts';
+import { loadSponsors } from '../lib/data.ts';
+
+const entries = loadEntries();
+const corrections = loadCorrections();
+const sponsors = loadSponsors();
+const filled = sponsors.filter((s) => s.status === 'filled').length;
+const verified = entries.filter((e) => e.app.verification.status === 'verified').length;
+---
+
+<Base
+  title="Stats — Is it just a wrapper?"
+  description="Public traffic and dataset numbers. First-party, cookieless, no third-party trackers."
+  current="stats"
+>
+  <h1>Stats</h1>
+  <p class="lede">
+    Traffic and dataset numbers, published rather than kept. If we are going to ask other people to show their
+    arithmetic, this is the least we can do with ours.
+  </p>
+
+  <h2 style="margin-top:1.5rem">Dataset</h2>
+  <div class="stat-grid">
+    <div class="stat">
+      <span class="stat__label">Products listed</span>
+      <span class="stat__value">{entries.length}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Human-verified</span>
+      <span class="stat__value">{verified}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Corrections logged</span>
+      <span class="stat__value">{corrections.length}</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Sponsor slots sold</span>
+      <span class="stat__value">{filled}/{SPONSOR_SLOT_COUNT}</span>
+    </div>
+  </div>
+
+  <h2 style="margin-top:2rem">Traffic</h2>
+  <div class="stat-grid" id="traffic">
+    <div class="stat">
+      <span class="stat__label">Page views, all time</span>
+      <span class="stat__value" data-stat="pageViewsAllTime">—</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Page views, 30 days</span>
+      <span class="stat__value" data-stat="pageViewsLast30Days">—</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Sponsor rail views</span>
+      <span class="stat__value" data-stat="sponsorRailViews">—</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Sponsor clicks</span>
+      <span class="stat__value" data-stat="sponsorClicks">—</span>
+    </div>
+  </div>
+  <p class="small muted" id="traffic-note" style="margin-top:.6rem">Loading published totals…</p>
+
+  <div class="stack" style="margin-top:2rem">
+    <section class="clause">
+      <h2>What is measured, exactly</h2>
+      <p>
+        A counter per day and a counter per page path, incremented on the server when a page is served. That is the
+        complete list.
+      </p>
+      <p>
+        <strong>What is not stored:</strong> no cookies, no identifiers, no IP addresses, no user agents, no referrers,
+        no fingerprinting, no third-party scripts of any kind. Nothing recorded here can be tied to a person, because
+        nothing that identifies a person is ever written down. There is no private dashboard — the numbers above are the
+        numbers we have.
+      </p>
+      <p>
+        Sponsor clicks are counted server-side on the redirect, so they work identically with an ad blocker installed
+        and require no script in your browser. Impressions are derived from views of the pages carrying the rail rather
+        than measured with a beacon.
+      </p>
+      <p class="small muted">
+        Totals are approximate. The counters run on a key-value store whose writes race under concurrent traffic, so
+        figures can undercount slightly at busy moments. Precision here is not worth a heavier tracker.
+      </p>
+    </section>
+
+    <section class="clause">
+      <h2>Sponsors, and why this page is the pitch</h2>
+      <p>
+        There are {SPONSOR_SLOT_COUNT} sponsor slots, {SPONSOR_SLOT_COUNT - filled} of them currently available. The
+        numbers above are the entire case for buying one; there is no media kit with better figures in it.
+        <a href="/sponsor">Sponsor details</a>.
+      </p>
+    </section>
+  </div>
+</Base>
+
+<script>
+  // Progressive enhancement: the page is complete without this, the traffic
+  // tiles just read "—". No third-party request is made from this page, ever.
+  const note = document.getElementById('traffic-note');
+
+  const fmt = (n: number) => n.toLocaleString('en-US');
+
+  fetch('/api/stats')
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    .then((data: Record<string, unknown>) => {
+      if (!data.available) {
+        if (note) note.textContent = 'Traffic counting is not configured on this deployment.';
+        return;
+      }
+      for (const el of document.querySelectorAll<HTMLElement>('[data-stat]')) {
+        const value = data[el.dataset.stat!];
+        el.textContent = typeof value === 'number' ? fmt(value) : '—';
+      }
+      if (note) {
+        note.textContent = `Published totals, approximate, generated ${new Date(data.generatedAt).toLocaleString('en-GB')}.`;
+      }
+    })
+    .catch((err: Error) => {
+      if (!note) return;
+      // `astro dev` serves the static site only; Pages Functions need
+      // `npm run dev:functions`. Say which it is rather than implying the site
+      // is broken.
+      note.textContent =
+        err.message === '404'
+          ? 'Traffic counting is not running here. Use `npm run dev:functions` to exercise the Cloudflare functions locally.'
+          : 'Traffic totals are unavailable right now.';
+    });
+</script>

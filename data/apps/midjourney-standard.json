@@ -1,0 +1,54 @@
+{
+  "slug": "midjourney-standard",
+  "name": "Midjourney Standard",
+  "vendor": "Midjourney",
+  "category": "image",
+  "url": "https://www.midjourney.com",
+  "pricing": {
+    "tier": "Standard",
+    "monthlyUsd": 30,
+    "billingNote": "$30/month billed monthly, advertised lower on annual billing. Standard includes a fixed allowance of fast generation hours plus unmetered relaxed generation.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "600 images a month. Midjourney has no public API, so the comparison is the honest alternative: running open image weights on a rented GPU, at roughly 8 seconds per image.",
+    "components": [
+      {
+        "modelId": "gpu-hour-commodity",
+        "units": {
+          "gpuHours": 1.4
+        },
+        "note": "600 images at ~8s each on a rented mid-range GPU"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "One of the highest multiples in this directory, on a product where the model itself is the thing being sold rather than a layer over someone else's.",
+  "verdictReasoning": "This entry exists to make the site's central point. A multiple in the mid-thirties looks damning until you ask what the alternative produces: open weights on rented hardware are cheap and do not make Midjourney images. The house aesthetic is trained, not prompted, and there is no API to wrap even if you wanted to. A high multiple over a substitute that is not actually a substitute is a weak argument, and the verdict follows the argument rather than the number.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Models trained in-house over several generations, with an aesthetic that is the reason for the subscription. Behind it sits a large batch inference fleet and a queueing system that keeps relaxed generation viable at flat pricing.",
+  "whatYouLose": "The aesthetic. Everything else about the product is replaceable; the output is not, and no amount of prompt engineering against open weights closes that gap.",
+  "diyPath": "Flux or SDXL on a rented GPU, or ComfyUI locally if you have the hardware. Cheaper by a wide margin, more controllable, and it produces different pictures.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Midjourney subscription plans",
+      "url": "https://www.midjourney.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "RunPod GPU pricing",
+      "url": "https://www.runpod.io/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

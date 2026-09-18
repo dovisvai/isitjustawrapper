@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import DirectoryTable from '../components/DirectoryTable.astro';
+import SponsorRail from '../components/SponsorRail.astro';
+import { loadEntries, countBy } from '../lib/data.ts';
+import { longDate, multiple, VERDICT_META } from '../lib/format.ts';
+import { VERDICTS } from '../schema.ts';
+
+const entries = loadEntries();
+const verdicts = countBy(entries, (e) => e.app.verdict);
+const unverified = entries.filter((e) => e.app.verification.status !== 'verified');
+const lastUpdated = entries.map((e) => e.app.lastReviewed).sort().at(-1)!;
+
+// The "multiple does not decide the verdict" argument is made with whatever the
+// data currently says, not with a sentence that was true when it was written.
+// Entries arrive sorted by multiple, descending.
+const dearestFair = entries.find((e) => e.app.verdict === 'fair');
+const cheapestWrapper = entries.filter((e) => e.app.verdict === 'wrapper').at(-1);
+const contrastHolds =
+  dearestFair &&
+  cheapestWrapper &&
+  (dearestFair.cost.markupMultiple ?? 0) > (cheapestWrapper.cost.markupMultiple ?? 0);
+---
+
+<Base
+  title="Is it just a wrapper? — what AI products charge, and what the inference costs"
+  description="A public directory estimating how much of an AI product's price is inference cost and how much is everything else. Every figure is an estimate, dated and sourced."
+  current="directory"
+>
+  {/*
+    The brief asks for the table to be the hero rather than a headline above it, so the
+    page's heading exists for screen readers and search engines without occupying space.
+    A page with no h1 is a real accessibility and SEO failure, not a stylistic choice.
+  */}
+  <h1 class="visually-hidden">
+    AI pricing directory — what {entries.length} products charge, and what the inference behind them costs
+  </h1>
+
+  {/* Directly under the header: all 20 slots, ticking, paused on hover. */}
+  <SponsorRail mode="marquee" />
+
+  {
+    unverified.length > 0 && (
+      <div class="notice notice--stop">
+        <strong class="notice__title">Pre-publication dataset</strong>
+        <p>
+          {unverified.length} of {entries.length} entries have not yet been confirmed by a human against the vendor's
+          own pricing page. Prices shown may be wrong or out of date, and none of it should be quoted or acted on
+          until each entry is verified. <code>npm run check:publish</code> refuses to pass while this notice is here.
+        </p>
+      </div>
+    )
+  }
+
+  {/*
+    The counts carry their own verdict colour rather than being five anonymous
+    numbers — it is the same vocabulary as the chips in the table, so the legend and
+    the data teach each other.
+  */}
+  <section class="summary" aria-label="Directory summary">
+    <div class="summary__lead">
+      <span class="summary__n">{entries.length}</span>
+      <span class="summary__lead-label">products<br />listed</span>
+    </div>
+
+    <ul class="summary__verdicts">
+      {
+        VERDICTS.map((v) => (
+          <li>
+            <a class={`summary__v summary__v--${v}`} href={`/methodology#verdict-${v}`}>
+              <span class="summary__v-glyph" aria-hidden="true">
+                {VERDICT_META[v].glyph}
+              </span>
+              <span class="summary__v-n">{verdicts[v] ?? 0}</span>
+              <span class="summary__v-label">{VERDICT_META[v].label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="summary__meta">
+      Last reviewed <span class="mono">{longDate(lastUpdated)}</span>
+    </p>
+  </section>
+
+  <DirectoryTable entries={entries} />
+
+  <div class="stack" style="margin-top:2rem">
+    <div>
+      <h2>How to read this</h2>
+      <p>
+        The multiple is a price divided by an estimate, not a measurement. It never decides a verdict on its own.
+        {
+          contrastHolds && (
+            <>
+              {' '}
+              <a href={`/app/${dearestFair!.app.slug}`}>{dearestFair!.app.name}</a> carries an estimated{' '}
+              {multiple(dearestFair!.cost.markupMultiple)} markup and is rated <strong>fair</strong>;{' '}
+              <a href={`/app/${cheapestWrapper!.app.slug}`}>{cheapestWrapper!.app.name}</a> carries{' '}
+              {multiple(cheapestWrapper!.cost.markupMultiple)} and is rated <strong>wrapper</strong>.
+            </>
+          )
+        }
+        {' '}What separates them is what the price buys that is not the model — which is the whole subject of the
+        <a href="/methodology"> methodology</a>.
+      </p>
+      <p class="small muted">
+        Missing a product, or think a number is wrong? Corrections are welcome and are published in full — see
+        <a href="/corrections">corrections</a>.
+      </p>
+    </div>
+  </div>
+</Base>

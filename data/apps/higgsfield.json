@@ -1,0 +1,59 @@
+{
+  "slug": "higgsfield",
+  "name": "Higgsfield",
+  "vendor": "Higgsfield AI",
+  "category": "video",
+  "url": "https://higgsfield.ai",
+  "pricing": {
+    "tier": "Starter",
+    "monthlyUsd": 15,
+    "billingNote": "Starter tier, billed monthly. Higgsfield sells credit-bounded tiers and runs frequent promotional pricing, so what counts as list price moves. Credits buy generation time, so a heavy month needs top-ups on top of the subscription.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "Around three minutes of finished generated video a month with camera-motion control, priced against running open video weights on rented high-end GPUs.",
+    "components": [
+      {
+        "modelId": "gpu-hour-highend",
+        "units": {
+          "gpuHours": 3.5
+        },
+        "note": "~3 minutes of output; motion-controlled video is heavier than plain generation"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A single-digit multiple over the high-end hardware an open equivalent would need, on models trained in-house for camera motion that general video models do not reproduce.",
+  "verdictReasoning": "The product's claim is control rather than raw generation — specified camera moves and VFX behaviour that a general text-to-video model will not follow reliably. That is trained capability, not prompting, and there is no API for it to wrap. Video is also the most compute-hungry category here, which compresses the multiple before any argument is made. The honest pressure is that this is a fast-moving field where an open model absorbing the same capability would collapse the gap quickly.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra",
+    "ux-craft"
+  ],
+  "valueAddNotes": "Motion and camera control trained into the model rather than bolted on, plus the presets that make those controls usable without a VFX background. The queue and GPU fleet behind it are a real fixed cost at this output length.",
+  "whatYouLose": "The motion control, and results in minutes rather than whenever a rented instance finishes. Open video models generate; they do not take direction as reliably.",
+  "diyPath": "Open video weights such as the Wan or LTX families on a rented A100, driven by ControlNet-style conditioning for camera movement. Cheaper per second, considerably more setup, and less predictable direction.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Higgsfield pricing",
+      "url": "https://higgsfield.ai/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "RunPod GPU pricing",
+      "url": "https://www.runpod.io/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "Credit-bounded tiers with frequent promotional pricing, rendered client-side; the served HTML carries no dollar figure for an automated check to match against."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

@@ -1,0 +1,263 @@
+---
+import Base from '../layouts/Base.astro';
+import VerdictChip from '../components/VerdictChip.astro';
+import { loadRateCard, loadEntries } from '../lib/data.ts';
+import { VERDICT_META, rateUnit, longDate, multiple } from '../lib/format.ts';
+import { VERDICTS, STALE_AFTER_DAYS, CONTACT_EMAIL, REPO_URL } from '../schema.ts';
+
+const rateCard = loadRateCard();
+const entries = loadEntries();
+const rates = Object.entries(rateCard.models);
+
+// Stated from the live data rather than asserted in prose, so the argument
+// cannot quietly stop being true when a price changes. Entries are sorted by
+// multiple, descending.
+const dearestFair = entries.find((e) => e.app.verdict === 'fair');
+const cheapestWrapper = entries.filter((e) => e.app.verdict === 'wrapper').at(-1);
+const contrastHolds =
+  (dearestFair?.cost.markupMultiple ?? 0) > (cheapestWrapper?.cost.markupMultiple ?? 0);
+---
+
+<Base
+  title="Methodology — Is it just a wrapper?"
+  description="How costs are estimated, why the markup multiple never decides a verdict on its own, what this site does not claim, and how to file a correction."
+  current="methodology"
+>
+  <h1>Methodology</h1>
+  <p class="lede">
+    This page is the argument. If you only read one page here, read this one — everything in the directory is downstream
+    of it, and any entry that contradicts it is a bug worth reporting.
+  </p>
+
+  <div class="stack">
+    <section class="clause">
+      <span class="clause__number">§1</span>
+      <h2>What the multiple is</h2>
+      <p>
+        For every product we state a <strong>usage assumption</strong> — a specific, boring description of a month's
+        work. We price that usage against a dated rate card of published API prices and divide the subscription price by
+        the result. That ratio is the markup multiple.
+      </p>
+      <p>
+        It is an estimate of the gap between what you pay and what a comparable month of inference would cost at list
+        price. It is not a claim about a vendor's costs, margins, or profits. We do not know those. Nobody outside these
+        companies does.
+      </p>
+      <p>
+        Three things push a vendor's true cost <em>below</em> our estimate: volume discounts, in-house serving, and
+        smaller models than we assume. That makes every multiple here a <strong>floor</strong>. We would rather
+        understate a markup than overstate one.
+      </p>
+      <p>
+        <strong>Which price we use.</strong> Every entry uses the <strong>month-to-month price</strong> — what you pay
+        without committing to a year. Most vendors advertise a lower annual rate, and where they do, it is recorded in
+        that entry's billing note, usually along with what it does to the multiple.
+      </p>
+      <p>
+        This rule exists because the directory ranks products against each other. Quoting one product's annual rate
+        against another's monthly rate produces a table that looks comparable and is not: a product can halve its
+        apparent markup purely by which of its own advertised prices we happen to pick. If you are an annual
+        subscriber, your multiple is lower than the one shown here, often by a lot — the entry says by how much.
+      </p>
+      <p>
+        Where a vendor prices differently by region, we use the US list price and say so, because it is what most
+        readers of this site are shown. That is a choice, not a fact about the product, and it is recorded on the entry
+        rather than hidden in it.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§2</span>
+      <h2>Why the multiple never decides the verdict</h2>
+      <p>
+        A high multiple is a question, not an answer. The question is: <em>what else is this price buying?</em> Sometimes
+        the honest answer is "a great deal" and sometimes it is "an interface".
+      </p>
+      {
+        dearestFair && cheapestWrapper && (
+          <p>
+            The clearest illustration is inside this directory right now.{' '}
+            <a href={`/app/${dearestFair.app.slug}`}>{dearestFair.app.name}</a> carries an estimated{' '}
+            {multiple(dearestFair.cost.markupMultiple)} markup and is rated <VerdictChip verdict="fair" link={false} />.{' '}
+            <a href={`/app/${cheapestWrapper.app.slug}`}>{cheapestWrapper.app.name}</a> carries{' '}
+            {multiple(cheapestWrapper.cost.markupMultiple)} — {contrastHolds ? 'far less' : 'a comparable figure'} — and
+            is rated <VerdictChip verdict="wrapper" link={false} />. The difference is not arithmetic. It is that one
+            sells a model trained in-house with no API to wrap, and the other runs the pipeline described in every
+            retrieval tutorial published since 2023.
+          </p>
+        )
+      }
+      <p>
+        A 40× markup on a compliance-bound medical scribe can be fair. A 4× markup on a prompt in a text box can be a
+        wrapper. If you find an entry where the verdict looks like it was read off the number, that is a mistake and we
+        want the correction.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§3</span>
+      <h2>The three verdicts</h2>
+      {
+        VERDICTS.map((v) => (
+          <div id={`verdict-${v}`} style="margin-bottom:1.1rem">
+            <VerdictChip verdict={v} link={false} />
+            <p style="margin-top:.4rem">{VERDICT_META[v].definition}</p>
+          </div>
+        ))
+      }
+      <p>
+        <strong>On the word "wrapper".</strong> It describes an architecture: a user interface and a prompt over a
+        third-party model. Building one is legal, common, frequently sensible, and sometimes exactly what a customer
+        wants to buy. It is not an accusation of dishonesty, and we do not intend it as one. If a verdict on this site
+        reads as an allegation of misconduct, the wording is wrong and we will fix it.
+      </p>
+    </section>
+
+    <section class="clause" id="rates">
+      <span class="clause__number">§4</span>
+      <h2>The rate card</h2>
+      <p>
+        Entries are priced against <em>archetypes</em> — "mid-tier frontier text model" — rather than named products.
+        Naming one vendor's model would make every estimate on this site wrong the day that vendor repriced. Each
+        archetype is set at a representative published rate and links to a real rate card you can check.
+      </p>
+      <p class="small muted">Rate card updated {longDate(rateCard.updatedOn)}.</p>
+      <div class="table-scroll">
+        <table class="directory">
+          <thead>
+            <tr>
+              <th scope="col">Archetype</th>
+              <th scope="col">Priced at</th>
+              <th scope="col" class="col-hide-sm">Source</th>
+              <th scope="col" class="num">Checked</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              rates.map(([id, rate]) => (
+                <tr>
+                  <td>
+                    <span class="mono">{id}</span>
+                    <span class="meta">{rate.label}</span>
+                  </td>
+                  <td class="small">
+                    {Object.entries(rate.units).map(([, u]) => (
+                      <div class="mono">{rateUnit(u.usdPer, u.per, u.display, u.displaySingular)}</div>
+                    ))}
+                  </td>
+                  <td class="col-hide-sm small">
+                    <a href={rate.source.url} rel="nofollow noopener" target="_blank">
+                      {rate.source.label}
+                    </a>
+                  </td>
+                  <td class="num small">{longDate(rate.checkedOn)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:.7rem">
+        Costs are computed from this table at build time. No entry stores a cost or a multiple of its own, so when a rate
+        changes here every affected figure on the site changes with it in one commit — and none of them can silently
+        disagree with the arithmetic.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§5</span>
+      <h2>How a price gets published</h2>
+      <p>Three states, and only the last one reaches production:</p>
+      <ul>
+        <li>
+          <strong>unverified</strong> — a draft. Nobody has confirmed it against the vendor's own page. Shown with a
+          warning, and the deploy gate refuses to pass.
+        </li>
+        <li>
+          <strong>auto-observed</strong> — the price watcher found this exact price on the vendor's live pricing page on
+          a stated date. Machine evidence, no human judgement. Still not publishable on its own.
+        </li>
+        <li>
+          <strong>verified</strong> — a named person checked it on a stated date and their name is in the commit.
+        </li>
+      </ul>
+      <p>
+        A weekly watcher re-fetches every cited pricing page and compares it to the last snapshot. If a page moves, or if
+        the recorded price stops appearing on it, the entry is flagged and can be automatically demoted back to
+        unverified — which fails the deploy until a human looks. Entries older than {STALE_AFTER_DAYS} days are marked
+        stale on their own page.
+      </p>
+      <p class="small muted">
+        The watcher detects change; it does not read prices. Pricing pages are rendered client-side, split-tested and
+        localised, and any tool claiming to reliably read a price off one is overselling itself. Noticing that a page
+        moved is robust, and it is enough — a person confirms the number.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§6</span>
+      <h2>What this site does not claim</h2>
+      <ul>
+        <li>Not a claim about any vendor's actual costs, margins, or profitability.</li>
+        <li>Not a claim that any price is unfair, deceptive, illegal, or worth what you would pay elsewhere.</li>
+        <li>Not a claim that any company has done anything wrong.</li>
+        <li>Not financial, legal, or purchasing advice.</li>
+        <li>Not a measurement. Every cost figure is an estimate, computed from stated assumptions, and labelled as one.</li>
+        <li>Not affiliated with, endorsed by, or sponsored by any product listed.</li>
+      </ul>
+      <p>
+        Product names, logos, and trademarks belong to their owners and are used here only to identify the products
+        under discussion — the ordinary descriptive use that writing about products requires.
+      </p>
+      <p>
+        Verdicts are opinion, formed on the stated methodology and published alongside the figures and sources they rest
+        on, so you can disagree with the reasoning rather than take our word for it. Where we state facts — a price, a
+        billing term — we date them and link the source.
+      </p>
+    </section>
+
+    <section class="clause" id="corrections">
+      <span class="clause__number">§7</span>
+      <h2>Corrections</h2>
+      <p>
+        If a number here is wrong, we want to know, and we would rather hear it from you than not hear it. Two routes,
+        both fine:
+      </p>
+      <ul>
+        <li>
+          Open an issue or pull request against the entry's JSON file in <a href={REPO_URL}>the repository</a>, where
+          every figure's full history is public.
+        </li>
+        <li>
+          Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Vendor mail gets the same treatment as
+          anyone else's, and you do not need an account anywhere to use it.
+        </li>
+      </ul>
+      <p>
+        <strong>What we commit to.</strong> Anything factual — a wrong price, a wrong tier, a misstated billing term — is
+        corrected on sight, without argument, and logged. Disagreements about a <em>verdict</em> get a reply and, where
+        the argument lands, a revised entry; where it does not, the vendor's position is recorded on the entry so
+        readers see both. Every change appears on the <a href="/corrections">corrections log</a> with a date and a
+        description, including the ones we caught ourselves.
+      </p>
+      <p>
+        That log is the point. A reference that never publishes its mistakes is not more accurate than one that does —
+        it is just harder to check. {entries.length} entries are currently listed.
+      </p>
+    </section>
+
+    <section class="clause">
+      <span class="clause__number">§8</span>
+      <h2>Money</h2>
+      <p>
+        The site sells 20 sponsor slots. Sponsors are labelled as sponsors everywhere they appear, their links carry
+        <code>rel="sponsored"</code>, and impression and click totals are published on <a href="/stats">stats</a>.
+      </p>
+      <p>
+        <strong>Sponsorship has no effect on a verdict, and cannot buy one.</strong> A sponsor may be listed in the
+        directory and may receive any verdict, including <VerdictChip verdict="wrapper" link={false} />. If that ever
+        appears to have been violated, the sponsorship is the thing that goes, not the entry.
+      </p>
+    </section>
+  </div>
+</Base>

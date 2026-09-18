@@ -1,0 +1,63 @@
+{
+  "slug": "fireflies-pro",
+  "name": "Fireflies.ai Pro",
+  "vendor": "Fireflies.ai",
+  "category": "meetings",
+  "url": "https://fireflies.ai",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 18,
+    "billingNote": "$18 per seat per month month-to-month. The same seat is advertised at $10 on annual billing, which roughly halves the multiple below. Business and Enterprise sit above at $19 and $39 per seat on annual billing.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "Ten hours of meetings a month transcribed with speaker separation, plus 25 generated summaries with action items.",
+    "components": [
+      {
+        "modelId": "asr-standard",
+        "units": {
+          "audioMinutes": 600
+        },
+        "note": "10 hours of calls, transcribed and diarised"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 375000,
+          "outputTokens": 22500
+        },
+        "note": "25 summaries with action-item extraction"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "steep",
+  "verdictSummary": "Meeting transcription and summaries in the category where the do-it-yourself path is unusually accessible, at a multiple that annual billing roughly halves.",
+  "verdictReasoning": "This entry exists to test whether the verdict given to Otter generalises, and it does. Joining calls reliably across several platforms and keeping calendars connected is real, unglamorous maintenance. But transcription is the category where open models caught up fastest — self-hosted Whisper is genuinely competitive — which makes the same multiple harder to defend here than it would be somewhere the alternative is worse. On annual billing this moves toward fair, which is worth stating plainly rather than burying.",
+  "valueAddTags": [
+    "integrations",
+    "scale-infra",
+    "ux-craft"
+  ],
+  "valueAddNotes": "A bot that reliably joins Zoom, Meet and Teams without anyone remembering to press record, plus a searchable archive the whole team uses. The reliability is worth more than it sounds and breaks constantly when self-built.",
+  "whatYouLose": "Automatic joining and recording, and the shared searchable archive. Colleagues using the same archive is a network effect a personal script cannot reproduce.",
+  "diyPath": "Whisper self-hosted or via API over a local recording, then any model for summaries. Cheap and accurate; you lose the calendar automation and the bot, and you will notice both.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Fireflies.ai pricing",
+      "url": "https://fireflies.ai/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing (transcription)",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

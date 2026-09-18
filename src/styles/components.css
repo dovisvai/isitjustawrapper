@@ -1,0 +1,885 @@
+/*
+ * The instrument inside the glass.
+ *
+ * The frosted surfaces themselves are declared once in global.css. This file lays out
+ * what sits on them. The table gets ONE glass container and its rows are transparent
+ * inside it — thirty blurred elements would be slower and would give every figure a
+ * slightly different background to be read against.
+ */
+
+/* --- graticule division ----------------------------------------------------- */
+
+.perf {
+  position: relative;
+}
+.perf::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 1px;
+  background-image: repeating-linear-gradient(to bottom, var(--rim) 0 4px, transparent 4px 10px);
+  opacity: 0.6;
+}
+
+/* --- home summary bar --------------------------------------------------------- *
+ * Replaces a stack of five anonymous label/value pairs. The verdict counts carry their
+ * own colour and glyph, so the strip doubles as the table's legend: the same vocabulary
+ * the chips use, taught before the reader meets a row.
+ */
+
+.summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 1.2rem 1.45rem;
+  margin-bottom: 2rem;
+}
+
+.summary__lead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.summary__n {
+  font-family: var(--font-mono);
+  font-size: 2.7rem;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-shadow: 0 0 40px light-dark(transparent, rgb(255 255 255 / 0.25));
+}
+.summary__lead-label {
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  line-height: 1.35;
+}
+
+.summary__verdicts {
+  display: flex;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.summary__verdicts li {
+  display: flex;
+}
+
+.summary__v {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.summary__v-glyph {
+  font-size: 0.78rem;
+  line-height: 1;
+  text-shadow: 0 0 10px currentColor;
+}
+.summary__v-n {
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.summary__v-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.summary__v--fair {
+  color: var(--fair);
+  background: light-dark(rgb(4 120 87 / 0.09), rgb(52 224 161 / 0.12));
+}
+.summary__v--steep {
+  color: var(--steep);
+  background: light-dark(rgb(154 91 0 / 0.09), rgb(255 177 61 / 0.12));
+}
+.summary__v--wrapper {
+  color: var(--wrapper);
+  background: light-dark(rgb(198 43 61 / 0.09), rgb(255 122 136 / 0.12));
+}
+
+.summary__meta {
+  margin: 0 0 0 auto;
+  font-size: 0.72rem;
+  color: var(--ink-2);
+}
+
+@media (max-width: 48rem) {
+  .summary {
+    gap: 0.9rem 1rem;
+    padding: 1.05rem 1.1rem;
+  }
+  .summary__n {
+    font-size: 2.2rem;
+  }
+  /* Verdicts take a full row and split it three ways, stacking their own contents so
+     three fit across a 375px screen without truncating a label. */
+  .summary__verdicts {
+    flex: 1 1 100%;
+    gap: 0.45rem;
+  }
+  .summary__verdicts li {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .summary__v {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.55rem 0.25rem;
+    border-radius: 14px;
+  }
+  .summary__meta {
+    margin-left: 0;
+    flex: 1 1 100%;
+  }
+
+  /* App pages carry eight of these; at 9rem they collapse to one very tall column. */
+  .field-grid {
+    grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    gap: 0.95rem 1.1rem;
+  }
+  .form-head {
+    padding: 1.05rem 1.1rem;
+  }
+}
+
+/* --- filters ---------------------------------------------------------------- */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.8rem 1.2rem;
+  padding: 0 0.25rem 1.1rem;
+}
+
+.filters__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.filters__field label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-2);
+}
+.filters__search input {
+  min-width: min(22rem, 60vw);
+}
+.filters__count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-2);
+  padding-bottom: 0.6rem;
+}
+
+/*
+ * Flex-wrap leaves these ragged on a phone: four controls of four different intrinsic
+ * widths breaking wherever they happen to run out of room, with the count orphaned in
+ * the gap. A two-column grid gives every control a predictable share instead.
+ */
+@media (max-width: 48rem) {
+  .filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: end;
+    gap: 0.75rem 0.7rem;
+    padding-bottom: 1rem;
+  }
+  /* Search and the longest-valued select each take a full row. */
+  .filters__search,
+  .filters__field:nth-of-type(4) {
+    grid-column: 1 / -1;
+  }
+  .filters__field select,
+  .filters__search input {
+    width: 100%;
+    min-width: 0;
+  }
+  .filters__count {
+    grid-column: 1 / -1;
+    margin-left: 0;
+    padding-bottom: 0;
+    text-align: right;
+  }
+}
+
+/* --- the directory table ---------------------------------------------------- */
+
+/* Glass, radius and shadow come from global.css. A single `overflow-x: auto` both
+   clips the rows to the rounded corners and carries the horizontal scroll on narrow
+   screens — no inner wrapper, so the existing markup is untouched. */
+.table-scroll {
+  overflow-x: auto;
+  container-type: inline-size;
+}
+
+table.directory {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.directory caption {
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--ink-2);
+  padding: 1.1rem 0 0.9rem;
+  border-bottom: 1px solid var(--rim-soft);
+}
+
+/* The caption is as wide as the table, which on a phone is wider than the panel
+   that scrolls it — so the text would run off the right edge. Pinning the text to
+   the scroller's own width (cq units) keeps it wrapped and in view while the rows
+   scroll sideways beneath it. */
+.directory__note {
+  display: block;
+  position: sticky;
+  left: 1.2rem;
+  max-width: calc(100cqw - 2.4rem);
+  margin-inline: 1.2rem;
+}
+
+/* The header is the one place inside the panel that needs its own opacity: rows scroll
+   underneath it, and a translucent header would let them show through mid-scroll. */
+.directory thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--glass-strong);
+  backdrop-filter: blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--blur)) saturate(180%);
+  border-bottom: 1px solid var(--rim-soft);
+  padding: 0;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: 0.63rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+.directory thead th.num {
+  text-align: right;
+}
+
+.directory th button {
+  all: unset;
+  /* `all: unset` also resets box-sizing to content-box, so `width: 100%` would resolve
+     to the cell width and then add the padding on top — every header overflowing by
+     exactly its own horizontal padding, with the next cell's glass painting over the
+     spill. Restore border-box explicitly. */
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  /* Keeps a column at least as wide as its own label rather than sizing to the
+     narrower figures beneath it. */
+  min-width: max-content;
+  white-space: nowrap;
+  padding: 0.85rem 1.2rem;
+  font: inherit;
+  color: var(--ink-2);
+}
+.directory th.num button {
+  text-align: right;
+}
+.directory th button:hover {
+  color: var(--ink);
+}
+.directory th button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.directory th[aria-sort] button {
+  color: var(--accent);
+}
+.directory th[aria-sort] button::after {
+  content: ' ▲';
+  font-size: 0.75em;
+}
+.directory th[aria-sort='descending'] button::after {
+  content: ' ▼';
+}
+.directory th:not([aria-sort]) button::after {
+  content: ' ·';
+  opacity: 0.35;
+}
+
+.directory tbody tr {
+  border-bottom: 1px solid var(--rim-soft);
+  transition: background 160ms ease-out;
+}
+/* Banding is a whisper of light on the glass, not a second surface. */
+.directory tbody tr:nth-child(even) {
+  background: var(--glass-quiet);
+}
+.directory tbody tr:hover {
+  background: light-dark(rgb(91 61 245 / 0.07), rgb(139 124 255 / 0.1));
+}
+.directory tbody tr:last-child {
+  border-bottom: 0;
+}
+
+.directory td {
+  padding: 0.85rem 1.2rem;
+  vertical-align: baseline;
+}
+
+.directory .col-name a {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.directory .col-name a:hover {
+  color: var(--accent);
+}
+.directory .col-name .meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--ink-2);
+  margin-top: 0.2rem;
+}
+
+/* The readout: the one figure people screenshot. */
+.directory .col-multiple {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 1.3rem;
+  text-shadow: 0 0 24px light-dark(transparent, rgb(255 255 255 / 0.25));
+}
+.directory .col-multiple .below-cost {
+  display: block;
+  font-size: 0.57rem;
+  font-weight: 400;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: 0.15rem;
+  text-shadow: none;
+}
+
+.directory tr[hidden] {
+  display: none;
+}
+
+/*
+ * Verdict lamps in the table. The word is dropped here — thirty repeated labels are
+ * noise once the summary bar above has taught the mapping — but it survives as
+ * visually-hidden text and a hover title, so colour is the only *visual* carrier and
+ * never the only carrier.
+ */
+.col-verdict {
+  text-align: center;
+}
+
+.verdict-dot {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 11px currentColor;
+  vertical-align: middle;
+}
+.verdict-dot--fair {
+  color: var(--fair);
+}
+.verdict-dot--steep {
+  color: var(--steep);
+}
+.verdict-dot--wrapper {
+  color: var(--wrapper);
+}
+a.verdict-dot:hover {
+  transform: scale(1.25);
+}
+
+/*
+ * The one authored moment: verdict lamps come up in a staggered ramp on load, the way
+ * a panel powers on. It runs from an already-visible state, and figures are never
+ * animated — a number that counts up is theatre on a site asking to be trusted.
+ */
+@keyframes lamp-up {
+  from {
+    opacity: 0.4;
+    box-shadow: none;
+  }
+  to {
+    opacity: 1;
+    box-shadow: 0 0 11px currentColor;
+  }
+}
+
+.directory tbody .verdict-dot {
+  animation: lamp-up 560ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: calc(var(--row, 0) * 45ms);
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directory tbody .verdict-dot {
+    animation: none;
+  }
+}
+
+.empty-state {
+  padding: 3rem 1.2rem;
+  text-align: center;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+@media (max-width: 44rem) {
+  .directory .col-hide-sm {
+    display: none;
+  }
+  .directory .col-multiple {
+    font-size: 1.05rem;
+  }
+  .directory td,
+  .directory th button {
+    padding-inline: 0.85rem;
+  }
+}
+
+/* --- the cost receipt ------------------------------------------------------- */
+
+.receipt {
+  padding: 1.4rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  max-width: 48rem;
+}
+
+.receipt__heading {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+  margin: 0 0 1rem;
+}
+
+.receipt__line {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.24rem 0;
+}
+.receipt__label {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.receipt__leader {
+  flex: 1 1 auto;
+  border-bottom: 1px dotted var(--rim);
+  transform: translateY(-0.28em);
+  min-width: 1.5rem;
+  opacity: 0.7;
+}
+.receipt__amount {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+.receipt__note {
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  padding-left: 1rem;
+  margin: -0.05rem 0 0.45rem;
+  max-width: 56ch;
+  line-height: 1.55;
+}
+
+.receipt__total {
+  margin-top: 0.8rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rim);
+  font-weight: 700;
+}
+
+.receipt__stub {
+  margin-top: 1.2rem;
+  padding-top: 1.2rem;
+  border-top: 1px dashed var(--rim);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.receipt__stub-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-2);
+}
+.receipt__stub-value {
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-shadow: 0 0 40px light-dark(transparent, rgb(255 255 255 / 0.3));
+}
+
+/* --- app page ---------------------------------------------------------------- */
+
+.verdict-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 2rem;
+}
+.verdict-banner--fair {
+  color: var(--fair);
+}
+.verdict-banner--steep {
+  color: var(--steep);
+}
+.verdict-banner--wrapper {
+  color: var(--wrapper);
+}
+.verdict-banner p {
+  color: var(--ink);
+  margin: 0;
+  flex: 1 1 20rem;
+  font-size: 0.97rem;
+}
+
+.clause {
+  border-top: 1px solid var(--rim-soft);
+  padding-top: 1.6rem;
+}
+.clause__number {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.88rem;
+}
+.source-list li {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--rim-soft);
+  flex-wrap: wrap;
+}
+.source-list .kind {
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--ink-2);
+  min-width: 5.5rem;
+  padding-top: 0.3em;
+}
+
+/* --- calculator -------------------------------------------------------------- */
+
+.calc {
+  padding: 1.4rem 1.5rem;
+  max-width: 48rem;
+}
+.calc__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 1.2rem;
+  align-items: flex-end;
+  margin-bottom: 1.1rem;
+}
+.calc__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.calc__field label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-2);
+}
+.calc__field input[type='number'] {
+  width: 7.5rem;
+}
+.calc__out {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 1rem 1.5rem;
+  border-top: 1px solid var(--rim);
+  padding-top: 1.2rem;
+}
+
+/* --- sponsor marquee ---------------------------------------------------------- *
+ * All twenty slots ticking past under the header. Two identical sets sit inside one
+ * track and it translates by exactly half its own width, so the loop is seamless with
+ * no measurement in JavaScript. Hover or keyboard focus stops it, because a moving
+ * target you cannot click is an advert nobody buys.
+ */
+
+.sponsor-strip {
+  margin-bottom: 1.9rem;
+}
+.sponsor-strip__note {
+  margin: 0.65rem 0 0;
+}
+
+.marquee {
+  overflow: hidden;
+  /* Edges fade instead of being cut, so slots enter and leave rather than pop. */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 75s linear infinite;
+  will-change: transform;
+}
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__set {
+  display: flex;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0 0.28rem;
+}
+.marquee__set li {
+  display: flex;
+}
+
+@keyframes marquee-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.sponsor--marquee {
+  width: 9.5rem;
+  min-height: 3.5rem;
+  border-radius: 14px;
+}
+.sponsor--live {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+  text-decoration: none;
+}
+
+/* Motion off: the strip becomes an ordinary horizontal scroller and the duplicate set
+   is removed, since it exists only to make the loop seamless. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee__track {
+    animation: none;
+  }
+  .marquee__set[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .sponsor--marquee {
+    width: 8rem;
+    min-height: 3.1rem;
+  }
+}
+
+/* --- sponsors ---------------------------------------------------------------- */
+
+.sponsor-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13.5rem, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sponsor {
+  padding: 0.8rem 0.9rem;
+  font-size: 0.82rem;
+  min-height: 4.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  border-radius: var(--radius-sm);
+}
+.sponsor--available,
+.sponsor--ghost {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  border: 1px dashed var(--rim-soft);
+  color: var(--ink-2);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+/*
+ * Ghost slots on the home page: present enough that a buyer can see where an ad would
+ * sit and what it would sit beside, faint enough that the directory does not read as a
+ * page covered in empty ad boxes. They brighten on hover, so they are findable without
+ * being loud.
+ */
+.sponsor--ghost {
+  gap: 0.35rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  min-height: 3.8rem;
+  opacity: 0.4;
+  transition:
+    opacity 180ms ease-out,
+    border-color 180ms ease-out;
+}
+.sponsor--ghost:hover,
+.sponsor--ghost:focus-visible {
+  opacity: 0.85;
+  border-color: var(--rim);
+}
+.sponsor__slot-n {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  opacity: 0.55;
+}
+
+/* At one column per slot these become ~800px of empty ad boxes on a phone, which is the
+   opposite of unobtrusive. Three across keeps the whole rail under two thumb-heights. */
+@media (max-width: 48rem) {
+  .sponsor-rail {
+    grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
+    gap: 0.5rem;
+  }
+  .sponsor--ghost {
+    min-height: 3.1rem;
+    gap: 0.2rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0.3rem;
+  }
+  .sponsor--ghost .sponsor__slot-n {
+    font-size: 0.95rem;
+  }
+}
+.sponsor__slot {
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.sponsor__name {
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+.sponsor__pitch {
+  color: var(--ink-2);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+/* --- stats -------------------------------------------------------------------- */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  overflow: hidden;
+}
+.stat {
+  padding: 1.2rem 1.3rem;
+  border-right: 1px solid var(--rim-soft);
+  border-bottom: 1px solid var(--rim-soft);
+}
+.stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.61rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-2);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+.stat__value {
+  font-family: var(--font-mono);
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- corrections log ---------------------------------------------------------- */
+
+.log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.log li {
+  border-top: 1px solid var(--rim-soft);
+  padding: 1.3rem 0;
+}
+.log__date {
+  font-family: var(--font-mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}

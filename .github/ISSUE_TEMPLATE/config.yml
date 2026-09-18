@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: How verdicts are decided
+    url: https://isitjustawrapper.com/methodology
+    about: How costs are estimated, why the multiple never decides a verdict alone, and what this site does not claim.
+  - name: Corrections log
+    url: https://isitjustawrapper.com/corrections
+    about: Every correction made, dated, including the ones we found ourselves.

@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import SponsorRail from '../components/SponsorRail.astro';
+import VerdictChip from '../components/VerdictChip.astro';
+import { SPONSOR_SLOT_COUNT, CONTACT_EMAIL } from '../schema.ts';
+import { loadSponsors, loadEntries } from '../lib/data.ts';
+
+const sponsors = loadSponsors();
+const filled = sponsors.filter((s) => s.status === 'filled').length;
+const entries = loadEntries();
+---
+
+<Base
+  title="Sponsor — Is it just a wrapper?"
+  description="Twenty sponsor slots on a site read by people who compare prices before they buy. Sponsorship never affects a verdict."
+  current="sponsor"
+>
+  <h1>Sponsor</h1>
+  <p class="lede">
+    {SPONSOR_SLOT_COUNT} slots. {SPONSOR_SLOT_COUNT - filled} available. The audience is people who read a pricing table
+    before they buy something, which is a smaller audience than most and a better one than most.
+  </p>
+
+  <div class="notice">
+    <strong class="notice__title">The terms, before the pitch</strong>
+    <p>
+      Sponsorship <strong>cannot buy a verdict, change one, or keep a product off the list</strong>. A sponsor may be
+      listed in the directory and may receive any verdict, including <VerdictChip verdict="wrapper" link={false} />. If
+      that ever becomes uncomfortable, the sponsorship ends and the entry stays. Sponsors are labelled as sponsors
+      everywhere they appear and their links carry <code>rel="sponsored"</code>.
+    </p>
+  </div>
+
+  <h2 style="margin-top:2rem">The numbers are the pitch</h2>
+  <p>
+    There is no media kit. <a href="/stats">The stats page</a> publishes traffic, sponsor rail views and click totals,
+    updated continuously, visible to you and to everyone else. Whatever it says today is what you would be buying. If
+    the numbers are small, they will look small — that is rather the point of a site about honest pricing.
+  </p>
+  <p class="small muted">
+    Currently listing {entries.length} products. Clicks are counted server-side and reported without adjustment.
+  </p>
+
+  <h2 style="margin-top:2rem">What a slot is</h2>
+  <p>
+    A favicon, a name, one line of pitch, and an outbound link tagged with UTM parameters so you can attribute the
+    traffic in your own analytics. Slots appear on the directory home page and on this page. No animation, no takeover,
+    no interstitial, nothing that moves.
+  </p>
+
+  <h2 style="margin-top:2rem">The slots</h2>
+  <SponsorRail mode="grid" />
+
+  <div class="notice" style="margin-top:2rem">
+    <strong class="notice__title">Enquiries</strong>
+    <p>
+      Email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with the slot number you want. Sponsorships are
+      added as a commit to
+      <code>data/sponsors.json</code>, so every one is publicly dated in the repository history — including when it
+      started and when it ended.
+    </p>
+  </div>
+</Base>

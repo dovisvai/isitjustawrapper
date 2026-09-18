@@ -1,0 +1,54 @@
+{
+  "slug": "suno-pro",
+  "name": "Suno Pro",
+  "vendor": "Suno",
+  "category": "audio",
+  "url": "https://suno.com",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 8,
+    "billingNote": "$8/month billed monthly, with an annual option the page advertises as saving $24 a year. Premier is $24/month. Pro includes a monthly credit allowance and grants a general commercial-use licence, which the free tier does not.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "150 generated tracks a month of around two minutes each. Suno publishes no API for its own models, so the comparison is running open music weights on rented high-end GPUs.",
+    "components": [
+      {
+        "modelId": "gpu-hour-highend",
+        "units": {
+          "gpuHours": 1.05
+        },
+        "note": "150 tracks at roughly 25 seconds of generation each"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A low single-digit multiple over rented hardware, for music models trained in-house that open weights do not match, plus a commercial licence the cheaper path does not grant.",
+  "verdictReasoning": "The models are the product and there is no API to wrap. What makes this entry unusual is that the subscription also buys a licence: the paid tier grants commercial use of what you generate, which is a legal position rather than a compute cost and does not appear anywhere in a GPU bill. Open music models exist and are improving quickly, which is the honest pressure on this price.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Music generation trained in-house, covering composition, arrangement and vocals in one pass. The commercial-use licence attached to paid tiers is a substantial part of what a working user is actually buying, and self-hosting does not supply it.",
+  "whatYouLose": "The output quality, the coherent song structure, and the commercial licence. Generating something you may legally sell is not the same as generating something.",
+  "diyPath": "Open music models such as the ACE-Step or YuE families on rented GPUs, or MusicGen for shorter instrumental pieces. Cheaper, rougher, and the licensing of what you produce becomes your problem to research.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Suno pricing",
+      "url": "https://suno.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "RunPod GPU pricing",
+      "url": "https://www.runpod.io/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

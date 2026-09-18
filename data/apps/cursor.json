@@ -1,0 +1,64 @@
+{
+  "slug": "cursor",
+  "name": "Cursor",
+  "vendor": "Anysphere",
+  "category": "coding",
+  "url": "https://cursor.com",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 20,
+    "billingNote": "Pro includes a monthly allowance of model requests; use beyond the allowance is billed as usage-based overage on top of the $20. This estimate assumes a user staying inside the included allowance, which is the only comparison the sticker price supports.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "A daily user working inside the included allowance: about 250 agent requests a month carrying substantial repository context, plus 8,000 tab completions on a cheap fast model.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 6250000,
+          "outputTokens": 500000
+        },
+        "note": "250 agent requests at ~25k tokens of context and ~2k tokens of edits each"
+      },
+      {
+        "modelId": "frontier-nano",
+        "units": {
+          "inputTokens": 16000000,
+          "outputTokens": 320000
+        },
+        "note": "8,000 tab completions"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "The estimated inference cost of a daily user exceeds the subscription price, so the plan is priced below its own token bill at this volume.",
+  "verdictReasoning": "A markup below 1× means the arithmetic this site performs stops being the interesting question: at the assumed usage the vendor is not marking up inference, it is absorbing part of it and recovering the difference from lighter users and from usage-based overages. Read the multiple as a statement about the included allowance, not about the company's economics overall — the overage pricing is where heavy users actually pay, and this entry does not model that.",
+  "valueAddTags": [
+    "orchestration",
+    "ux-craft",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Multi-file edits that apply cleanly, an index of the repository kept fresh as you type, retries and diff application that mostly do not corrupt the working tree. The boring hard parts are the product; the model call is the trivial part of an agent request.",
+  "whatYouLose": "Repository indexing you did not have to build, apply-and-review UX for multi-file diffs, and the latency budget that makes tab completion usable rather than annoying.",
+  "diyPath": "Aider or Cline with your own API key gets close on the agent loop and costs what the tokens cost. At the assumed volume that is estimated to be more than the subscription, not less.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Cursor pricing",
+      "url": "https://cursor.com/pricing"
+    },
+    {
+      "kind": "docs",
+      "label": "Cursor documentation",
+      "url": "https://docs.cursor.com"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

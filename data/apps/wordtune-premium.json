@@ -1,0 +1,59 @@
+{
+  "slug": "wordtune-premium",
+  "name": "Wordtune Premium",
+  "vendor": "Wordtune (AI21 Labs)",
+  "category": "writing",
+  "url": "https://www.wordtune.com",
+  "pricing": {
+    "tier": "Unlimited",
+    "monthlyUsd": 19.99,
+    "billingNote": "$19.99/month on the Unlimited tier, billed monthly. Annual billing is advertised at $9.99/month, which halves the multiple below. A free tier with a daily rewrite cap exists and is the comparison most readers should be making.",
+    "checkedOn": "2026-09-18"
+  },
+  "usageAssumption": {
+    "description": "150 sentence rewrites a month — the tone and length adjustments the product is bought for — at roughly 600 input and 600 output tokens each, on a small fast model.",
+    "components": [
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 90000,
+          "outputTokens": 90000
+        },
+        "note": "150 rewrites; the unit of work is a sentence, so both sides are short"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Sentence rewriting delivered through a browser extension, where the unit of work is small enough that essentially the whole subscription is the interface rather than the generation.",
+  "verdictReasoning": "The distinguishing feature of this category is how little inference a rewrite actually takes: a sentence in, a few sentences out, on a model that does not need to be large. That makes the gap between price and token cost wider here than almost anywhere else in the directory. The extension is genuinely convenient and the vendor has real language-model research behind it, but what a Premium subscriber is buying at the margin is the button in the text box.",
+  "valueAddTags": [
+    "ux-craft",
+    "distribution"
+  ],
+  "valueAddNotes": "Rewriting where you are already typing, without a copy-paste round trip, is the product. The parent company does train its own models, which is more than most tools in this bracket can say, though the rewrite itself does not need them.",
+  "whatYouLose": "In-place rewriting inside any text field. For someone who rewrites constantly, removing the round trip is worth something real.",
+  "diyPath": "The free tier covers light use. Beyond that, any assistant subscription rewrites sentences on request, and with an API key the estimated monthly token cost at this volume is well under a dollar.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Wordtune pricing",
+      "url": "https://www.wordtune.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing page serves its annual-billing figures by default, so the month-to-month $19.99 never appears in the HTML an automated check receives. Confirmed by hand."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-09-18"
+  },
+  "lastReviewed": "2026-09-18"
+}

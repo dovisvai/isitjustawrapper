@@ -1,0 +1,66 @@
+{
+  "slug": "grammarly-pro",
+  "name": "Grammarly Pro",
+  "vendor": "Grammarly",
+  "category": "writing",
+  "url": "https://www.grammarly.com",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 30,
+    "billingNote": "$30/member/month month-to-month. Grammarly also advertises $12/member/month on annual billing, which cuts the multiple below to roughly a sixth of what is shown. The free tier already covers most non-generative checking, which is the comparison most readers should be making.",
+    "checkedOn": "2026-09-18"
+  },
+  "usageAssumption": {
+    "description": "40,000 words checked and 30 generative rewrites a month. Only the generative work is priced against a public API; the checking runs on Grammarly's own models and is given a separate allowance.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 60000,
+          "outputTokens": 18000
+        },
+        "note": "30 generative rewrites and tone adjustments"
+      }
+    ],
+    "extras": [
+      {
+        "label": "In-house checking models",
+        "monthlyUsd": 0.3,
+        "note": "Grammar and clarity checking runs on Grammarly's own models rather than a public API. This is a deliberately generous allowance for that inference, not a measured figure — it makes the multiple smaller, not larger."
+      }
+    ]
+  },
+  "verdict": "steep",
+  "verdictSummary": "An estimated forty-fold multiple month-to-month, most of it for checking that the free tier largely already does.",
+  "verdictReasoning": "Grammarly's models are its own and its integration surface is unusually wide, both of which are real work. The difficulty is the comparison a subscriber should actually make: not against an API, but against Grammarly's own free tier, which handles most of what most people use it for. A forty-fold multiple over estimated inference for the generative increment is a lot to pay for a narrow delta. Annual billing cuts it to around sixteen, and that is the version of this product that looks reasonable.",
+  "valueAddTags": [
+    "proprietary-model",
+    "distribution",
+    "ux-craft"
+  ],
+  "valueAddNotes": "In-house checking models refined over many years, running everywhere you type — browser, Word, desktop, mobile keyboard. The integration breadth is a permanent maintenance cost and it is most of what the subscription funds.",
+  "whatYouLose": "Checking inside every text field you touch without thinking about it. That ambient presence is not something a script reproduces.",
+  "diyPath": "LanguageTool, self-hosted or on its own cheaper plan, covers the checking. For rewrites, any assistant with your own key. Neither follows you into every input box.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Grammarly plans",
+      "url": "https://www.grammarly.com/plans"
+    },
+    {
+      "kind": "other",
+      "label": "LanguageTool pricing (comparison)",
+      "url": "https://languagetool.org/premium"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing page renders all figures client-side; no dollar amount appears anywhere in the served HTML for an automated check to match against."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-09-18"
+  },
+  "lastReviewed": "2026-09-18"
+}

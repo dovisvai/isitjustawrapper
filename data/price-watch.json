@@ -1,0 +1,488 @@
+{
+  "generatedOn": "2026-09-18",
+  "results": [
+    {
+      "slug": "adobe-firefly",
+      "url": "https://www.adobe.com/products/firefly/plans.html",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "c16f92848e6e3ed7",
+      "priceCandidates": []
+    },
+    {
+      "slug": "chatbase-hobby",
+      "url": "https://www.chatbase.co/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "11c38a0c7d9f6846",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$25",
+        "$40",
+        "$99",
+        "$150",
+        "$500"
+      ]
+    },
+    {
+      "slug": "chatgpt-plus",
+      "url": "https://openai.com/chatgpt/pricing/",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403"
+    },
+    {
+      "slug": "chatpdf-plus",
+      "url": "https://www.chatpdf.com",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "2ff8b70c0fc5ad1d",
+      "priceCandidates": []
+    },
+    {
+      "slug": "claude-pro",
+      "url": "https://claude.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "d151d81e6df79005",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$0.05",
+        "$0.08",
+        "$0.10",
+        "$0.20",
+        "$0.25",
+        "$0.30",
+        "$0.50",
+        "$1",
+        "$1.25",
+        "$2",
+        "$2.50"
+      ]
+    },
+    {
+      "slug": "copy-ai-chat",
+      "url": "https://www.copy.ai/prices",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "553555689923ad27",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$1,00",
+        "$2,00",
+        "$2.6",
+        "$3,00",
+        "$12,00",
+        "$24",
+        "$24,00",
+        "$29",
+        "$36,00",
+        "$288",
+        "$650"
+      ]
+    },
+    {
+      "slug": "cursor",
+      "url": "https://cursor.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "c1716a7f74518fae",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$20",
+        "$60",
+        "$200"
+      ]
+    },
+    {
+      "slug": "descript-creator",
+      "url": "https://www.descript.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "c360bc88412158d6",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$16",
+        "$24",
+        "$35",
+        "$50",
+        "$65"
+      ]
+    },
+    {
+      "slug": "elevenlabs-creator",
+      "url": "https://elevenlabs.io/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "ca84cceaa4a524d2",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$0.17",
+        "$0.18",
+        "$0.20",
+        "$0.36",
+        "$5",
+        "$6",
+        "$11",
+        "$18.33",
+        "$22",
+        "$82.50",
+        "$99"
+      ]
+    },
+    {
+      "slug": "fireflies-pro",
+      "url": "https://fireflies.ai/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "6a297a4a9c530133",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$10",
+        "$18",
+        "$19",
+        "$29",
+        "$39"
+      ]
+    },
+    {
+      "slug": "freed",
+      "url": "https://www.getfreed.ai/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "30f0b60704f5b526",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$39",
+        "$59",
+        "$79",
+        "$104",
+        "$119",
+        "$149"
+      ]
+    },
+    {
+      "slug": "gamma-plus",
+      "url": "https://gamma.app/pricing",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403"
+    },
+    {
+      "slug": "github-copilot",
+      "url": "https://github.com/features/copilot/plans",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "1db1c619d07148b0",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$0.01",
+        "$5",
+        "$10",
+        "$15",
+        "$31",
+        "$39",
+        "$70",
+        "$100",
+        "$200"
+      ]
+    },
+    {
+      "slug": "google-ai-pro",
+      "url": "https://one.google.com/about/google-ai-plans/",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "03c07d025025489f",
+      "priceCandidates": [
+        "$10",
+        "$20",
+        "$40",
+        "$100"
+      ]
+    },
+    {
+      "slug": "grammarly-pro",
+      "url": "https://www.grammarly.com/plans",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "b68d656d75ccec3a",
+      "priceCandidates": []
+    },
+    {
+      "slug": "heygen-creator",
+      "url": "https://www.heygen.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "65cf2c6dd29996a3",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$4,30",
+        "$20",
+        "$24",
+        "$29",
+        "$49",
+        "$149"
+      ]
+    },
+    {
+      "slug": "higgsfield",
+      "url": "https://higgsfield.ai/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "71d4fff094f5e3cb",
+      "priceCandidates": []
+    },
+    {
+      "slug": "intercom-fin",
+      "url": "https://www.intercom.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "d8122ef1fa41aa04",
+      "priceCandidates": [
+        "$0.01",
+        "$0.99",
+        "$29",
+        "$35",
+        "$85",
+        "$99",
+        "$132"
+      ]
+    },
+    {
+      "slug": "jasper-pro",
+      "url": "https://www.jasper.ai/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "553ee0cddb5948ae",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$59",
+        "$69"
+      ]
+    },
+    {
+      "slug": "lovable-pro",
+      "url": "https://lovable.dev/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "a8c5cf6a8e5706ba",
+      "priceCandidates": []
+    },
+    {
+      "slug": "midjourney-standard",
+      "url": "https://www.midjourney.com/pricing",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403"
+    },
+    {
+      "slug": "monica-pro",
+      "url": "https://monica.im/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "253e8fb1b969dcbd",
+      "priceCandidates": []
+    },
+    {
+      "slug": "notion-ai",
+      "url": "https://www.notion.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "9e0049b5d49e5eea",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$8",
+        "$10"
+      ]
+    },
+    {
+      "slug": "otter-ai-pro",
+      "url": "https://otter.ai/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "10a142c8f2d932cc",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$4",
+        "$6.67",
+        "$8",
+        "$8.33",
+        "$13.59",
+        "$16",
+        "$19",
+        "$19.99",
+        "$24",
+        "$30",
+        "$79.99"
+      ]
+    },
+    {
+      "slug": "perplexity-pro",
+      "url": "https://www.perplexity.ai/pro",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403"
+    },
+    {
+      "slug": "quillbot-premium",
+      "url": "https://quillbot.com/premium",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403",
+      "contentHash": "d07136f038e1907e"
+    },
+    {
+      "slug": "runway-standard",
+      "url": "https://runway.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "dfc3286c2f154d64",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$12",
+        "$15",
+        "$28",
+        "$35",
+        "$36",
+        "$76",
+        "$84",
+        "$95",
+        "$228"
+      ]
+    },
+    {
+      "slug": "rytr-unlimited",
+      "url": "https://rytr.me/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "baf14832ad755e57",
+      "priceCandidates": [
+        "$0",
+        "$7.50",
+        "$24.16"
+      ]
+    },
+    {
+      "slug": "suno-pro",
+      "url": "https://suno.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "53df541ba2f73a3f",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$8",
+        "$24",
+        "$72"
+      ]
+    },
+    {
+      "slug": "wordtune-premium",
+      "url": "https://www.wordtune.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "f0f7998a0057e45f",
+      "priceCandidates": [
+        "$0.00",
+        "$4.89",
+        "$6.99",
+        "$9.99"
+      ]
+    },
+    {
+      "slug": "rate:frontier-large",
+      "url": "https://claude.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "d151d81e6df79005",
+      "priceCandidates": [
+        "$0",
+        "$0.05",
+        "$0.08",
+        "$0.10",
+        "$0.20",
+        "$0.25",
+        "$0.30",
+        "$0.50",
+        "$1",
+        "$1.25",
+        "$2",
+        "$2.50"
+      ]
+    },
+    {
+      "slug": "rate:frontier-small",
+      "url": "https://openai.com/api/pricing/",
+      "status": "unreachable",
+      "checkedOn": "2026-09-18",
+      "priceCandidates": [],
+      "detail": "HTTP 403"
+    },
+    {
+      "slug": "rate:image-gen-api",
+      "url": "https://replicate.com/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "2ea582a53e1dcade",
+      "priceCandidates": [
+        "$0.00",
+        "$0.01",
+        "$0.02",
+        "$0.04",
+        "$0.09",
+        "$0.25",
+        "$0.36",
+        "$0.81",
+        "$3.00",
+        "$3.51",
+        "$3.75",
+        "$5.04"
+      ]
+    },
+    {
+      "slug": "rate:gpu-hour-highend",
+      "url": "https://www.runpod.io/pricing",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "5bea1772ea1ffa4c",
+      "priceCandidates": [
+        "$0.00",
+        "$0.01",
+        "$0.02",
+        "$0.03",
+        "$0.05",
+        "$0.07",
+        "$0.10",
+        "$0.11",
+        "$0.12",
+        "$0.14",
+        "$0.20",
+        "$0.21"
+      ]
+    },
+    {
+      "slug": "rate:web-search-api",
+      "url": "https://brave.com/search/api/",
+      "status": "ok",
+      "checkedOn": "2026-09-18",
+      "contentHash": "23bbfe7a49e4ca3a",
+      "priceCandidates": [
+        "$4",
+        "$5"
+      ]
+    }
+  ]
+}

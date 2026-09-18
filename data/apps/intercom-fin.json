@@ -1,0 +1,67 @@
+{
+  "slug": "intercom-fin",
+  "name": "Intercom Fin",
+  "vendor": "Intercom",
+  "category": "support",
+  "url": "https://www.intercom.com/fin",
+  "pricing": {
+    "tier": "Standalone, per resolution",
+    "monthlyUsd": 297,
+    "billingNote": "$0.99 per Fin outcome, running standalone against an existing helpdesk with no seats. The $297 here is NOT a published price: it is 300 outcomes at $0.99, so this row can sit in a table of monthly figures. Change the volume and the row changes with it. Fin is also bundled into Intercom seat plans at $29, $99 and $139 per seat.",
+    "checkedOn": "2026-09-18"
+  },
+  "usageAssumption": {
+    "description": "300 conversations resolved a month. Each resolution is assumed to take several model turns over retrieved help-centre content — roughly 8,000 tokens of context and 500 of reply — plus keeping that content embedded for retrieval.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 2400000,
+          "outputTokens": 150000
+        },
+        "note": "300 resolutions, multi-turn, over retrieved documentation"
+      },
+      {
+        "modelId": "embedding-standard",
+        "units": {
+          "inputTokens": 3000000
+        },
+        "note": "keeping a help centre embedded and re-embedded as articles change"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A high multiple over inference on a product that charges only when it actually resolves a conversation, and whose real competitor is a human support agent rather than an API call.",
+  "verdictReasoning": "This is the entry that most tests the site's own method. Divide the price by the tokens and the multiple is large. But the comparison the arithmetic implies — that you could do this with an API key — is the wrong one twice over. First, the vendor absorbs every conversation Fin fails to resolve, so the price includes all the attempts you are not billed for. Second, the thing being replaced is a person answering a ticket, which costs many times $0.99 in any market. Outcome pricing also inverts the usual incentive: a vendor paid per resolution loses money when its model is bad, which is a stronger quality guarantee than any benchmark. The multiple is real and the verdict still goes the other way.",
+  "valueAddTags": [
+    "eval-harness",
+    "integrations",
+    "orchestration"
+  ],
+  "valueAddNotes": "Deciding whether an answer actually resolved a conversation is the hard problem, and the entire pricing model rests on getting it right — that is an evaluation harness with money attached. Around it sit helpdesk integrations, escalation handling, and the retrieval layer over a customer's own documentation.",
+  "whatYouLose": "Billing that only charges for outcomes, the judgement about when to escalate to a human, and connectors into the helpdesk you already run. A self-built bot bills you for every failed attempt, because your API provider charges by the token regardless of whether the customer went away happy.",
+  "diyPath": "A retrieval bot over your help centre with your own key is an afternoon's work and would cost a fraction of this per conversation. It will also answer confidently when it should escalate, and you pay for those answers too — which is the difference the price is charging for.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Intercom pricing",
+      "url": "https://www.intercom.com/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The recorded monthly figure is derived from a stated volume — 300 outcomes at $0.99 — rather than being a price Intercom publishes, so it can never appear on the pricing page. The figure to watch here is the $0.99 per-outcome rate, which the page does carry."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-09-18"
+  },
+  "lastReviewed": "2026-09-18"
+}

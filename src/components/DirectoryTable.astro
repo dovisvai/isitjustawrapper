@@ -1,0 +1,184 @@
+---
+import VerdictChip from './VerdictChip.astro';
+import { CATEGORIES, VALUE_ADD_TAGS } from '../schema.ts';
+import { price, money, multiple, CATEGORY_LABELS, TAG_LABELS } from '../lib/format.ts';
+import type { Entry } from '../lib/data.ts';
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+
+const usedCategories = CATEGORIES.filter((c) => entries.some((e) => e.app.category === c));
+const usedTags = VALUE_ADD_TAGS.filter((t) => entries.some((e) => e.app.valueAddTags.includes(t)));
+---
+
+{/* Hidden until the island boots: a filter bar that does not filter is worse than no filter bar. */}
+<div class="filters" id="filters" hidden>
+  <div class="filters__field filters__search">
+    <label for="f-search">Search</label>
+    <input type="search" id="f-search" placeholder="name, vendor, category…" autocomplete="off" />
+  </div>
+  <div class="filters__field">
+    <label for="f-verdict">Verdict</label>
+    <select id="f-verdict">
+      <option value="">All</option>
+      <option value="fair">Fair</option>
+      <option value="steep">Steep</option>
+      <option value="wrapper">Wrapper</option>
+    </select>
+  </div>
+  <div class="filters__field">
+    <label for="f-category">Category</label>
+    <select id="f-category">
+      <option value="">All</option>
+      {usedCategories.map((c) => <option value={c}>{CATEGORY_LABELS[c]}</option>)}
+    </select>
+  </div>
+  <div class="filters__field">
+    <label for="f-tag">Paying for</label>
+    <select id="f-tag">
+      <option value="">Anything</option>
+      {usedTags.map((t) => <option value={t}>{TAG_LABELS[t]}</option>)}
+    </select>
+  </div>
+  <p class="filters__count" id="f-count" role="status" aria-live="polite"></p>
+</div>
+
+<div class="table-scroll">
+  <table class="directory" id="directory">
+    <caption>
+      <span class="directory__note">
+        Estimated markup over inference cost. Every figure is an estimate; every price is dated on its own page.
+      </span>
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col" data-sort="name"><button type="button">Product</button></th>
+        <th scope="col" class="col-hide-sm" data-sort="category"><button type="button">Category</button></th>
+        <th scope="col" class="num" data-sort="price"><button type="button">Price / mo</button></th>
+        <th scope="col" class="num col-hide-sm" data-sort="cost"><button type="button">Est. API cost</button></th>
+        <th scope="col" class="num" data-sort="multiple" aria-sort="descending">
+          <button type="button">Multiple</button>
+        </th>
+        <th scope="col" data-sort="verdict"><button type="button">Verdict</button></th>
+      </tr>
+    </thead>
+    <tbody id="directory-body">
+      {
+        entries.map((e, i) => (
+          <tr
+            /* Row index drives the staggered lamp ramp; see components.css. */
+            style={`--row:${i}`}
+            data-name={`${e.app.name} ${e.app.vendor} ${e.app.category}`.toLowerCase()}
+            data-category={e.app.category}
+            data-verdict={e.app.verdict}
+            data-tags={e.app.valueAddTags.join(' ')}
+            data-price={e.app.pricing.monthlyUsd}
+            data-cost={e.cost.totalUsd}
+            data-multiple={e.cost.markupMultiple ?? 0}
+            data-verdict-rank={{ fair: 0, steep: 1, wrapper: 2 }[e.app.verdict]}
+          >
+            <td class="col-name">
+              <a href={`/app/${e.app.slug}`}>{e.app.name}</a>
+              <span class="meta">
+                {e.app.vendor} · {e.app.pricing.tier}
+              </span>
+            </td>
+            <td class="col-hide-sm">
+              <span class="tag">{CATEGORY_LABELS[e.app.category]}</span>
+            </td>
+            <td class="num">{price(e.app.pricing.monthlyUsd)}</td>
+            <td class="num col-hide-sm">{money(e.cost.totalUsd)}</td>
+            {/* The stub: the focal number, behind a perforation. */}
+            <td class="col-multiple perf">
+              {multiple(e.cost.markupMultiple)}
+              {e.cost.markupMultiple !== null && e.cost.markupMultiple < 1 && (
+                <span class="below-cost">below cost</span>
+              )}
+            </td>
+            <td class="col-verdict">
+              <VerdictChip verdict={e.app.verdict} dot />
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+  <p class="empty-state" id="empty" hidden>Nothing matches those filters.</p>
+</div>
+
+<script>
+  // Vanilla, no framework. Filtering toggles `hidden` on rows; sorting reorders
+  // them in the tbody. The table is fully rendered server-side, so with
+  // JavaScript off the directory still works — it just does not filter.
+  const table = document.getElementById('directory') as HTMLTableElement | null;
+  const body = document.getElementById('directory-body');
+  const filters = document.getElementById('filters');
+  const countEl = document.getElementById('f-count');
+  const emptyEl = document.getElementById('empty');
+  if (!table || !body || !filters || !countEl || !emptyEl) throw new Error('directory markup missing');
+
+  filters.hidden = false;
+
+  const rows = Array.from(body.rows);
+  const search = document.getElementById('f-search') as HTMLInputElement;
+  const verdict = document.getElementById('f-verdict') as HTMLSelectElement;
+  const category = document.getElementById('f-category') as HTMLSelectElement;
+  const tag = document.getElementById('f-tag') as HTMLSelectElement;
+
+  const num = (row: HTMLTableRowElement, key: string) => Number(row.dataset[key] ?? 0);
+
+  function apply() {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    for (const row of rows) {
+      const visible =
+        (!q || (row.dataset.name ?? '').includes(q)) &&
+        (!verdict.value || row.dataset.verdict === verdict.value) &&
+        (!category.value || row.dataset.category === category.value) &&
+        (!tag.value || (row.dataset.tags ?? '').split(' ').includes(tag.value));
+      row.hidden = !visible;
+      if (visible) shown++;
+    }
+    countEl.textContent = shown === rows.length ? `${rows.length} products` : `${shown} of ${rows.length}`;
+    emptyEl.hidden = shown > 0;
+  }
+
+  // Sort state lives on the th via aria-sort, so screen readers get it for free.
+  let sortKey = 'multiple';
+  let descending = true;
+
+  function sort(key: string) {
+    if (key === sortKey) descending = !descending;
+    else {
+      sortKey = key;
+      // Text sorts read better ascending; numeric ones read better descending.
+      descending = key !== 'name' && key !== 'category';
+    }
+
+    const compare = (a: HTMLTableRowElement, b: HTMLTableRowElement) => {
+      let result: number;
+      if (sortKey === 'name') result = (a.dataset.name ?? '').localeCompare(b.dataset.name ?? '');
+      else if (sortKey === 'category') result = (a.dataset.category ?? '').localeCompare(b.dataset.category ?? '');
+      else if (sortKey === 'verdict') result = num(a, 'verdictRank') - num(b, 'verdictRank');
+      else result = num(a, sortKey) - num(b, sortKey);
+      return descending ? -result : result;
+    };
+
+    for (const row of [...rows].sort(compare)) body.appendChild(row);
+
+    for (const th of table!.tHead!.rows[0]!.cells) {
+      if (th.dataset.sort === sortKey) th.setAttribute('aria-sort', descending ? 'descending' : 'ascending');
+      else th.removeAttribute('aria-sort');
+    }
+  }
+
+  for (const th of table.tHead!.rows[0]!.cells) {
+    th.querySelector('button')?.addEventListener('click', () => sort(th.dataset.sort!));
+  }
+  for (const control of [search, verdict, category, tag]) control.addEventListener('input', apply);
+
+  apply();
+</script>

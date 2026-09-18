@@ -1,0 +1,55 @@
+{
+  "slug": "copy-ai-chat",
+  "name": "Copy.ai Chat",
+  "vendor": "Copy.ai",
+  "category": "writing",
+  "url": "https://www.copy.ai",
+  "pricing": {
+    "tier": "Chat",
+    "monthlyUsd": 29,
+    "billingNote": "$29/month billed monthly; $24/month equivalent on annual billing at $288 up front. The self-serve tiers above this jump to $1,000/month and are aimed at go-to-market teams rather than individual writers, so they are not covered by this entry.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "80 marketing pieces a month — ad variants, product descriptions, email copy — at roughly 1,200 input and 800 output tokens each, generated on a mid-tier frontier model.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 96000,
+          "outputTokens": 64000
+        },
+        "note": "80 generations including workflow and brand context"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Marketing copy generated through saved workflows over third-party models, at an estimated multiple in the twenties on typical individual usage.",
+  "verdictReasoning": "The generation runs on models Copy.ai licenses rather than trains, and at this volume the estimated token bill is a little over a dollar. The workflow builder is a real piece of software and the higher tiers sell something different — orchestration across a sales stack, at prices that imply a different buyer entirely. For the individual writer paying twenty-nine dollars, the interface and the saved prompts are what the money buys, and both are reproducible.",
+  "valueAddTags": [
+    "ux-craft",
+    "orchestration"
+  ],
+  "valueAddNotes": "Saved workflows and brand context spare a team from managing prompts, and the automation layer above this tier is genuinely more than a text box. At the entry tier a writer is mostly paying for organisation rather than capability.",
+  "whatYouLose": "Workflows you did not have to build, and a shared place for a team's prompts to live. For someone who does not want to think about prompting, that convenience is the product.",
+  "diyPath": "A shared prompt library in any assistant subscription covers the individual case. For a team, a small internal tool over an API key reaches parity on the entry tier quickly, though not on the automation tiers above it.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Copy.ai pricing",
+      "url": "https://www.copy.ai/prices"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

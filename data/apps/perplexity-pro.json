@@ -1,0 +1,64 @@
+{
+  "slug": "perplexity-pro",
+  "name": "Perplexity Pro",
+  "vendor": "Perplexity AI",
+  "category": "search",
+  "url": "https://www.perplexity.ai",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 20,
+    "billingNote": "$20/month billed monthly; an annual rate is advertised lower. Pro is frequently bundled free for a year through carrier and hardware promotions, which many subscribers are on.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "A regular research user: 100 searches a month, each running one web search and then answering over roughly 12,000 tokens of retrieved page text.",
+    "components": [
+      {
+        "modelId": "web-search-api",
+        "units": {
+          "queries": 100
+        },
+        "note": "one search API call per question"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 1200000,
+          "outputTokens": 70000
+        },
+        "note": "grounded answer over retrieved passages, with citations"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "A grounded answer costs real money on both sides — the search call and the long retrieved context — and the estimated multiple stays in low single digits.",
+  "verdictReasoning": "Retrieval-augmented search is one of the few consumer AI products where the non-model costs are genuinely large: every question pays for crawling or a search API before a token is generated, and the retrieved context makes the input side of the model bill unusually heavy. A single-digit multiple over that combined cost is not where the site's attention belongs.",
+  "valueAddTags": [
+    "data-pipeline",
+    "orchestration",
+    "ux-craft"
+  ],
+  "valueAddNotes": "The index and the freshness are the asset. Query rewriting, source selection, deduplication and citation alignment are all work that sits between the search call and the answer, and all of it degrades quietly rather than failing loudly when done badly.",
+  "whatYouLose": "Citations that line up with the sentences they support, a retrieval layer tuned over a large query volume, and freshness on fast-moving topics.",
+  "diyPath": "A search API key plus a model call gets you a working clone in an afternoon. Getting citations to actually match the claims is the part that takes months.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Perplexity Pro",
+      "url": "https://www.perplexity.ai/pro"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Brave Search API pricing",
+      "url": "https://brave.com/search/api/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11",
+    "note": "Price basis standardised to monthly billing on 2026-08-11. The page was checked by @dovisvai on the same day; only which advertised rate the entry headlines has changed."
+  },
+  "lastReviewed": "2026-08-11"
+}

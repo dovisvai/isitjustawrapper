@@ -1,0 +1,91 @@
+---
+import { SPONSOR_SLOT_COUNT } from '../schema.ts';
+import { loadSponsors } from '../lib/data.ts';
+
+interface Props {
+  /**
+   * `marquee` is the home-page ticker of all 20 slots; `grid` is the static wall on
+   * /sponsor. `rail` is the plain non-animated row, kept for anywhere that wants one.
+   */
+  mode?: 'marquee' | 'rail' | 'grid';
+}
+
+const { mode = 'marquee' } = Astro.props;
+const sponsors = loadSponsors();
+const filled = sponsors.filter((s) => s.status === 'filled');
+const available = SPONSOR_SLOT_COUNT - filled.length;
+---
+
+<section aria-labelledby="sponsors-heading" class={mode === 'marquee' ? 'sponsor-strip' : undefined}>
+  <h2 id="sponsors-heading" class="visually-hidden">Sponsors</h2>
+
+  {
+    mode === 'marquee' ? (
+      <>
+        {/*
+          Two identical sets inside one track, translated by exactly half its width, so
+          the loop is seamless. The second set is aria-hidden: a screen reader should
+          hear twenty slots, not forty.
+        */}
+        <div class="marquee">
+          <div class="marquee__track">
+            {[false, true].map((isClone) => (
+              <ul class="marquee__set" aria-hidden={isClone ? 'true' : undefined}>
+                {sponsors.map((s) => (
+                  <li>
+                    {s.status === 'filled' ? (
+                      <a
+                        class="sponsor sponsor--marquee sponsor--live"
+                        href={`/go/${s.slot}`}
+                        rel="sponsored noopener"
+                        target="_blank"
+                        tabindex={isClone ? -1 : undefined}
+                      >
+                        <span class="sponsor__slot">Slot {String(s.slot).padStart(2, '0')}</span>
+                        <span class="sponsor__name">{s.name}</span>
+                      </a>
+                    ) : (
+                      <a
+                        class="sponsor sponsor--ghost sponsor--marquee"
+                        href="/sponsor"
+                        tabindex={isClone ? -1 : undefined}
+                      >
+                        <span class="sponsor__slot-n">{String(s.slot).padStart(2, '0')}</span>
+                        <span>Slot available</span>
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+        <p class="small muted sponsor-strip__note">
+          {filled.length} of {SPONSOR_SLOT_COUNT} sponsor slots sold ·{' '}
+          <a href="/sponsor">sponsorship never affects a verdict</a>.
+        </p>
+      </>
+    ) : (
+      <ul class="sponsor-rail">
+        {sponsors.map((s) =>
+          s.status === 'filled' ? (
+            <li class="sponsor">
+              <span class="sponsor__slot">Sponsor · slot {String(s.slot).padStart(2, '0')}</span>
+              <a class="sponsor__name" href={`/go/${s.slot}`} rel="sponsored noopener" target="_blank">
+                {s.name}
+              </a>
+              <span class="sponsor__pitch">{s.pitch}</span>
+            </li>
+          ) : (
+            <li>
+              <a class="sponsor sponsor--available" href="/sponsor">
+                <span class="sponsor__slot-n">{String(s.slot).padStart(2, '0')}</span>
+                <span>Slot available</span>
+              </a>
+            </li>
+          ),
+        )}
+      </ul>
+    )
+  }
+</section>

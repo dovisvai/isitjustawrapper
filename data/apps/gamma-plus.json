@@ -1,0 +1,66 @@
+{
+  "slug": "gamma-plus",
+  "name": "Gamma Plus",
+  "vendor": "Gamma",
+  "category": "productivity",
+  "url": "https://gamma.app",
+  "pricing": {
+    "tier": "Plus",
+    "monthlyUsd": 12,
+    "billingNote": "$12/month month-to-month. Gamma sells credits rather than seats at the lower tiers, and annual billing is advertised meaningfully lower. The pricing page renders client-side, so this figure cannot be machine-checked and is confirmed by hand.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "20 decks a month generated from a prompt or an outline: text for a dozen slides each, plus a couple of generated images per deck.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 100000,
+          "outputTokens": 80000
+        },
+        "note": "20 decks; outlines in, slide copy out"
+      },
+      {
+        "modelId": "image-gen-api",
+        "units": {
+          "images": 40
+        },
+        "note": "two generated images per deck"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "steep",
+  "verdictSummary": "Deck generation where the layout engine is the genuine achievement and the model contribution is a modest amount of text and a few images.",
+  "verdictReasoning": "The hard part of Gamma is not writing slide copy — it is making generated content land on a page that looks designed, at any length, without a human nudging boxes. That layout engine is real software and it is why the product is used as widely as it is. The model layer on top of it is thin and runs on licensed models, and the alternatives have closed considerably now that general assistants export presentations. Steep rather than wrapper because the thing you are paying for demonstrably is not the generation; it is just that the generation is what the marketing emphasises.",
+  "valueAddTags": [
+    "ux-craft",
+    "distribution"
+  ],
+  "valueAddNotes": "Automatic layout that survives arbitrary content length is the product, and it is genuinely difficult. Sharing, analytics and the web-native format around it are the rest of what a paid seat buys.",
+  "whatYouLose": "Decks that look composed without opening a design tool, and a format that works as a link rather than a file. Reproducing that with a general assistant means accepting worse layout.",
+  "diyPath": "A general assistant can draft the content and export to slides; the result is less polished. For anyone who wanted a document rather than a deck, that gap may not matter.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Gamma pricing",
+      "url": "https://gamma.app/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Replicate pricing",
+      "url": "https://replicate.com/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing page renders entirely client-side; no dollar figure appears in the served HTML for an automated check to match against."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

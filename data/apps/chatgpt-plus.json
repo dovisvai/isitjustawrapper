@@ -1,0 +1,56 @@
+{
+  "slug": "chatgpt-plus",
+  "name": "ChatGPT Plus",
+  "vendor": "OpenAI",
+  "category": "assistant",
+  "url": "https://chatgpt.com",
+  "pricing": {
+    "tier": "Plus",
+    "monthlyUsd": 20,
+    "billingNote": "Billed monthly. Higher Pro and Business tiers exist and are not covered by this entry. OpenAI blocks automated requests to its pricing pages, so this figure cannot be machine-checked and is confirmed by hand.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "A daily user with 200 conversations a month, each carrying roughly 10,000 tokens of accumulated context and returning 700 tokens, answered by a large frontier model.",
+    "components": [
+      {
+        "modelId": "frontier-large",
+        "units": {
+          "inputTokens": 2000000,
+          "outputTokens": 140000
+        },
+        "note": "200 conversations at typical consumer thread length"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "Like other first-party assistant subscriptions, a daily user's conversations are estimated to cost more through the published API than the subscription charges.",
+  "verdictReasoning": "This is the product most people mean when they say they pay for AI, and it is not a wrapper around anything — it is the model vendor selling access to its own model. The flat fee sits below the estimated API cost of the assumed usage, which is what a subsidised consumer tier looks like. Bundled tools and image generation are not priced in here at all, so the real gap is wider than shown.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra",
+    "distribution"
+  ],
+  "valueAddNotes": "In-house models plus the serving capacity to answer at consumer scale, and a client most people can use without instruction. The bundled extras — browsing, image generation, data analysis, voice — are additional inference this estimate does not attempt to price.",
+  "whatYouLose": "The specific models and everything bundled around them. There is no cheaper route to the same product, only routes to different products.",
+  "diyPath": "The API with your own client, which is cheaper for light use and more expensive at the volume assumed here. Open-weight models running locally are free of marginal cost and are not the same thing.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "ChatGPT pricing",
+      "url": "https://openai.com/chatgpt/pricing/"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

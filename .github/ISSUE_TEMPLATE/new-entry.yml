@@ -1,0 +1,47 @@
+name: Suggest a product
+description: A product that should be in the directory but is not.
+title: "[entry] "
+labels: ["new entry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggestions are welcome. Entries with a public, checkable price get added fastest — if the price is only visible
+        after signing up, the entry cannot meet the site's sourcing standard and will sit unpublished.
+
+        Want to write it yourself? `npm run admin:new` prompts for every field and validates before it writes. See
+        [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: product
+    attributes:
+      label: Product and vendor
+      placeholder: Example AI Writer, by Example Inc
+    validations:
+      required: true
+
+  - type: input
+    id: pricing-url
+    attributes:
+      label: Pricing page URL
+      description: Must be a page anyone can open without an account.
+    validations:
+      required: true
+
+  - type: input
+    id: price
+    attributes:
+      label: Month-to-month price and tier
+      placeholder: "$29/month, Pro tier"
+    validations:
+      required: false
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is this worth listing?
+      description: >
+        The directory is more useful when it covers products people actually weigh up. Interesting cases include
+        anything where the answer is genuinely unclear — not only the obvious ones.
+    validations:
+      required: false

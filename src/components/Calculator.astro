@@ -1,0 +1,137 @@
+---
+import type { Entry } from '../lib/data.ts';
+
+interface Props {
+  entries: Entry[];
+  /** When set, the calculator is pinned to one product and the picker is hidden. */
+  slug?: string;
+}
+
+const { entries, slug } = Astro.props;
+
+// Only what the island needs, so the payload stays small.
+const payload = entries.map((e) => ({
+  slug: e.app.slug,
+  name: e.app.name,
+  tier: e.app.pricing.tier,
+  price: e.app.pricing.monthlyUsd,
+  assumption: e.app.usageAssumption.description,
+  cost: e.cost.totalUsd,
+}));
+---
+
+<div class="calc" id="calc" data-pinned={slug ?? ''}>
+  <h3 class="receipt__heading">Recompute this for your own usage</h3>
+
+  <div class="calc__controls">
+    {
+      !slug && (
+        <div class="calc__field">
+          <label for="c-app">Product</label>
+          <select id="c-app">
+            {payload.map((p) => (
+              <option value={p.slug}>{p.name}</option>
+            ))}
+          </select>
+        </div>
+      )
+    }
+    <div class="calc__field">
+      <label for="c-usage">Your usage (% of ours)</label>
+      <input type="number" id="c-usage" value="100" min="0" max="100000" step="10" />
+    </div>
+    <div class="calc__field">
+      <label for="c-price">Price you pay / mo</label>
+      <input type="number" id="c-price" min="0" step="0.01" />
+    </div>
+  </div>
+
+  <p class="small muted" id="c-assumption"></p>
+
+  <div class="calc__out">
+    <div class="field">
+      <span class="field__label">Your estimated cost</span>
+      <span class="field__value num" id="c-cost">—</span>
+    </div>
+    <div class="field">
+      <span class="field__label">Your markup</span>
+      <span class="field__value num" id="c-multiple" style="font-size:1.4rem;font-weight:700">—</span>
+    </div>
+    <div class="field">
+      <span class="field__label">Cost per unit of our assumption</span>
+      <span class="field__value num" id="c-unit">—</span>
+    </div>
+  </div>
+
+  <p class="small muted" style="margin-top:.8rem;margin-bottom:0">
+    Scaling assumes your usage has the same shape as ours, just more or less of it. If your mix is different — far more
+    output than input, say — the estimate drifts. It is an estimate either way.
+  </p>
+</div>
+
+<script type="application/json" id="calc-data" set:html={JSON.stringify(payload)} />
+
+<script>
+  interface Row {
+    slug: string;
+    name: string;
+    tier: string;
+    price: number;
+    assumption: string;
+    cost: number;
+  }
+
+  const root = document.getElementById('calc');
+  const dataEl = document.getElementById('calc-data');
+  if (root && dataEl) {
+    const rows: Row[] = JSON.parse(dataEl.textContent || '[]');
+    const pinned = root.dataset.pinned || '';
+
+    const appSel = document.getElementById('c-app') as HTMLSelectElement | null;
+    const usageEl = document.getElementById('c-usage') as HTMLInputElement;
+    const priceEl = document.getElementById('c-price') as HTMLInputElement;
+    const assumptionEl = document.getElementById('c-assumption')!;
+    const costEl = document.getElementById('c-cost')!;
+    const multipleEl = document.getElementById('c-multiple')!;
+    const unitEl = document.getElementById('c-unit')!;
+
+    const usd = (n: number) =>
+      n > 0 && n < 0.01 ? '<$0.01' : n.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+    function current(): Row | undefined {
+      const slug = pinned || appSel?.value;
+      return rows.find((r) => r.slug === slug) ?? rows[0];
+    }
+
+    function reset() {
+      const row = current();
+      if (!row) return;
+      priceEl.value = String(row.price);
+      assumptionEl.textContent = `Our assumption for ${row.name} (${row.tier}): ${row.assumption}`;
+      render();
+    }
+
+    function render() {
+      const row = current();
+      if (!row) return;
+      const factor = Math.max(0, Number(usageEl.value) || 0) / 100;
+      const paid = Math.max(0, Number(priceEl.value) || 0);
+      const cost = row.cost * factor;
+
+      costEl.textContent = usd(cost);
+      unitEl.textContent = `${usd(row.cost)} at 100%`;
+
+      if (cost <= 0) {
+        multipleEl.textContent = 'n/a';
+        return;
+      }
+      const m = paid / cost;
+      multipleEl.textContent = m < 1 ? `${m.toFixed(2)}×` : m < 10 ? `${m.toFixed(1)}×` : `${Math.round(m)}×`;
+    }
+
+    appSel?.addEventListener('change', reset);
+    usageEl.addEventListener('input', render);
+    priceEl.addEventListener('input', render);
+    reset();
+  }
+</script>

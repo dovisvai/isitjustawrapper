@@ -1,0 +1,58 @@
+{
+  "slug": "rytr-unlimited",
+  "name": "Rytr Unlimited",
+  "vendor": "Rytr",
+  "category": "writing",
+  "url": "https://rytr.me",
+  "pricing": {
+    "tier": "Unlimited",
+    "monthlyUsd": 9,
+    "billingNote": "$9/month month-to-month. The pricing page's yearly toggle shows the same tier at $7.50/month equivalent, and Premium at $24.16/month. A free tier with a monthly character cap exists.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "100 short pieces a month — captions, emails, product blurbs — at roughly 600 input and 500 output tokens each, priced against a small fast model.",
+    "components": [
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 60000,
+          "outputTokens": 50000
+        },
+        "note": "100 short-form generations from use-case templates"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Short-form copy generated from a use-case menu over third-party models, at an estimated multiple in the mid-thirties on a low absolute price.",
+  "verdictReasoning": "A high multiple on a small number: nine dollars against an estimated quarter of a dollar in tokens. The absolute price is low enough that the multiple may not matter to a buyer, and that is a legitimate way to feel about it. What the entry records is that essentially all of the price is the menu of use cases and the interface around it, not the generation.",
+  "valueAddTags": [
+    "ux-craft"
+  ],
+  "valueAddNotes": "A tidy use-case menu that removes prompt-writing for people who do not want to learn it. Cheap enough that the comparison to running it yourself is closer than the multiple suggests, once your own time is counted.",
+  "whatYouLose": "A curated list of use cases and a simple editor. For a non-technical user, the fifteen minutes of setup a self-built alternative needs may be the deciding cost.",
+  "diyPath": "Any free assistant tier handles this volume of short-form copy. With an API key, the estimated monthly cost at this usage is well under a dollar.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Rytr pricing",
+      "url": "https://rytr.me/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing page renders figures client-side behind a monthly/yearly toggle, so the month-to-month price never appears in the served HTML — only the annual equivalent does."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

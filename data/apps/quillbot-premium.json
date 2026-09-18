@@ -1,0 +1,59 @@
+{
+  "slug": "quillbot-premium",
+  "name": "QuillBot Premium",
+  "vendor": "QuillBot (Learneo)",
+  "category": "writing",
+  "url": "https://quillbot.com",
+  "pricing": {
+    "tier": "Premium",
+    "monthlyUsd": 19.95,
+    "billingNote": "US list price, billed monthly. QuillBot prices by region — an automated check from outside the US returned Thai baht — so what a reader pays depends on where they are. The free tier paraphrases with a word limit and is the comparison most students should be making.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "A heavy student user: 200 paraphrasing or summarising operations a month, each around 800 tokens in and 800 out, on a small fast model.",
+    "components": [
+      {
+        "modelId": "frontier-small",
+        "units": {
+          "inputTokens": 160000,
+          "outputTokens": 160000
+        },
+        "note": "200 paraphrase and summarise operations on paragraph-sized text"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Paraphrasing and summarising at paragraph scale, where the operation is small, the model does not need to be large, and the interface is what the subscription buys.",
+  "verdictReasoning": "Rewriting a paragraph is among the cheapest useful things a language model does, which puts a wide gap between this price and the tokens behind it. The product's real position is distribution rather than capability: it is the tool a very large number of students already have open, with modes and a word counter arranged for coursework. That is worth something, and it is not the model. Regional pricing complicates the comparison further — what a reader pays depends on where they are, which the multiple shown here cannot express.",
+  "valueAddTags": [
+    "ux-craft",
+    "distribution"
+  ],
+  "valueAddNotes": "Purpose-built modes, a grammar checker and a citation generator arranged around student work, plus enormous reach among people who will never open an API console. The bundle is the product; each part of it is individually thin.",
+  "whatYouLose": "A tool shaped for coursework rather than a blank chat box, and the habit of already having it open. For its actual audience that framing matters more than capability does.",
+  "diyPath": "The free tier covers occasional use. Any assistant subscription paraphrases on request, and at this volume an API key would cost well under a dollar a month in tokens.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "QuillBot Premium",
+      "url": "https://quillbot.com/premium"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "The pricing page serves figures in the currency of the requester's region, so an automated check from one location cannot confirm the US list price recorded here."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

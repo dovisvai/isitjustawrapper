@@ -1,0 +1,56 @@
+{
+  "slug": "jasper-pro",
+  "name": "Jasper Pro",
+  "vendor": "Jasper AI",
+  "category": "writing",
+  "url": "https://www.jasper.ai",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 69,
+    "billingNote": "$69 per seat per month on monthly billing; $59 per seat per month on annual, which the page advertises as roughly 20% off. Business pricing is quoted rather than published. The earlier 'Creator' tier this entry was first written against no longer appears on the pricing page.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "60 marketing pieces a month — blog sections, ad variants, product descriptions — at roughly 1,500 input and 900 output tokens each.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 90000,
+          "outputTokens": 54000
+        },
+        "note": "60 generations including template and brand-voice preamble"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "wrapper",
+  "verdictSummary": "Marketing copy generated through templates over third-party models, at an estimated multiple in the sixties on typical usage.",
+  "verdictReasoning": "The generation runs on models Jasper licenses rather than trains, and at this volume the estimated token bill is around a dollar. Template libraries, brand voice settings and campaign organisation are real features and some teams value them highly. The verdict reflects where the money goes rather than whether the software is any good: at this multiple, the interface and the workflow are what is being sold, and both are reproducible. A team buying several seats should note the multiple applies per seat.",
+  "valueAddTags": [
+    "ux-craft",
+    "integrations"
+  ],
+  "valueAddNotes": "Template libraries, brand voice profiles and campaign structure are meaningful for a marketing team that does not want to manage prompts. Reproducing the organisational layer is a weekend for one person and an ongoing annoyance for a team.",
+  "whatYouLose": "Templates you did not have to write, brand voice consistency across a team, and a workflow non-technical marketers can use without touching a prompt.",
+  "diyPath": "A shared prompt library in any assistant subscription covers most of it. For a team, a small internal tool over an API key with saved brand-voice prompts reaches parity quickly.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Jasper pricing",
+      "url": "https://www.jasper.ai/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Anthropic API pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11",
+    "note": "Price basis standardised to monthly billing on 2026-08-11. The page was checked by @dovisvai on the same day; only which advertised rate the entry headlines has changed."
+  },
+  "lastReviewed": "2026-08-11"
+}

@@ -1,0 +1,51 @@
+{
+  "name": "is-it-just-a-wrapper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A public directory estimating how much of an AI product's price is inference cost and how much is everything else.",
+  "license": "MIT",
+  "homepage": "https://isitjustawrapper.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dovisvai/isitjustawrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dovisvai/isitjustawrapper/issues"
+  },
+  "keywords": [
+    "ai-pricing",
+    "transparency",
+    "directory",
+    "astro"
+  ],
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "dev:functions": "npm run build && npx wrangler pages dev dist",
+    "build": "npm run validate && astro build && tsx scripts/csp-hashes.ts",
+    "preview": "astro preview",
+    "admin": "tsx scripts/admin.ts",
+    "admin:verify": "tsx scripts/admin.ts verify",
+    "admin:new": "tsx scripts/admin.ts new",
+    "admin:price": "tsx scripts/admin.ts price",
+    "admin:sponsor": "tsx scripts/admin.ts sponsor",
+    "validate": "tsx scripts/validate.ts",
+    "check:publish": "tsx scripts/validate.ts --require-verified",
+    "watch:prices": "tsx scripts/watch-prices.ts",
+    "watch:prices:ci": "tsx scripts/watch-prices.ts --ci",
+    "screenshot": "tsx scripts/screenshot.ts"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.3",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260918.1",
+    "playwright-core": "^1.63.0",
+    "tsx": "^4.23.13"
+  }
+}

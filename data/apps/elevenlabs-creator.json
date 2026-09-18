@@ -1,0 +1,54 @@
+{
+  "slug": "elevenlabs-creator",
+  "name": "ElevenLabs Creator",
+  "vendor": "ElevenLabs",
+  "category": "audio",
+  "url": "https://elevenlabs.io",
+  "pricing": {
+    "tier": "Creator",
+    "monthlyUsd": 22,
+    "billingNote": "$22/month at list, with a discounted first month commonly advertised. Billed in credits rather than minutes, and overage is charged per credit.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "100,000 characters of synthesised speech a month — roughly two hours of finished audio — priced against a commodity hosted text-to-speech API.",
+    "components": [
+      {
+        "modelId": "tts-standard",
+        "units": {
+          "characters": 100000
+        },
+        "note": "~2 hours of narration"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "An estimated mid-teens multiple over commodity speech synthesis, buying voice models that commodity synthesis does not sound like.",
+  "verdictReasoning": "The comparison here is deliberately unflattering to the vendor: it prices the work against the cheapest hosted synthesis available, which does not sound the same. The weights are trained in-house and the output quality is the reason people buy, which is exactly the situation the proprietary-model tag exists for. Voice cloning also carries consent and misuse obligations that a raw API does not hand you.",
+  "valueAddTags": [
+    "proprietary-model",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Trained voice models rather than a prompt over someone else's TTS, plus low-latency streaming synthesis and a voice library with consent handling attached. The quality gap against commodity synthesis is audible in the first sentence.",
+  "whatYouLose": "The specific voice quality, cloning from short samples, streaming latency, and the licensing framework around voices that makes commercial use straightforward.",
+  "diyPath": "Open speech models such as XTTS or Piper run on a rented GPU for a fraction of this. They are genuinely usable, and they are also audibly not the same product.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "ElevenLabs pricing",
+      "url": "https://elevenlabs.io/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing (speech)",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

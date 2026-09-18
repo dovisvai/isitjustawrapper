@@ -1,0 +1,64 @@
+{
+  "slug": "otter-ai-pro",
+  "name": "Otter.ai Pro",
+  "vendor": "Otter.ai",
+  "category": "meetings",
+  "url": "https://otter.ai",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 16.99,
+    "billingNote": "$16.99/user/month billed monthly; the annual rate is advertised at roughly half that, which roughly halves the multiple shown here. A free tier with a lower monthly minute cap exists.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "400 minutes of meetings transcribed a month — about five hours of calls a week — plus 15 generated summaries with action items.",
+    "components": [
+      {
+        "modelId": "asr-standard",
+        "units": {
+          "audioMinutes": 400
+        },
+        "note": "meeting audio transcribed with speaker separation"
+      },
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 225000,
+          "outputTokens": 13500
+        },
+        "note": "15 meeting summaries with action-item extraction"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "steep",
+  "verdictSummary": "An estimated five-fold multiple over transcription and summarisation, in the category where the do-it-yourself path is unusually easy to walk.",
+  "verdictReasoning": "Joining calendars, sitting in meetings as a bot and separating speakers reliably is more work than a weekend, and the calendar integrations are a real maintenance burden. Transcription is also the category where open models got good enough fastest: self-hosted Whisper is genuinely competitive, which makes a five-fold multiple harder to defend here than the same multiple would be elsewhere. On annual billing this moves close to fair.",
+  "valueAddTags": [
+    "integrations",
+    "ux-craft",
+    "scale-infra"
+  ],
+  "valueAddNotes": "Calendar connections, a meeting bot that reliably joins across Zoom, Meet and Teams, speaker diarisation, and a searchable archive. The bot joining correctly every time is worth more than it sounds and breaks constantly when self-built.",
+  "whatYouLose": "Automatic joining and recording without anyone remembering to press a button, plus the shared searchable archive your colleagues also use.",
+  "diyPath": "Whisper self-hosted or via API over a local recording, then any model for summaries. Cheap and accurate. You lose the calendar automation and the bot, and you will notice.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Otter.ai pricing",
+      "url": "https://otter.ai/pricing"
+    },
+    {
+      "kind": "rate-card",
+      "label": "OpenAI API pricing (transcription)",
+      "url": "https://openai.com/api/pricing/"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11",
+    "note": "Price basis standardised to monthly billing on 2026-08-11. The page was checked by @dovisvai on the same day; only which advertised rate the entry headlines has changed."
+  },
+  "lastReviewed": "2026-08-11"
+}

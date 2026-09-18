@@ -1,0 +1,59 @@
+{
+  "slug": "adobe-firefly",
+  "name": "Adobe Firefly",
+  "vendor": "Adobe",
+  "category": "image",
+  "url": "https://www.adobe.com/products/firefly.html",
+  "pricing": {
+    "tier": "Firefly Standard",
+    "monthlyUsd": 9.99,
+    "billingNote": "Firefly Standard, billed monthly. Sold both standalone and bundled into Creative Cloud subscriptions, and tiers are bounded by generative credits rather than seats, so what a credit buys matters as much as the fee. The plans page defeats automated checks, so this figure is confirmed by hand.",
+    "checkedOn": "2026-08-13"
+  },
+  "usageAssumption": {
+    "description": "400 image generations a month from the included credit allowance, priced against what the same volume would cost on a commodity hosted image API.",
+    "components": [
+      {
+        "modelId": "image-gen-api",
+        "units": {
+          "images": 400
+        },
+        "note": "400 generations from the tier's credit allowance"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "Priced at or below what the same volume of generation costs on a commodity API, on a model trained specifically so its output can be used commercially without inheriting a copyright argument.",
+  "verdictReasoning": "The distinguishing feature is not the pictures, it is the provenance. Firefly is trained on licensed and owned material and sold with an indemnity for enterprise use — a legal position, bought deliberately, that no GPU bill or token rate can express. For a company that cannot risk generated assets carrying an unresolved training-data claim, that indemnity is the entire product and the image quality is secondary. Cheaper models exist and produce comparable pictures; they do not come with anyone standing behind them.",
+  "valueAddTags": [
+    "proprietary-model",
+    "compliance-regulatory",
+    "integrations"
+  ],
+  "valueAddNotes": "Models trained on licensed material, an indemnity attached to commercial use, and integration into the tools professional designers already work in. The indemnity is the part that is genuinely hard to replicate, because it is a balance-sheet commitment rather than a feature.",
+  "whatYouLose": "The indemnity, and generation inside Photoshop and Illustrator rather than beside them. For a freelancer neither may matter; for a brand's legal team the first one is the whole decision.",
+  "diyPath": "Flux, SDXL or any hosted image API produce comparable output for less. None of them indemnify you, and the training-data question stays yours to answer.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Adobe Firefly plans",
+      "url": "https://www.adobe.com/products/firefly/plans.html"
+    },
+    {
+      "kind": "rate-card",
+      "label": "Replicate pricing",
+      "url": "https://replicate.com/pricing"
+    }
+  ],
+  "priceCheck": {
+    "automatable": false,
+    "reason": "Adobe's plans page returns no dollar figures to an automated request at all, and Firefly is sold both standalone and bundled into Creative Cloud, so the figure shown depends on which entry point a visitor arrives through."
+  },
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-13"
+  },
+  "lastReviewed": "2026-08-13"
+}

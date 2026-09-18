@@ -1,0 +1,63 @@
+{
+  "slug": "notion-ai",
+  "name": "Notion AI",
+  "vendor": "Notion Labs",
+  "category": "productivity",
+  "url": "https://www.notion.com/product/ai",
+  "pricing": {
+    "tier": "AI add-on (per member)",
+    "monthlyUsd": 10,
+    "billingNote": "Sold as a per-member add-on on top of an existing Notion plan. Notion has repackaged AI between add-on and bundled pricing more than once, so this entry goes stale faster than most — the live pricing page is the authority, not this row.",
+    "checkedOn": "2026-08-11"
+  },
+  "usageAssumption": {
+    "description": "A realistic rather than heroic user: 25 AI actions a month — summaries, rewrites and workspace questions — plus keeping the workspace embedded for retrieval.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 200000,
+          "outputTokens": 17500
+        },
+        "note": "25 actions at ~8k tokens of page and workspace context each"
+      },
+      {
+        "modelId": "embedding-standard",
+        "units": {
+          "inputTokens": 2000000
+        },
+        "note": "re-embedding changed pages across the workspace"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "steep",
+  "verdictSummary": "An estimated multiple around ten on light use, for features that are convenient where your documents already live but are not otherwise distinctive.",
+  "verdictReasoning": "The retrieval work over a live workspace is real and the permission-aware search behind it is harder than it looks. The multiple is still high for what the average member uses, and the honest description of the value is that the AI is where the documents are. Heavy users move this toward fair; the seat-based pricing means the average member is not a heavy user.",
+  "valueAddTags": [
+    "distribution",
+    "integrations",
+    "ux-craft"
+  ],
+  "valueAddNotes": "Permission-aware retrieval across a workspace is genuinely difficult — answers must not leak pages a member cannot open. The value that a reader actually feels day to day, though, is that it is already in the editor.",
+  "whatYouLose": "Answers scoped correctly to your permissions, and zero setup. Any self-built alternative starts by solving the access-control problem, which is the part people underestimate.",
+  "diyPath": "Export the workspace via the Notion API into any retrieval tool and query it with your own key. You will rebuild the permission model yourself, and that is the whole job.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Notion pricing",
+      "url": "https://www.notion.com/pricing"
+    },
+    {
+      "kind": "docs",
+      "label": "Notion AI product page",
+      "url": "https://www.notion.com/product/ai"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-08-11"
+  },
+  "lastReviewed": "2026-08-11"
+}

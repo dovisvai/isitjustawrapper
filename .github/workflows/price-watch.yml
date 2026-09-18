@@ -1,0 +1,60 @@
+name: Price watch
+
+# Re-checks every cited pricing page weekly. When a vendor's page moves or a
+# recorded price stops appearing on it, the entry is demoted to `unverified`,
+# which makes `check:publish` fail until a human looks at it. An issue is opened
+# so someone actually does.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check pricing pages
+        id: watch
+        run: npm run watch:prices -- --ci --demote --promote
+        continue-on-error: true
+
+      - name: Open a pull request with the findings
+        if: steps.watch.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: price-watch/drift
+          title: 'Price watch: pricing pages changed'
+          commit-message: 'chore: price watch found drift'
+          body: |
+            The weekly price watch found pages that moved or prices that no
+            longer appear where they used to.
+
+            Affected entries have been demoted to `unverified`, so
+            `npm run check:publish` will fail until each one is re-checked
+            **against the vendor's live pricing page** and marked `verified`
+            with your name and today's date.
+
+            Do not merge this by reading the diff alone — open the pages.
+
+            See `data/price-watch.json` for what changed.
+          labels: accuracy
+
+      - name: Fail the run so the notification is not silent
+        if: steps.watch.outcome == 'failure'
+        run: |
+          echo "Price drift detected. See the pull request opened by this run."
+          exit 1
