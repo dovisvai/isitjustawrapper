@@ -22,7 +22,7 @@ const {
   description,
   current,
   image = '/og/site.png',
-  imageAlt = 'Is it just a wrapper? — AI products rated fair, steep or wrapper by what the price buys beyond inference cost.',
+  imageAlt = 'Is it just a wrapper? Fair, steep, wrapper — AI products rated by what the price buys beyond inference cost.',
   type = 'website',
   jsonLd,
   noindex = false,
@@ -45,7 +45,7 @@ const graph = {
       name: SITE_NAME,
       url: Astro.site?.toString(),
       email: CONTACT_EMAIL,
-      logo: new URL('/apple-touch-icon.png', Astro.site).toString(),
+      logo: new URL('/icon-512.png', Astro.site).toString(),
       sameAs: [REPO_URL, 'https://x.com/isitjustwrapper'],
     },
     {

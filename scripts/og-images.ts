@@ -2,8 +2,11 @@
  * Post-build: renders the link-preview cards that X, LinkedIn, Slack, iMessage and
  * search engines show beside a shared URL.
  *
- *   dist/og/site.png     the directory, used by every page without its own card
  *   dist/og/<slug>.png   one per product: name, markup multiple, verdict
+ *
+ * The site-wide card (public/og/site.png) and the icons are the brand's own
+ * artwork and live in public/; these follow their look — flat near-black, a
+ * faint grid, the verdict colours as the only saturated marks.
  *
  * Generated from the same data as the pages on every build, so a card can never
  * show a price or verdict the page itself no longer does. Satori lays out the
@@ -35,12 +38,12 @@ const W = 1200;
 const H = 630;
 const OUT = join(process.cwd(), 'dist', 'og');
 
-// The dark palette from global.css. Cards are always dark: previews sit in feeds
-// of every theme, and the glass look only exists on the dark side.
+// Neutral near-black to match the banner; the verdict colours are the site's own.
+// Cards are always dark: previews sit in feeds of every theme.
 const C = {
-  void: '#070a12',
-  ink: '#eef1ff',
-  ink2: '#a9b0c9',
+  void: '#0b0b0c',
+  ink: '#f4f4f5',
+  ink2: '#9a9aa3',
   rim: 'rgba(255,255,255,0.14)',
   glass: 'rgba(255,255,255,0.05)',
   accent: '#a394ff',
@@ -57,24 +60,18 @@ const el = (style: Record<string, unknown>, ...children: unknown[]): Node => ({
   props: { style: { display: 'flex', ...style }, children: children.length === 1 ? children[0] : children },
 });
 
-// The orbs behind the glass, as gradients: satori has no blur filter.
+// Matches the banner: flat near-black with a faint 100px grid.
 const background = {
   backgroundColor: C.void,
   backgroundImage: [
-    'radial-gradient(circle at 12% 8%, rgba(110,80,255,0.45), transparent 45%)',
-    'radial-gradient(circle at 92% 22%, rgba(20,160,170,0.30), transparent 42%)',
-    'radial-gradient(circle at 70% 110%, rgba(255,90,110,0.22), transparent 45%)',
+    'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px)',
+    'linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)',
   ].join(', '),
+  backgroundSize: '100px 100px',
 };
 
 const wordmark = (size: number) =>
-  el(
-    { fontFamily: 'Mono', fontWeight: 800, fontSize: size, letterSpacing: '0.08em', color: C.ink },
-    // A trailing space before a flex sibling collapses; a no-break space does not.
-    'IS IT JUST A ',
-    el({ color: C.wrapper }, 'WRAPPER'),
-    '?',
-  );
+  el({ fontFamily: 'Inter', fontWeight: 800, fontSize: size, letterSpacing: '-0.01em', color: C.ink }, 'Is it just a wrapper?');
 
 const pill = (verdict: Verdict, text: string, size = 26) =>
   el(
@@ -117,31 +114,11 @@ const frame = (...children: Node[]) =>
 
 // --- the two card layouts -----------------------------------------------------
 
-function siteCard(counts: Record<Verdict, number>, total: number): Node {
-  return frame(
-    wordmark(30),
-    el(
-      { flexDirection: 'column', gap: 28 },
-      el(
-        { fontFamily: 'Inter', fontWeight: 800, fontSize: 68, lineHeight: 1.05, color: C.ink, letterSpacing: '-0.02em' },
-        'What AI products charge — and what the inference actually costs.',
-      ),
-      el(
-        { gap: 18 },
-        pill('fair', `${counts.fair} FAIR`),
-        pill('steep', `${counts.steep} STEEP`),
-        pill('wrapper', `${counts.wrapper} WRAPPER`),
-      ),
-    ),
-    footer(`${total} PRODUCTS · EVERY PRICE HUMAN-VERIFIED`),
-  );
-}
-
 function appCard(e: ReturnType<typeof loadEntries>[number]): Node {
   const { app, cost } = e;
   const nameSize = app.name.length > 22 ? 64 : 80;
   return frame(
-    wordmark(26),
+    wordmark(34),
     el(
       { justifyContent: 'space-between', alignItems: 'flex-end', gap: 40 },
       el(
@@ -188,32 +165,9 @@ async function render(node: Node, path: string): Promise<void> {
   writeFileSync(path, new Resvg(svg, { fitTo: { mode: 'width', value: W } }).render().asPng());
 }
 
-// The home-screen icon iOS and some search results use, and the logo in the
-// structured data. The favicon's mark — a receipt with a perforation — plus a
-// multiplication sign, drawn as shapes: at this size a glyph adds nothing, and
-// shapes rasterise identically everywhere with no font involved.
-const ICON = 180;
-const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${ICON}" height="${ICON}" viewBox="0 0 180 180">
-  <defs>
-    <radialGradient id="a" cx="15%" cy="10%" r="75%"><stop offset="0" stop-color="#6e50ff" stop-opacity=".55"/><stop offset="1" stop-color="#6e50ff" stop-opacity="0"/></radialGradient>
-    <radialGradient id="b" cx="95%" cy="30%" r="60%"><stop offset="0" stop-color="#14a0aa" stop-opacity=".35"/><stop offset="1" stop-color="#14a0aa" stop-opacity="0"/></radialGradient>
-  </defs>
-  <rect width="180" height="180" fill="${C.void}"/>
-  <rect width="180" height="180" fill="url(#a)"/>
-  <rect width="180" height="180" fill="url(#b)"/>
-  <rect x="38" y="30" width="104" height="120" rx="10" fill="rgba(255,255,255,0.05)" stroke="${C.ink}" stroke-width="7"/>
-  <path d="M38 102h104" stroke="${C.ink}" stroke-width="4" stroke-dasharray="7 7"/>
-  <path d="M64 56h52M64 74h32" stroke="${C.ink2}" stroke-width="7" stroke-linecap="round"/>
-  <path d="M77 114l26 26M103 114l-26 26" stroke="${C.wrapper}" stroke-width="9" stroke-linecap="round"/>
-</svg>`;
-
 const entries = loadEntries();
-const counts = { fair: 0, steep: 0, wrapper: 0 } as Record<Verdict, number>;
-for (const e of entries) counts[e.app.verdict]++;
 
 mkdirSync(OUT, { recursive: true });
-await render(siteCard(counts, entries.length), join(OUT, 'site.png'));
 for (const e of entries) await render(appCard(e), join(OUT, `${e.app.slug}.png`));
-writeFileSync(join(process.cwd(), 'dist', 'apple-touch-icon.png'), new Resvg(iconSvg).render().asPng());
 
-console.log(`og-images: ${entries.length + 1} preview cards and the touch icon written to dist/`);
+console.log(`og-images: ${entries.length} product preview cards written to dist/og/`);
