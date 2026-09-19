@@ -24,8 +24,8 @@ jobs:
         run: npm run build
 
       # Advisory on pull requests: it tells a contributor their entry still needs
-      # a human check, without blocking the PR that adds it. The deploy is where
-      # this is enforced — see README, "Before you publish".
+      # a human check, without blocking the PR that adds it. deploy.yml is where
+      # this is enforced.
       - name: Publication gate (advisory)
         run: npm run check:publish
         continue-on-error: true

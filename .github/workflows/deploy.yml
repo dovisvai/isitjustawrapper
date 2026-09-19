@@ -1,0 +1,48 @@
+name: Deploy
+
+# The only way the live site changes. Every push to main runs the publication
+# gate, builds, and uploads to the Cloudflare Pages project — so a price nobody
+# checked cannot reach isitjustawrapper.com, and nothing is deployed from a laptop.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push supersedes one still waiting.
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Enforced here, not advisory: an unverified entry fails the deploy.
+      - name: Publication gate
+        run: npm run check:publish
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: >-
+            pages deploy dist
+            --project-name=isitjustawrapper
+            --branch=main
+            --commit-hash=${{ github.sha }}
