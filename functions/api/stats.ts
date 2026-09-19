@@ -108,6 +108,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, request, waitUntil
   }
 
   const last = (n: number) => days.slice(-n);
+  const live = days.filter((g) => g.sum.pageViews > 0);
   const sumViews = (d: DayGroup[]) => d.reduce((s, g) => s + g.sum.pageViews, 0);
 
   const response = json(
@@ -118,8 +119,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, request, waitUntil
       pageViewsLast30Days: sumViews(days),
       pageViewsLast7Days: sumViews(last(7)),
       // Cloudflare counts unique IPs per day. Summing days would count a returning
-      // reader thirty times, so publish the daily average instead.
-      avgDailyVisitors: days.length ? Math.round(days.reduce((s, g) => s + g.uniq.uniques, 0) / days.length) : 0,
+      // reader thirty times, so publish the daily average instead — over days that
+      // had traffic, so the weeks before launch do not drag it towards zero.
+      avgDailyVisitors: live.length ? Math.round(live.reduce((s, g) => s + g.uniq.uniques, 0) / live.length) : 0,
       sponsorClicks: clicks,
       byDay: Object.fromEntries(days.map((g) => [g.dimensions.date, g.sum.pageViews])),
     },
