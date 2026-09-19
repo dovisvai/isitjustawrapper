@@ -1,0 +1,64 @@
+{
+  "slug": "windsurf-pro",
+  "name": "Windsurf",
+  "vendor": "Cognition",
+  "category": "coding",
+  "url": "https://windsurf.com",
+  "pricing": {
+    "tier": "Pro",
+    "monthlyUsd": 20,
+    "billingNote": "Pro is $20/mo month-to-month as verified 2026-09-18. Paid plans can buy extra usage at API pricing beyond included quotas; this estimate assumes a user staying inside the included Pro allowance.",
+    "checkedOn": "2026-09-18"
+  },
+  "usageAssumption": {
+    "description": "A daily user working inside the included Pro allowance, aligned with the Cursor Pro estimate: about 250 agent requests a month carrying substantial repository context, plus 8,000 tab completions on a cheap fast model.",
+    "components": [
+      {
+        "modelId": "frontier-mid",
+        "units": {
+          "inputTokens": 6250000,
+          "outputTokens": 500000
+        },
+        "note": "250 agent requests at ~25k tokens of context and ~2k tokens of edits each"
+      },
+      {
+        "modelId": "frontier-nano",
+        "units": {
+          "inputTokens": 16000000,
+          "outputTokens": 320000
+        },
+        "note": "8,000 tab completions / Cascade inline assists"
+      }
+    ],
+    "extras": []
+  },
+  "verdict": "fair",
+  "verdictSummary": "At Cursor-comparable daily usage the estimated inference cost exceeds the $20 Pro sticker, so the plan is priced below its own token bill before counting the IDE and agent product work.",
+  "verdictReasoning": "Windsurf Pro sits in the same coding-agent band as Cursor: an IDE surface, Cascade/agent loops, repo context, and unlimited Tab-style edits rather than a chat box over a public API. Matching the Cursor usage assumption keeps the multiple comparable. A markup below 1x means the interesting product is the orchestration and editor work, not a margin on tokens inside the included allowance. Heavy users who buy overages pay elsewhere; this entry does not model overage.",
+  "valueAddTags": [
+    "orchestration",
+    "ux-craft",
+    "scale-infra"
+  ],
+  "valueAddNotes": "The Windsurf IDE, Cascade agent flows, repo awareness, Tab and inline edits, and cloud agent hooks. The model call is the cheap part of an agent turn; applying diffs without wrecking the tree is the product.",
+  "whatYouLose": "An agent-aware IDE with maintained Cascade flows, tab completion latency budget, and cloud agent integration you would otherwise wire yourself.",
+  "diyPath": "Aider, Cline, or Continue with your own API key. At the assumed volume the token bill alone is estimated above $20, before the IDE work.",
+  "sources": [
+    {
+      "kind": "pricing",
+      "label": "Devin / Windsurf pricing",
+      "url": "https://devin.ai/pricing"
+    },
+    {
+      "kind": "docs",
+      "label": "Windsurf site",
+      "url": "https://windsurf.com"
+    }
+  ],
+  "verification": {
+    "status": "verified",
+    "checkedBy": "@dovisvai",
+    "checkedOn": "2026-09-18"
+  },
+  "lastReviewed": "2026-09-18"
+}
