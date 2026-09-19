@@ -68,4 +68,5 @@ Entries in `data/apps/` store usage, never cost; costs and multiples are compute
 
 ## Licence
 
-Code [MIT](LICENSE). Data CC BY 4.0 — use it, cite the source.
+Code [MIT](LICENSE). Data CC BY 4.0 — use it, cite the source. The full dataset is at
+[isitjustawrapper.com/data.json](https://isitjustawrapper.com/data.json).

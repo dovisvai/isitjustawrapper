@@ -81,7 +81,7 @@ const usedTags = VALUE_ADD_TAGS.filter((t) => entries.some((e) => e.app.valueAdd
             data-verdict-rank={{ fair: 0, steep: 1, wrapper: 2 }[e.app.verdict]}
           >
             <td class="col-name">
-              <a href={`/app/${e.app.slug}`}>{e.app.name}</a>
+              <a href={`/app/${e.app.slug}/`}>{e.app.name}</a>
               <span class="meta">
                 {e.app.vendor} · {e.app.pricing.tier}
               </span>

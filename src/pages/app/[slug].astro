@@ -17,11 +17,52 @@ const { entry, all } = Astro.props;
 const { app, cost, watch, isStale, ageDays } = entry;
 const meta = VERDICT_META[app.verdict];
 const verified = app.verification.status === 'verified';
+
+const site = Astro.site!;
+const pageUrl = new URL(`/app/${app.slug}/`, site).toString();
+// Describes the page and what it is about. Deliberately no Review or rating
+// markup: a verdict here is an estimate about an architecture, and dressing it as
+// a star rating of a named business would claim more than the page does.
+const jsonLd = {
+  '@type': 'WebPage',
+  '@id': pageUrl,
+  url: pageUrl,
+  name: `${app.name}: estimated ${multiple(cost.markupMultiple)} markup over inference cost`,
+  description: app.verdictSummary,
+  dateModified: app.lastReviewed,
+  isPartOf: { '@id': `${site}#site` },
+  primaryImageOfPage: new URL(`/og/${app.slug}.png`, site).toString(),
+  about: {
+    '@type': 'SoftwareApplication',
+    name: app.name,
+    applicationCategory: `${CATEGORY_LABELS[app.category] ?? app.category} AI`,
+    url: app.url,
+    publisher: { '@type': 'Organization', name: app.vendor },
+    offers: {
+      '@type': 'Offer',
+      name: app.pricing.tier,
+      price: app.pricing.monthlyUsd,
+      priceCurrency: 'USD',
+      url: app.sources.find((s) => s.kind === 'pricing')?.url ?? app.url,
+    },
+  },
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Directory', item: site.toString() },
+      { '@type': 'ListItem', position: 2, name: app.name, item: pageUrl },
+    ],
+  },
+};
 ---
 
 <Base
   title={`${app.name} — estimated ${multiple(cost.markupMultiple)} markup · Is it just a wrapper?`}
   description={app.verdictSummary}
+  type="article"
+  image={`/og/${app.slug}.png`}
+  imageAlt={`${app.name}: ${price(app.pricing.monthlyUsd)} a month against an estimated ${money(cost.totalUsd)} of inference — ${multiple(cost.markupMultiple)} markup, rated ${meta.label}.`}
+  jsonLd={jsonLd}
 >
   {
     !verified && (
@@ -126,7 +167,7 @@ const verified = app.verification.status === 'verified';
       <h2>The cost math, in full</h2>
       <CostReceipt entry={entry} />
       <p class="small muted" style="margin-top:.7rem">
-        Rates come from a <a href="/methodology#rates">dated rate card</a> of representative published API prices, not
+        Rates come from a <a href="/methodology/#rates">dated rate card</a> of representative published API prices, not
         from the vendor. Nobody outside these companies knows what they actually pay; volume discounts and in-house
         serving both push real costs below these figures, which makes every multiple here a floor rather than a ceiling.
       </p>
@@ -175,14 +216,14 @@ const verified = app.verification.status === 'verified';
           cost.modelIds.map((id) => (
             <li>
               <span class="kind">rate</span>
-              <a href={`/methodology#rates`}>Rate card entry: {id}</a>
+              <a href={`/methodology/#rates`}>Rate card entry: {id}</a>
             </li>
           ))
         }
       </ul>
       <p class="small muted" style="margin-top:.8rem">
         Price recorded {longDate(app.pricing.checkedOn)} · entry last reviewed {longDate(app.lastReviewed)}. Think
-        something here is wrong? <a href="/methodology#corrections">File a correction</a> — we publish them, including
+        something here is wrong? <a href="/methodology/#corrections">File a correction</a> — we publish them, including
         the ones that embarrass us.
       </p>
     </section>

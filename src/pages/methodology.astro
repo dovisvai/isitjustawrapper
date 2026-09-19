@@ -77,9 +77,9 @@ const contrastHolds =
         dearestFair && cheapestWrapper && (
           <p>
             The clearest illustration is inside this directory right now.{' '}
-            <a href={`/app/${dearestFair.app.slug}`}>{dearestFair.app.name}</a> carries an estimated{' '}
+            <a href={`/app/${dearestFair.app.slug}/`}>{dearestFair.app.name}</a> carries an estimated{' '}
             {multiple(dearestFair.cost.markupMultiple)} markup and is rated <VerdictChip verdict="fair" link={false} />.{' '}
-            <a href={`/app/${cheapestWrapper.app.slug}`}>{cheapestWrapper.app.name}</a> carries{' '}
+            <a href={`/app/${cheapestWrapper.app.slug}/`}>{cheapestWrapper.app.name}</a> carries{' '}
             {multiple(cheapestWrapper.cost.markupMultiple)} — {contrastHolds ? 'far less' : 'a comparable figure'} — and
             is rated <VerdictChip verdict="wrapper" link={false} />. The difference is not arithmetic. It is that one
             sells a model trained in-house with no API to wrap, and the other runs the pipeline described in every
@@ -237,7 +237,7 @@ const contrastHolds =
         <strong>What we commit to.</strong> Anything factual — a wrong price, a wrong tier, a misstated billing term — is
         corrected on sight, without argument, and logged. Disagreements about a <em>verdict</em> get a reply and, where
         the argument lands, a revised entry; where it does not, the vendor's position is recorded on the entry so
-        readers see both. Every change appears on the <a href="/corrections">corrections log</a> with a date and a
+        readers see both. Every change appears on the <a href="/corrections/">corrections log</a> with a date and a
         description, including the ones we caught ourselves.
       </p>
       <p>
@@ -251,7 +251,7 @@ const contrastHolds =
       <h2>Money</h2>
       <p>
         The site sells 20 sponsor slots. Sponsors are labelled as sponsors everywhere they appear, their links carry
-        <code>rel="sponsored"</code>, and traffic and click totals are published on <a href="/stats">stats</a>.
+        <code>rel="sponsored"</code>, and traffic and click totals are published on <a href="/stats/">stats</a>.
       </p>
       <p>
         <strong>Sponsorship has no effect on a verdict, and cannot buy one.</strong> A sponsor may be listed in the

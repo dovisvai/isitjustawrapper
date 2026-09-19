@@ -25,7 +25,7 @@ const title = `${meta.label} — ${meta.short}`;
   dot ? (
     <Tag
       class={`verdict-dot verdict-dot--${verdict}`}
-      href={link ? `/methodology#verdict-${verdict}` : undefined}
+      href={link ? `/methodology/#verdict-${verdict}` : undefined}
       title={title}
     >
       <span class="visually-hidden">{meta.label}</span>
@@ -33,7 +33,7 @@ const title = `${meta.label} — ${meta.short}`;
   ) : (
     <Tag
       class={`chip chip--${verdict}`}
-      href={link ? `/methodology#verdict-${verdict}` : undefined}
+      href={link ? `/methodology/#verdict-${verdict}` : undefined}
       title={link ? `${title}. Read how this is decided.` : undefined}
     >
       <span class="chip__glyph" aria-hidden="true">

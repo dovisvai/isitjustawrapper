@@ -1,3 +1,5 @@
+# Search engines and AI assistants are welcome. The data is CC BY 4.0 and meant
+# to be read, cited and reused; /data.json and /llms.txt exist for exactly that.
 User-agent: *
 Allow: /
 Disallow: /go/

@@ -39,7 +39,7 @@ const APPS_DIR = fileURLToPath(new URL('../data/apps/', import.meta.url));
 // pricing page we fetch weekly should land somewhere that explains what this is
 // and how to file a correction, not on a git host.
 const USER_AGENT =
-  'is-it-just-a-wrapper price watcher (+https://isitjustawrapper.com/methodology); weekly check of publicly listed prices';
+  'is-it-just-a-wrapper price watcher (+https://isitjustawrapper.com/methodology/); weekly check of publicly listed prices';
 const TIMEOUT_MS = 20_000;
 const CONCURRENCY = 4;
 const today = new Date().toISOString().slice(0, 10);

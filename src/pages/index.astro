@@ -20,12 +20,41 @@ const contrastHolds =
   dearestFair &&
   cheapestWrapper &&
   (dearestFair.cost.markupMultiple ?? 0) > (cheapestWrapper.cost.markupMultiple ?? 0);
+
+const site = Astro.site!;
+// Dataset markup is what lets search engines and AI answer engines treat this as
+// citable data rather than a page of prose. The downloadable form is /data.json.
+const jsonLd = {
+  '@type': 'Dataset',
+  '@id': `${site}#dataset`,
+  name: 'Is it just a wrapper? — AI product price vs inference cost',
+  description: `Estimated inference cost, markup multiple and a fair / steep / wrapper verdict for ${entries.length} AI products. Every price is checked by a person against the vendor's own pricing page and dated; every cost is computed from a published, sourced rate card.`,
+  url: site.toString(),
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  isAccessibleForFree: true,
+  creator: { '@id': `${site}#org` },
+  publisher: { '@id': `${site}#org` },
+  dateModified: lastUpdated,
+  keywords: ['AI pricing', 'LLM inference cost', 'AI wrapper', 'markup', 'API pricing', 'SaaS pricing'],
+  variableMeasured: ['monthly price (USD)', 'estimated API cost (USD)', 'markup multiple', 'verdict'],
+  distribution: {
+    '@type': 'DataDownload',
+    encodingFormat: 'application/json',
+    contentUrl: new URL('/data.json', site).toString(),
+  },
+  hasPart: entries.map((e) => ({
+    '@type': 'WebPage',
+    name: e.app.name,
+    url: new URL(`/app/${e.app.slug}/`, site).toString(),
+  })),
+};
 ---
 
 <Base
   title="Is it just a wrapper? — what AI products charge, and what the inference costs"
   description="A public directory estimating how much of an AI product's price is inference cost and how much is everything else. Every figure is an estimate, dated and sourced."
   current="directory"
+  jsonLd={jsonLd}
 >
   {/*
     The brief asks for the table to be the hero rather than a headline above it, so the
@@ -67,7 +96,7 @@ const contrastHolds =
       {
         VERDICTS.map((v) => (
           <li>
-            <a class={`summary__v summary__v--${v}`} href={`/methodology#verdict-${v}`}>
+            <a class={`summary__v summary__v--${v}`} href={`/methodology/#verdict-${v}`}>
               <span class="summary__v-glyph" aria-hidden="true">
                 {VERDICT_META[v].glyph}
               </span>
@@ -95,19 +124,19 @@ const contrastHolds =
           contrastHolds && (
             <>
               {' '}
-              <a href={`/app/${dearestFair!.app.slug}`}>{dearestFair!.app.name}</a> carries an estimated{' '}
+              <a href={`/app/${dearestFair!.app.slug}/`}>{dearestFair!.app.name}</a> carries an estimated{' '}
               {multiple(dearestFair!.cost.markupMultiple)} markup and is rated <strong>fair</strong>;{' '}
-              <a href={`/app/${cheapestWrapper!.app.slug}`}>{cheapestWrapper!.app.name}</a> carries{' '}
+              <a href={`/app/${cheapestWrapper!.app.slug}/`}>{cheapestWrapper!.app.name}</a> carries{' '}
               {multiple(cheapestWrapper!.cost.markupMultiple)} and is rated <strong>wrapper</strong>.
             </>
           )
         }
         {' '}What separates them is what the price buys that is not the model — which is the whole subject of the
-        <a href="/methodology"> methodology</a>.
+        <a href="/methodology/"> methodology</a>.
       </p>
       <p class="small muted">
         Missing a product, or think a number is wrong? Corrections are welcome and are published in full — see
-        <a href="/corrections">corrections</a>.
+        <a href="/corrections/">corrections</a>.
       </p>
     </div>
   </div>

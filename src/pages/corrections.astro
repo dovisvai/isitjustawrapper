@@ -55,7 +55,7 @@ const bySource = corrections.reduce<Record<string, number>>((acc, c) => {
               {c.slug && (
                 <>
                   {' · '}
-                  <a href={`/app/${c.slug}`}>{c.slug}</a>
+                  <a href={`/app/${c.slug}/`}>{c.slug}</a>
                 </>
               )}
             </span>
@@ -79,7 +79,7 @@ const bySource = corrections.reduce<Record<string, number>>((acc, c) => {
     <p>
       Open a pull request against the entry's JSON file, or email
       <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Factual errors are fixed on sight and logged here. See
-      <a href="/methodology#corrections"> the corrections policy</a> for what we commit to.
+      <a href="/methodology/#corrections"> the corrections policy</a> for what we commit to.
     </p>
   </div>
 </Base>

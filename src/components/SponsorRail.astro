@@ -47,7 +47,7 @@ const available = SPONSOR_SLOT_COUNT - filled.length;
                     ) : (
                       <a
                         class="sponsor sponsor--ghost sponsor--marquee"
-                        href="/sponsor"
+                        href="/sponsor/"
                         tabindex={isClone ? -1 : undefined}
                       >
                         <span class="sponsor__slot-n">{String(s.slot).padStart(2, '0')}</span>
@@ -62,7 +62,7 @@ const available = SPONSOR_SLOT_COUNT - filled.length;
         </div>
         <p class="small muted sponsor-strip__note">
           {filled.length} of {SPONSOR_SLOT_COUNT} sponsor slots sold ·{' '}
-          <a href="/sponsor">sponsorship never affects a verdict</a>.
+          <a href="/sponsor/">sponsorship never affects a verdict</a>.
         </p>
       </>
     ) : (
@@ -78,7 +78,7 @@ const available = SPONSOR_SLOT_COUNT - filled.length;
             </li>
           ) : (
             <li>
-              <a class="sponsor sponsor--available" href="/sponsor">
+              <a class="sponsor sponsor--available" href="/sponsor/">
                 <span class="sponsor__slot-n">{String(s.slot).padStart(2, '0')}</span>
                 <span>Slot available</span>
               </a>
