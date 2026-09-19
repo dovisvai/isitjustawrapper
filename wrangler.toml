@@ -2,26 +2,23 @@ name = "is-it-just-a-wrapper"
 compatibility_date = "2026-08-11"
 pages_build_output_dir = "dist"
 
-# Traffic and sponsor-click counters. Create the namespace once:
+# Traffic on /stats comes from Cloudflare's zone analytics API. It needs two
+# values set in the dashboard (project, Settings, Variables and Secrets), never
+# here, because this repository is public:
 #
-#   npx wrangler kv namespace create STATS
+#   CF_API_TOKEN  secret — a token with Zone > Analytics > Read on this zone
+#   CF_ZONE_ID    text   — the zone id from the domain's Overview page
 #
-# This repository is public, so the id is NOT committed here. Set the binding in
-# the Cloudflare dashboard instead — your project, Settings, Bindings, KV
-# namespace, variable name STATS. A namespace id is not a credential and is
-# useless without account access, but account-scoped identifiers do not belong in
-# a public repo on principle.
-#
-# For local testing with `npm run dev:functions`, uncomment the block below and
-# paste your id. Do not commit that change.
+# Sponsor clicks are counted in KV, only once a slot is sold. Bind a namespace in
+# the dashboard as STATS. For local testing with `npm run dev:functions`, you can
+# uncomment this block and paste an id — do not commit that change.
 #
 # [[kv_namespaces]]
 # binding = "STATS"
 # id = "your-kv-namespace-id"
 #
-# Without the binding the site still works everywhere — /api/stats reports
-# `available: false` and the traffic tiles on /stats read "—" rather than
-# showing invented numbers.
+# Without any of these the site still works — /stats says traffic figures are not
+# configured rather than showing invented numbers.
 
 [vars]
 # Used to tag sponsor outbound links. Set this to the production origin.

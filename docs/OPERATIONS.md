@@ -127,22 +127,26 @@ Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **
 > Use `npm run check:publish && npm run build` so a deploy **fails** rather than publishing something nobody checked.
 > This single line is the difference between the safety system working and being decorative.
 
-### 6. Create the stats storage
+### 6. Publish traffic on /stats
 
-```bash
-npx wrangler kv namespace create STATS
-```
+`/stats` shows Cloudflare's own zone analytics — daily page views and unique visitors — read server-side through the
+GraphQL Analytics API. Nothing is added to the site to collect them.
 
-Then bind it in the Cloudflare dashboard: **your project → Settings → Bindings → KV namespace binding**, variable name
-`STATS`. Add `SITE_ORIGIN` there too, as a plain text variable.
+1. **Create an API token.** Cloudflare dashboard → **My Profile → API Tokens → Create Token → Custom token**.
+   Permission: **Zone → Analytics → Read**. Zone resources: **Include → Specific zone → isitjustawrapper.com**.
+   Nothing else — this token can read traffic totals and do nothing more.
+2. **Copy the zone id** from the domain's **Overview** page (right-hand column, "Zone ID").
+3. **Add both to the Pages project:** **your project → Settings → Variables and Secrets**, Production:
+   - `CF_API_TOKEN` — type **Secret**, the token from step 1
+   - `CF_ZONE_ID` — type **Text**, the zone id
+4. **Redeploy** (Deployments → latest → Retry deployment). Variables only reach functions on a new deployment.
 
-The id deliberately does not live in `wrangler.toml`, because this repository is public. It is not a credential and is
-useless without account access, but account-scoped identifiers do not belong in a public repo on principle. For local
-testing with `npm run dev:functions`, uncomment the `[[kv_namespaces]]` block in `wrangler.toml` and paste it there —
-and do not commit that.
+The token never goes in the repository. Without these, the site works normally and `/stats` says traffic figures are
+not configured, rather than showing numbers it does not have.
 
-Skipping this is fine. Without it the site works normally and `/stats` reports that counting is not configured, rather
-than showing numbers it does not have.
+**Sponsor clicks (optional, only once a slot is sold).** Clicks are the one thing counted by the site itself, on the
+`/go/<slot>` redirect. Create a KV namespace with `npx wrangler kv namespace create STATS` and bind it under
+**Settings → Bindings → KV namespace**, variable name `STATS`. Until then the sponsor-clicks tile reads "—".
 
 ### 7. Let the weekly robot file its findings
 
@@ -242,8 +246,9 @@ the assumptions are stated, the rates are dated and sourced, the multiples are f
 | --- | --- | --- |
 | Deploy fails: `verification.status is "unverified"` | Working as designed — something is unchecked | `npm run admin:verify`, commit, push |
 | Deploy succeeded but you did not verify anything | Build command is `npm run build` | Change it to `npm run check:publish && npm run build` |
-| `/stats` says counting is not configured | No KV binding | Step 6, or ignore it |
-| Traffic numbers look low | KV counters race under load and undercount | Expected; the page says "approximate" |
+| `/stats` says traffic figures are not configured | No `CF_API_TOKEN` / `CF_ZONE_ID` | Step 6, then redeploy |
+| `/stats` shows an "Authentication error" or similar | Token lacks Zone → Analytics → Read on this zone | Recreate the token, step 6 |
+| Traffic numbers look high | Cloudflare counts every HTML response, including some bots | Expected; the page says "approximate" |
 | Price watch runs but no pull request appears | Actions cannot open PRs | Step 7 |
 | Watcher reports `unreachable — HTTP 403` | The vendor blocks bots | Check that one by hand; it will not self-resolve |
 | Watcher reports `price-missing`, prices "none detected" | Page renders prices in JavaScript | Check by hand. The watcher reports what it can see, not what it guesses |
@@ -259,7 +264,7 @@ the assumptions are stated, the rates are dated and sourced, the multiples are f
 | Item | Cost |
 | --- | --- |
 | Cloudflare Pages | Free at any traffic this site will plausibly see |
-| Cloudflare KV | Free tier covers the counters comfortably |
+| Cloudflare analytics API | Free; responses are cached for ten minutes |
 | GitHub Actions | Free for a public repository |
 | Domain | Roughly $10–15 a year |
 
@@ -278,7 +283,7 @@ keep that cost near zero until something actually needs you.
 | A price changed | `npm run admin:price` |
 | Fill or clear a sponsor slot | `npm run admin:sponsor` |
 | Look at the site locally | `npm run dev` |
-| Test stats and sponsor redirects | `npm run dev:functions` |
+| Test sponsor redirects locally | `npm run dev:functions` |
 | Check every pricing page now | `npm run watch:prices` |
 | Can I deploy? | `npm run check:publish` |
 

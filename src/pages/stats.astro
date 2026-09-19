@@ -13,7 +13,7 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
 
 <Base
   title="Stats — Is it just a wrapper?"
-  description="Public traffic and dataset numbers. First-party, cookieless, no third-party trackers."
+  description="Public traffic and dataset numbers. Cookieless, no trackers, no scripts."
   current="stats"
 >
   <h1>Stats</h1>
@@ -45,16 +45,16 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
   <h2 style="margin-top:2rem">Traffic</h2>
   <div class="stat-grid" id="traffic">
     <div class="stat">
-      <span class="stat__label">Page views, all time</span>
-      <span class="stat__value" data-stat="pageViewsAllTime">—</span>
-    </div>
-    <div class="stat">
       <span class="stat__label">Page views, 30 days</span>
       <span class="stat__value" data-stat="pageViewsLast30Days">—</span>
     </div>
     <div class="stat">
-      <span class="stat__label">Sponsor rail views</span>
-      <span class="stat__value" data-stat="sponsorRailViews">—</span>
+      <span class="stat__label">Page views, 7 days</span>
+      <span class="stat__value" data-stat="pageViewsLast7Days">—</span>
+    </div>
+    <div class="stat">
+      <span class="stat__label">Visitors a day, avg.</span>
+      <span class="stat__value" data-stat="avgDailyVisitors">—</span>
     </div>
     <div class="stat">
       <span class="stat__label">Sponsor clicks</span>
@@ -67,23 +67,22 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
     <section class="clause">
       <h2>What is measured, exactly</h2>
       <p>
-        A counter per day and a counter per page path, incremented on the server when a page is served. That is the
-        complete list.
+        Traffic figures are Cloudflare's. The site is served through Cloudflare, which keeps aggregate request counts for
+        every site it hosts; this page publishes its daily totals for page views and unique visitors. We add nothing to
+        what it collects.
       </p>
       <p>
-        <strong>What is not stored:</strong> no cookies, no identifiers, no IP addresses, no user agents, no referrers,
-        no fingerprinting, no third-party scripts of any kind. Nothing recorded here can be tied to a person, because
-        nothing that identifies a person is ever written down. There is no private dashboard — the numbers above are the
-        numbers we have.
+        <strong>What is not used:</strong> no cookies, no analytics script, no beacon, no fingerprinting, no third-party
+        requests from your browser. Nothing on this site runs code to measure you. Cloudflare's dashboard also breaks
+        traffic down by country and browser; we do not publish those, and we do not collect anything finer.
       </p>
       <p>
         Sponsor clicks are counted server-side on the redirect, so they work identically with an ad blocker installed
-        and require no script in your browser. Impressions are derived from views of the pages carrying the rail rather
-        than measured with a beacon.
+        and require no script in your browser.
       </p>
       <p class="small muted">
-        Totals are approximate. The counters run on a key-value store whose writes race under concurrent traffic, so
-        figures can undercount slightly at busy moments. Precision here is not worth a heavier tracker.
+        Figures are approximate. Cloudflare counts every HTML page served, so some automated traffic is included, and a
+        visitor is a unique IP address on a given day. Totals refresh every ten minutes.
       </p>
     </section>
 
@@ -109,7 +108,12 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
     .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
     .then((data: Record<string, unknown>) => {
       if (!data.available) {
-        if (note) note.textContent = 'Traffic counting is not configured on this deployment.';
+        if (note) {
+          note.textContent =
+            data.reason === 'analytics not configured'
+              ? 'Traffic figures are not configured on this deployment.'
+              : `Traffic figures are unavailable right now (${String(data.reason)}).`;
+        }
         return;
       }
       for (const el of document.querySelectorAll<HTMLElement>('[data-stat]')) {
@@ -117,7 +121,7 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
         el.textContent = typeof value === 'number' ? fmt(value) : '—';
       }
       if (note) {
-        note.textContent = `Published totals, approximate, generated ${new Date(data.generatedAt).toLocaleString('en-GB')}.`;
+        note.textContent = `Cloudflare figures, approximate, as of ${new Date(String(data.generatedAt)).toLocaleString('en-GB')}.`;
       }
     })
     .catch((err: Error) => {
@@ -127,7 +131,7 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
       // is broken.
       note.textContent =
         err.message === '404'
-          ? 'Traffic counting is not running here. Use `npm run dev:functions` to exercise the Cloudflare functions locally.'
+          ? 'Traffic figures are not available here. Use `npm run dev:functions` to exercise the Cloudflare functions locally.'
           : 'Traffic totals are unavailable right now.';
     });
 </script>
