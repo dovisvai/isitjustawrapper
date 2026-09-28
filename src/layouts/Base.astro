@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/components.css';
 import { CONTACT_EMAIL, REPO_URL } from '../schema.ts';
+import Consent from '../components/Consent.astro';
 
 interface Props {
   title: string;
@@ -150,7 +151,7 @@ const nav = [
     <meta name="twitter:image:alt" content={imageAlt} />
 
     <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />
-    {/* No third-party scripts, fonts, or trackers anywhere on this site. See /stats. */}
+    {/* The only third-party script is X's ad tag, and it loads only after consent. See /privacy. */}
 
     {/*
       Runs before first paint, deliberately inline and unbundled: a deferred
@@ -215,11 +216,15 @@ const nav = [
         </p>
         <p class="mono small">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ·
-          <a href="/methodology/#corrections">File a correction</a> · <a href={REPO_URL}>Source on GitHub</a> · Data
-          licensed CC BY 4.0 · Code MIT
+          <a href="/methodology/#corrections">File a correction</a> · <a href={REPO_URL}>Source on GitHub</a> ·
+          <a href="/privacy/">Privacy</a> ·
+          <button type="button" class="linklike" id="consent-open">Cookie settings</button> · Data licensed CC BY 4.0 ·
+          Code MIT
         </p>
       </div>
     </footer>
+
+    <Consent />
 
     {/* Mobile only; the desktop row above is hidden at the same breakpoint. */}
     <nav class="dock" aria-label="Primary">

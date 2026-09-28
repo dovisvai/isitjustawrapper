@@ -44,7 +44,8 @@ for (const file of htmlFiles(DIST)) {
 
 const headersPath = join(DIST, '_headers');
 const headers = readFileSync(headersPath, 'utf8');
-const updated = headers.replace(/script-src 'self'[^;]*/, `script-src 'self' ${[...hashes].join(' ')}`);
+// Insert the hashes straight after 'self', keeping any host sources that follow it.
+const updated = headers.replace(/script-src 'self'/, `script-src 'self' ${[...hashes].join(' ')}`);
 if (updated === headers) {
   console.error('csp-hashes: could not find a script-src directive in dist/_headers');
   process.exit(1);

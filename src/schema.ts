@@ -56,6 +56,9 @@ export const SPONSOR_SLOT_COUNT = 20;
  */
 export const CONTACT_EMAIL = 'office@isitjustawrapper.com';
 
+/** X (Twitter) ads website tag. Loaded only after cookie consent — see Consent.astro. */
+export const X_PIXEL_ID = 'rg1j3';
+
 /** Where the data, the code and the full history of every figure live. */
 export const REPO_URL = 'https://github.com/dovisvai/isitjustawrapper';
 

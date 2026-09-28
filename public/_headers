@@ -3,20 +3,19 @@
   X-Frame-Options: DENY
   Referrer-Policy: no-referrer
   Permissions-Policy: geolocation=(), microphone=(), camera=(), browsing-topics=()
-  Content-Security-Policy: default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.ads-twitter.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://t.co https://*.twitter.com https://*.x.com; connect-src 'self' https://t.co https://*.twitter.com https://*.x.com https://*.ads-twitter.com; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
 
-# The site loads no third-party script, style, font or image, so the policy above can be
-# this strict. If you ever add one, you have a decision to make rather than a header to
-# loosen.
+# The only third-party origins allowed are X's ad tag (static.ads-twitter.com) and the
+# endpoints it reports to. It loads only after cookie consent (src/components/Consent.astro).
+# Anything else third-party is a decision to make, not a header to loosen.
 #
 # Two directives need explaining.
 #
-# script-src: the 'self' above is a PLACEHOLDER. Astro inlines small scripts into the
+# script-src: the inline-script hashes are NOT listed above. Astro inlines small scripts into the
 # HTML instead of emitting files, so 'self' alone blocks the theme toggle, the table's
 # search and sort, and the calculator. `npm run build` runs scripts/csp-hashes.ts, which
-# reads the real build output and rewrites this line in dist/_headers with a sha256 hash
-# per inline script. Edit that script, not this line — anything written here by hand is
-# overwritten at build time.
+# reads the real build output and inserts a sha256 hash per inline script straight after
+# 'self' in dist/_headers. Host sources written here are kept.
 #
 # style-src carries 'unsafe-inline' because the pages use inline style attributes (the
 # table's per-row animation delay, for one) and CSP hashes cannot cover style attributes

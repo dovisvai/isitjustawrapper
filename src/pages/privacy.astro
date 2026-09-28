@@ -1,0 +1,70 @@
+---
+import Base from '../layouts/Base.astro';
+import { CONTACT_EMAIL } from '../schema.ts';
+---
+
+<Base
+  title="Privacy — Is it just a wrapper?"
+  description="What this site collects, who it shares it with, and how to say no."
+>
+  <h1>Privacy</h1>
+  <p class="lede">What this site collects, who sees it, and how to opt out. Short, because there is not much.</p>
+
+  <div class="stack" style="margin-top:2rem">
+    <section class="clause">
+      <h2>Without your consent</h2>
+      <p>
+        <strong>Traffic totals.</strong> The site is served through Cloudflare, which counts requests for every site it
+        hosts. We publish its daily totals of page views and unique visitors on <a href="/stats/">stats</a>. No cookie
+        or script of ours is involved, and nothing finer is collected or kept by us.
+      </p>
+      <p>
+        <strong>Sponsor clicks.</strong> Clicking a sponsor link increments a counter for that slot on our server. Only
+        the count is stored.
+      </p>
+      <p>
+        <strong>Your settings.</strong> Your theme and your cookie choice are saved in your own browser's storage. They
+        never reach us.
+      </p>
+    </section>
+
+    <section class="clause">
+      <h2>With your consent: X advertising</h2>
+      <p>
+        We advertise on X (formerly Twitter). If you click <em>Accept</em> on the cookie banner, the site loads X's
+        website tag, which sets cookies and sends X the pages you visit here, your IP address and your browser details,
+        so that X can tell us how many people arrived from our ads. X processes that data under
+        <a href="https://x.com/en/privacy" rel="noopener">its own privacy policy</a>; we see only aggregate campaign
+        figures in X's ads dashboard, never anything about you.
+      </p>
+      <p>
+        If you click <em>Decline</em>, or ignore the banner, the tag never loads and nothing is sent to X. Change your
+        mind at any time with <button type="button" class="linklike" id="consent-open-inline">cookie settings</button>,
+        also in the footer of every page.
+      </p>
+    </section>
+
+    <section class="clause">
+      <h2>What we never do</h2>
+      <p>
+        No other analytics or advertising scripts, no fingerprinting, no selling or sharing of data with anyone besides
+        the above. There are no accounts on this site, so there is no profile of you to keep.
+      </p>
+    </section>
+
+    <section class="clause">
+      <h2>Contact</h2>
+      <p>
+        Questions or requests about your data: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. If you email us,
+        we keep the correspondence only as long as it is needed to answer you.
+      </p>
+      <p class="small muted">Last updated 28 September 2026.</p>
+    </section>
+  </div>
+</Base>
+
+<script>
+  document.getElementById('consent-open-inline')?.addEventListener('click', () => {
+    document.getElementById('consent-open')?.click();
+  });
+</script>

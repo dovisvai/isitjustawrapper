@@ -13,7 +13,7 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
 
 <Base
   title="Stats — Is it just a wrapper?"
-  description="Public traffic and dataset numbers. Cookieless, no trackers, no scripts."
+  description="Public traffic and dataset numbers, from Cloudflare's aggregate counts."
   current="stats"
 >
   <h1>Stats</h1>
@@ -72,9 +72,9 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
         what it collects.
       </p>
       <p>
-        <strong>What is not used:</strong> no cookies, no analytics script, no beacon, no fingerprinting, no third-party
-        requests from your browser. Nothing on this site runs code to measure you. Cloudflare's dashboard also breaks
-        traffic down by country and browser; we do not publish those, and we do not collect anything finer.
+        These figures need no cookie and no script. Cloudflare's dashboard also breaks traffic down by country and
+        browser; we do not publish those, and we do not collect anything finer. The one tracker on the site is X's
+        advertising tag, which measures our ads and loads only if you accept it — see <a href="/privacy/">privacy</a>.
       </p>
       <p>
         Sponsor clicks are counted server-side on the redirect, so they work identically with an ad blocker installed
@@ -99,7 +99,7 @@ const verified = entries.filter((e) => e.app.verification.status === 'verified')
 
 <script>
   // Progressive enhancement: the page is complete without this, the traffic
-  // tiles just read "—". No third-party request is made from this page, ever.
+  // tiles just read "—". This request goes to our own server only.
   const note = document.getElementById('traffic-note');
 
   const fmt = (n: number) => n.toLocaleString('en-US');

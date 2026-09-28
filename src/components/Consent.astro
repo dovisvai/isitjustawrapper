@@ -1,0 +1,83 @@
+---
+/**
+ * Cookie consent for the one third-party script on the site: X's ad-measurement
+ * tag. Nothing loads from X until a visitor clicks Accept, and Decline is exactly
+ * as easy — both are what EU consent law requires, and a banner that nags or hides
+ * the refusal would sit badly on a site about pricing honesty.
+ *
+ * The choice lives in localStorage, not a cookie, and can be changed from the
+ * "Cookie settings" link in the footer.
+ */
+import { X_PIXEL_ID } from '../schema.ts';
+---
+
+<div class="consent" id="consent" data-pixel={X_PIXEL_ID} role="dialog" aria-labelledby="consent-title" hidden>
+  <p id="consent-title" class="consent__text">
+    We'd like to use X (Twitter) advertising cookies to see which of our ads bring people here. Nothing else is
+    tracked. <a href="/privacy/">Details</a>
+  </p>
+  <div class="consent__actions">
+    <button type="button" class="consent__btn" data-consent="denied">Decline</button>
+    <button type="button" class="consent__btn" data-consent="granted">Accept</button>
+  </div>
+</div>
+
+<script>
+  type Twq = ((...args: unknown[]) => void) & { exe?: (...a: unknown[]) => void; queue: unknown[][]; version: string };
+  const KEY = 'consent-v1';
+  const banner = document.getElementById('consent');
+  const pixel = banner?.dataset.pixel;
+
+  const read = (): string | null => {
+    try {
+      return localStorage.getItem(KEY);
+    } catch {
+      return null;
+    }
+  };
+
+  // X's base code, written out rather than pasted minified, and only ever run
+  // after consent.
+  function loadPixel(): void {
+    const w = window as unknown as { twq?: Twq };
+    if (w.twq || !pixel) return;
+    const twq = function (...args: unknown[]) {
+      if (twq.exe) twq.exe(...args);
+      else twq.queue.push(args);
+    } as Twq;
+    twq.version = '1.1';
+    twq.queue = [];
+    w.twq = twq;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://static.ads-twitter.com/uwt.js';
+    document.head.appendChild(s);
+    twq('config', pixel);
+  }
+
+  function choose(value: 'granted' | 'denied'): void {
+    try {
+      localStorage.setItem(KEY, value);
+    } catch {
+      /* storage disabled: the choice holds for this page view only */
+    }
+    if (banner) banner.hidden = true;
+    if (value === 'granted') loadPixel();
+    // Withdrawing consent must stop tracking now, not on some later visit.
+    else if ((window as unknown as { twq?: Twq }).twq) location.reload();
+  }
+
+  const saved = read();
+  if (saved === 'granted') loadPixel();
+  else if (saved !== 'denied' && banner) banner.hidden = false;
+
+  banner?.addEventListener('click', (e) => {
+    const value = (e.target as HTMLElement).closest<HTMLElement>('[data-consent]')?.dataset.consent;
+    if (value === 'granted' || value === 'denied') choose(value);
+  });
+
+  document.getElementById('consent-open')?.addEventListener('click', () => {
+    if (banner) banner.hidden = false;
+    banner?.querySelector<HTMLElement>('[data-consent]')?.focus();
+  });
+</script>
