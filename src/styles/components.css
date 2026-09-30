@@ -459,16 +459,84 @@ a.verdict-dot:hover {
   font-size: 0.85rem;
 }
 
+/* Header labels have a short form for phones. The full label stays in the
+   accessibility tree (visually hidden), the short one is aria-hidden. */
+.directory .lbl-short {
+  display: none;
+}
+
+/*
+ * Phones: four columns that fit without sideways scrolling down to 320px.
+ * Category and API cost move out (both are on the product page); headers use
+ * short labels; the product column takes the remaining width and its vendor
+ * line truncates rather than stacking to three lines.
+ */
 @media (max-width: 44rem) {
   .directory .col-hide-sm {
     display: none;
   }
-  .directory .col-multiple {
-    font-size: 1.05rem;
+  .directory .lbl-full {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .directory .lbl-short {
+    display: inline;
+  }
+  table.directory {
+    table-layout: fixed;
+    font-size: 0.9rem;
+  }
+  .directory thead th:nth-child(3) {
+    width: 4.6rem;
+  }
+  .directory thead th:nth-child(5) {
+    width: 4.4rem;
+  }
+  .directory thead th.col-verdict {
+    width: 2.6rem;
   }
   .directory td,
   .directory th button {
-    padding-inline: 0.85rem;
+    padding-inline: 0.6rem;
+  }
+  .directory td:first-child,
+  .directory th:first-child button {
+    padding-left: 0.95rem;
+  }
+  .directory th button {
+    min-width: 0;
+    letter-spacing: 0.08em;
+  }
+  .directory th.col-verdict button {
+    text-align: center;
+    padding-inline: 0;
+  }
+  /* The sort hint dot would crowd the one-character headers. */
+  .directory th:not([aria-sort]) button::after {
+    content: none;
+  }
+  .directory .col-name a {
+    overflow-wrap: anywhere;
+  }
+  .directory .col-name .meta {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .directory .col-multiple {
+    font-size: 1.02rem;
+    padding-left: 0.6rem;
+  }
+  .directory .col-multiple .below-cost {
+    white-space: normal;
+    letter-spacing: 0.06em;
+  }
+  .directory .col-verdict {
+    padding-inline: 0;
   }
 }
 

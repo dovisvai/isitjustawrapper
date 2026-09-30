@@ -57,12 +57,16 @@ const usedTags = VALUE_ADD_TAGS.filter((t) => entries.some((e) => e.app.valueAdd
       <tr>
         <th scope="col" data-sort="name"><button type="button">Product</button></th>
         <th scope="col" class="col-hide-sm" data-sort="category"><button type="button">Category</button></th>
-        <th scope="col" class="num" data-sort="price"><button type="button">Price / mo</button></th>
+        <th scope="col" class="num" data-sort="price">
+          <button type="button"><span class="lbl-full">Price / mo</span><span class="lbl-short" aria-hidden="true">Price</span></button>
+        </th>
         <th scope="col" class="num col-hide-sm" data-sort="cost"><button type="button">Est. API cost</button></th>
         <th scope="col" class="num" data-sort="multiple" aria-sort="descending">
-          <button type="button">Multiple</button>
+          <button type="button"><span class="lbl-full">Multiple</span><span class="lbl-short" aria-hidden="true">×</span></button>
         </th>
-        <th scope="col" data-sort="verdict"><button type="button">Verdict</button></th>
+        <th scope="col" class="col-verdict" data-sort="verdict">
+          <button type="button"><span class="lbl-full">Verdict</span><span class="lbl-short" aria-hidden="true">●</span></button>
+        </th>
       </tr>
     </thead>
     <tbody id="directory-body">
