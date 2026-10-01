@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import { loadEntries, loadMeterChangelog } from '../lib/data.ts';
+import { loadEntries, loadMeterChangelog, loadMeterMeasurements } from '../lib/data.ts';
 import { NOT_MEASURED, meterPerDollar, money, price, longDate } from '../lib/format.ts';
 
 const entries = [...loadEntries()].sort((a, b) => a.app.name.localeCompare(b.app.name));
 const changes = loadMeterChangelog();
 const names = new Map(entries.map((e) => [e.app.slug, e.app.name]));
+const measured = loadMeterMeasurements();
+const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 100 ? 2 : 1).replace(/0$/, '')}x`;
 ---
 
 <Base
@@ -83,6 +85,75 @@ const names = new Map(entries.map((e) => [e.app.slug, e.app.name]));
       </tbody>
     </table>
   </div>
+
+  <section style="margin-top:2.5rem" aria-labelledby="measured">
+    <h2 id="measured">Independently measured plans</h2>
+    <p class="small muted">
+      Plans outside the directory, measured by running their allowance down and pricing every call at API list price.
+      Highest multiplier first.
+    </p>
+    <div class="table-scroll" style="margin-top:1rem">
+      <table class="directory measured-table">
+        <thead>
+          <tr>
+            <th scope="col"><span class="th-static">Plan</span></th>
+            <th scope="col" class="num">
+              <span class="th-static"><span class="lbl-full">Price / mo</span><span class="lbl-short" aria-hidden="true">Price</span></span
+              >
+            </th>
+            <th scope="col" class="num">
+              <span class="th-static"><span class="lbl-full">API value / mo</span><span class="lbl-short" aria-hidden="true">Value</span
+                ></span
+              >
+            </th>
+            <th scope="col" class="num">
+              <span class="th-static"><span class="lbl-full">Multiplier</span><span class="lbl-short" aria-hidden="true">x</span></span
+              >
+            </th>
+            <th scope="col" class="col-hide-sm"><span class="th-static">Status</span></th>
+            <th scope="col" class="col-hide-sm"><span class="th-static">Measured on</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            measured.map((m) => (
+              <tr>
+                <td class="col-name">
+                  <span class="measured-table__plan">{m.plan}</span>
+                  <span class="meta">{m.vendor}</span>
+                  {/* Phones only: the status column is hidden there, so the tag rides here. */}
+                  <span class:list={['tag', 'measured-table__tag-sm', { 'tag--derived': !m.measured }]}>
+                    {m.measured ? 'Measured' : 'Derived'}
+                  </span>
+                  {m.note && <span class="measured-table__note">{m.note}</span>}
+                </td>
+                <td class="num">{price(m.pricePerMonth)}</td>
+                <td class="num">{price(m.apiValuePerMonth)}</td>
+                <td class="num measured-table__x">
+                  {fmtMultiple(m.multiplier)}
+                  {m.multiplierRange && (
+                    <span class="measured-table__range">
+                      {m.multiplierRange[0]}-{m.multiplierRange[1]}x
+                    </span>
+                  )}
+                </td>
+                <td class="col-hide-sm">
+                  <span class:list={['tag', { 'tag--derived': !m.measured }]}>{m.measured ? 'Measured' : 'Derived'}</span>
+                </td>
+                <td class="col-hide-sm">{longDate(m.measuredOn)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:.7rem">
+      Independent measurement, one run per plan, Oct 1 2026. Vendors can change meters at any time. Source:
+      <a href="https://github.com/phuryn/experiments/tree/main/subscription-multipliers" rel="noopener" target="_blank"
+        >Pawel Huryn</a
+      >.
+    </p>
+  </section>
 
   <section class="clause" style="margin-top:2.5rem" aria-labelledby="changelog">
     <h2 id="changelog">Changelog</h2>

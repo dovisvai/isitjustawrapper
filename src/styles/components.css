@@ -1145,3 +1145,75 @@ a.verdict-dot:hover {
     text-overflow: ellipsis;
   }
 }
+
+/* Independently measured plans on /meter. A static table: the headers reuse the
+   directory's look but are not sort controls, so they carry no sort hint. */
+.measured-table th .th-static {
+  box-sizing: border-box;
+  display: block;
+  padding: 0.85rem 1.2rem;
+  white-space: nowrap;
+  color: var(--ink-2);
+}
+.measured-table th.num .th-static {
+  text-align: right;
+}
+.measured-table__plan {
+  font-weight: 600;
+  color: var(--ink);
+}
+.measured-table__note {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+.measured-table__x {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.measured-table__range {
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+/* Derived is weaker evidence than measured: same tag, dashed edge, no colour. */
+.tag--derived {
+  border-style: dashed;
+  background: transparent;
+}
+.measured-table__tag-sm {
+  display: none;
+}
+
+@media (max-width: 44rem) {
+  table.measured-table {
+    table-layout: fixed;
+  }
+  .measured-table thead th:nth-child(2) {
+    width: 3.6rem;
+  }
+  .measured-table thead th:nth-child(3) {
+    width: 4.2rem;
+  }
+  .measured-table thead th:nth-child(4) {
+    width: 3.9rem;
+  }
+  .measured-table__tag-sm {
+    display: inline-block;
+    margin-top: 0.35rem;
+  }
+  .measured-table td,
+  .measured-table th .th-static {
+    padding-inline: 0.45rem;
+  }
+  .measured-table td:first-child,
+  .measured-table th:first-child .th-static {
+    padding-left: 0.95rem;
+  }
+  .measured-table .col-name {
+    overflow-wrap: anywhere;
+  }
+}

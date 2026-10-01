@@ -325,6 +325,51 @@ export const MeterChangeSchema = z
   .strict();
 
 export const MeterChangelogSchema = z.array(MeterChangeSchema);
+
+/**
+ * Plans measured independently by someone else, kept apart from data/apps because
+ * they are not directory entries: no verdict, no usage assumption, no price check.
+ * A derived row (measured: false) is extrapolated rather than run, and must say how
+ * in its note so the table can show it.
+ */
+export const MeterMeasurementSchema = z
+  .object({
+    plan: z.string().min(2).max(80),
+    vendor: z.string().min(2).max(60),
+    pricePerMonth: z.number().positive(),
+    multiplier: z.number().positive(),
+    multiplierRange: z.tuple([z.number().positive(), z.number().positive()]).optional(),
+    apiValuePerMonth: z.number().positive(),
+    measured: z.boolean(),
+    measuredOn: isoDate,
+    basis: z.string().min(10).max(200),
+    source: httpsUrl,
+    note: z.string().min(5).max(200).optional(),
+  })
+  .strict()
+  .superRefine((m, ctx) => {
+    // Stored for readability, but it must agree with the arithmetic (to the dollar,
+    // since source figures are rounded).
+    if (Math.abs(m.apiValuePerMonth - m.multiplier * m.pricePerMonth) > 1) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ['apiValuePerMonth'],
+        message: `must equal multiplier x pricePerMonth (${m.multiplier * m.pricePerMonth})`,
+      });
+    }
+    if (m.multiplierRange) {
+      const [lo, hi] = m.multiplierRange;
+      if (!(lo <= m.multiplier && m.multiplier <= hi)) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['multiplierRange'], message: 'range must contain the multiplier' });
+      }
+    }
+    if (!m.measured && !m.note) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, path: ['note'], message: 'a derived row needs a note saying how it was derived' });
+    }
+  });
+
+export const MeterMeasurementsSchema = z.array(MeterMeasurementSchema);
+export type MeterMeasurement = z.infer<typeof MeterMeasurementSchema>;
 export type MeterChange = z.infer<typeof MeterChangeSchema>;
 
 export const WatchResultSchema = z

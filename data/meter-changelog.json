@@ -6,5 +6,13 @@
     "before": "Old Pro $200 allowance (1x)",
     "after": "About 0.5x the old allowance in API dollars",
     "source": "https://x.com/thsottiaux/status/2104823812042940713"
+  },
+  {
+    "date": "2026-10-01",
+    "tool": "OpenAI Pro ($200 plan)",
+    "summary": "Per OpenAI's stated tiers, as reported by Pawel Huryn, the Pro $200 usage allowance is now 10x that of Plus, down from 20x.",
+    "before": "20x the Plus allowance",
+    "after": "10x the Plus allowance",
+    "source": "https://x.com/PawelHuryn/status/2105703147184239042"
   }
 ]

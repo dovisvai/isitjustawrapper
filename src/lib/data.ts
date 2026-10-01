@@ -6,6 +6,7 @@ import {
   SponsorsSchema,
   CorrectionsSchema,
   MeterChangelogSchema,
+  MeterMeasurementsSchema,
   WatchReportSchema,
   SPONSOR_SLOT_COUNT,
   STALE_AFTER_DAYS,
@@ -113,6 +114,12 @@ export function loadCorrections() {
 export function loadMeterChangelog() {
   const changes = MeterChangelogSchema.parse(readJson(join(DATA_DIR, 'meter-changelog.json')));
   return [...changes].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/** Highest multiplier first. */
+export function loadMeterMeasurements() {
+  const rows = MeterMeasurementsSchema.parse(readJson(join(DATA_DIR, 'meter-measurements.json')));
+  return [...rows].sort((a, b) => b.multiplier - a.multiplier);
 }
 
 export function countBy<T, K extends string>(items: T[], key: (item: T) => K): Record<K, number> {

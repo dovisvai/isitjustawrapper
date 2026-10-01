@@ -1,0 +1,63 @@
+[
+  {
+    "plan": "SuperGrok",
+    "vendor": "xAI",
+    "pricePerMonth": 30,
+    "multiplier": 190,
+    "multiplierRange": [
+      169,
+      211
+    ],
+    "apiValuePerMonth": 5700,
+    "measured": true,
+    "measuredOn": "2026-10-01",
+    "basis": "Weekly allowance burned on purpose, every call priced at the vendor's public API list price.",
+    "source": "https://github.com/phuryn/experiments/tree/main/subscription-multipliers"
+  },
+  {
+    "plan": "Claude Max 20x",
+    "vendor": "Anthropic",
+    "pricePerMonth": 200,
+    "multiplier": 45.3,
+    "apiValuePerMonth": 9060,
+    "measured": true,
+    "measuredOn": "2026-10-01",
+    "basis": "Weekly allowance burned on purpose, every call priced at the vendor's public API list price.",
+    "source": "https://github.com/phuryn/experiments/tree/main/subscription-multipliers",
+    "note": "Long sessions measured about 62x, so this depends on workload."
+  },
+  {
+    "plan": "ChatGPT $100 plan (Codex)",
+    "vendor": "OpenAI",
+    "pricePerMonth": 100,
+    "multiplier": 10.25,
+    "apiValuePerMonth": 1025,
+    "measured": true,
+    "measuredOn": "2026-10-01",
+    "basis": "Weekly allowance burned on purpose, every call priced at the vendor's public API list price.",
+    "source": "https://github.com/phuryn/experiments/tree/main/subscription-multipliers"
+  },
+  {
+    "plan": "ChatGPT $200 plan (Codex)",
+    "vendor": "OpenAI",
+    "pricePerMonth": 200,
+    "multiplier": 10.25,
+    "apiValuePerMonth": 2050,
+    "measured": false,
+    "measuredOn": "2026-10-01",
+    "basis": "Weekly allowance burned on purpose, every call priced at the vendor's public API list price.",
+    "source": "https://github.com/phuryn/experiments/tree/main/subscription-multipliers",
+    "note": "Derived from OpenAI's statement that the allowance scales with price. Not measured."
+  },
+  {
+    "plan": "Muse Code High Usage (standard)",
+    "vendor": "Meta",
+    "pricePerMonth": 15,
+    "multiplier": 9.3,
+    "apiValuePerMonth": 140,
+    "measured": true,
+    "measuredOn": "2026-10-01",
+    "basis": "Weekly allowance burned on purpose, every call priced at the vendor's public API list price.",
+    "source": "https://github.com/phuryn/experiments/tree/main/subscription-multipliers"
+  }
+]

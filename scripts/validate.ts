@@ -14,6 +14,7 @@ import {
   SponsorsSchema,
   CorrectionsSchema,
   MeterChangelogSchema,
+  MeterMeasurementsSchema,
   STALE_AFTER_DAYS,
   VERDICTS,
 } from '../src/schema.ts';
@@ -121,6 +122,7 @@ for (const [file, schema] of [
   ['sponsors.json', SponsorsSchema],
   ['corrections.json', CorrectionsSchema],
   ['meter-changelog.json', MeterChangelogSchema],
+  ['meter-measurements.json', MeterMeasurementsSchema],
 ] as const) {
   const parsed = schema.safeParse(JSON.parse(readFileSync(dataUrl(file), 'utf8')));
   if (!parsed.success) {
@@ -134,6 +136,15 @@ const meterLog = MeterChangelogSchema.safeParse(JSON.parse(readFileSync(dataUrl(
 if (meterLog.success) {
   for (const c of meterLog.data) {
     if (c.slug && !seenSlugs.has(c.slug)) errors.push(`meter-changelog.json: ${c.date} names slug "${c.slug}", which has no entry`);
+  }
+}
+
+const measurements = MeterMeasurementsSchema.safeParse(
+  JSON.parse(readFileSync(dataUrl('meter-measurements.json'), 'utf8')),
+);
+if (measurements.success) {
+  for (const m of measurements.data.filter((r) => !r.measured)) {
+    warnings.push(`meter-measurements.json: "${m.plan}" is derived, not measured — shown with a Derived tag`);
   }
 }
 
