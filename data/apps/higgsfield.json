@@ -50,6 +50,12 @@
     "automatable": false,
     "reason": "Credit-bounded tiers with frequent promotional pricing, rendered client-side; the served HTML carries no dollar figure for an automated check to match against."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

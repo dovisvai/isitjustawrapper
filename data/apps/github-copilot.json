@@ -55,6 +55,12 @@
       "url": "https://docs.github.com/en/copilot"
     }
   ],
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

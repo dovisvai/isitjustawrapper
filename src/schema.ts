@@ -72,6 +72,28 @@ const isoDate = z
 
 const httpsUrl = z.string().url().startsWith('https://', 'sources must be https');
 
+/**
+ * The meter: what a seat actually includes, in API-dollar terms. The sticker price
+ * rarely moves; the allowance behind it does. Every field is nullable because the
+ * honest answer for most products is "not yet measured", and a guessed number here
+ * would be the one figure on the site with no source behind it. A value needs both
+ * a basis and a source.
+ */
+export const MeterSchema = z
+  .object({
+    apiValuePerSeat: z.number().positive().nullable(),
+    basis: z.string().min(10).max(200).nullable(),
+    lastChanged: isoDate.nullable(),
+    source: httpsUrl.nullable(),
+  })
+  .strict()
+  .refine((m) => m.apiValuePerSeat === null || (m.basis !== null && m.source !== null), {
+    message: 'a meter value needs a basis and a source',
+    path: ['apiValuePerSeat'],
+  });
+
+export type Meter = z.infer<typeof MeterSchema>;
+
 export const SourceSchema = z
   .object({
     /** `pricing` is special: every entry needs at least one, and the watcher polls it. */
@@ -217,6 +239,8 @@ export const AppSchema = z
       .strict()
       .optional(),
 
+    meter: MeterSchema.optional(),
+
     verification: VerificationSchema,
     lastReviewed: isoDate,
   })
@@ -282,6 +306,26 @@ export const CorrectionSchema = z
   .strict();
 
 export const CorrectionsSchema = z.array(CorrectionSchema);
+
+/**
+ * Meter changes: a vendor retuning what a seat includes. `tool` is the plan as the
+ * vendor names it, because a change can land on a plan this directory does not
+ * list; `slug` links it to an entry when there is one. Every entry needs a source.
+ */
+export const MeterChangeSchema = z
+  .object({
+    date: isoDate,
+    tool: z.string().min(2).max(80),
+    slug: z.string().optional(),
+    summary: z.string().min(10).max(400),
+    before: z.string().max(120).nullable(),
+    after: z.string().max(120).nullable(),
+    source: httpsUrl,
+  })
+  .strict();
+
+export const MeterChangelogSchema = z.array(MeterChangeSchema);
+export type MeterChange = z.infer<typeof MeterChangeSchema>;
 
 export const WatchResultSchema = z
   .object({

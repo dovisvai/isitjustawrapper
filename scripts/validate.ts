@@ -9,7 +9,14 @@
  * The second one is the one that keeps a draft price out of production. Wire it
  * into your deploy command, not just CI.
  */
-import { AppSchema, SponsorsSchema, CorrectionsSchema, STALE_AFTER_DAYS, VERDICTS } from '../src/schema.ts';
+import {
+  AppSchema,
+  SponsorsSchema,
+  CorrectionsSchema,
+  MeterChangelogSchema,
+  STALE_AFTER_DAYS,
+  VERDICTS,
+} from '../src/schema.ts';
 import { loadAppFiles, loadRateCard, loadWatchReport, daysSince } from '../src/lib/data.ts';
 import { computeCost } from '../src/lib/cost.ts';
 import { readFileSync } from 'node:fs';
@@ -113,12 +120,20 @@ for (const { file, raw } of loadAppFiles()) {
 for (const [file, schema] of [
   ['sponsors.json', SponsorsSchema],
   ['corrections.json', CorrectionsSchema],
+  ['meter-changelog.json', MeterChangelogSchema],
 ] as const) {
   const parsed = schema.safeParse(JSON.parse(readFileSync(dataUrl(file), 'utf8')));
   if (!parsed.success) {
     for (const issue of parsed.error.issues) {
       errors.push(`${file} · ${issue.path.join('.') || '(root)'}: ${issue.message}`);
     }
+  }
+}
+
+const meterLog = MeterChangelogSchema.safeParse(JSON.parse(readFileSync(dataUrl('meter-changelog.json'), 'utf8')));
+if (meterLog.success) {
+  for (const c of meterLog.data) {
+    if (c.slug && !seenSlugs.has(c.slug)) errors.push(`meter-changelog.json: ${c.date} names slug "${c.slug}", which has no entry`);
   }
 }
 

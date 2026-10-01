@@ -50,6 +50,12 @@
     "automatable": false,
     "reason": "The pricing page serves figures in the currency of the requester's region, so an automated check from one location cannot confirm the US list price recorded here."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

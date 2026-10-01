@@ -49,6 +49,12 @@
     "automatable": false,
     "reason": "The pricing page renders figures client-side behind a monthly/yearly toggle, so the month-to-month price never appears in the served HTML — only the annual equivalent does."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

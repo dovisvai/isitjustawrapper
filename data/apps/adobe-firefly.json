@@ -50,6 +50,12 @@
     "automatable": false,
     "reason": "Adobe's plans page returns no dollar figures to an automated request at all, and Firefly is sold both standalone and bundled into Creative Cloud, so the figure shown depends on which entry point a visitor arrives through."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

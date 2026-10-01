@@ -707,3 +707,11 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* Seven dock items on the narrowest phones: tighten the labels so none truncate. */
+@media (max-width: 22.5rem) {
+  .dock__label {
+    letter-spacing: 0.02em;
+    font-size: 0.5rem;
+  }
+}

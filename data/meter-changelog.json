@@ -1,0 +1,10 @@
+[
+  {
+    "date": "2026-09-29",
+    "tool": "OpenAI Pro ($200 plan)",
+    "summary": "OpenAI re-opened the Pro $200 subscription with a new usage calculation. Per OpenAI, usage now nets out at about half the API dollars of the old Pro $200 plan.",
+    "before": "Old Pro $200 allowance (1x)",
+    "after": "About 0.5x the old allowance in API dollars",
+    "source": "https://x.com/thsottiaux/status/2104823812042940713"
+  }
+]

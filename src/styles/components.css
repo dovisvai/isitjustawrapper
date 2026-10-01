@@ -486,14 +486,14 @@ a.verdict-dot:hover {
   .directory .lbl-short {
     display: inline;
   }
-  table.directory {
+  table#directory {
     table-layout: fixed;
     font-size: 0.9rem;
   }
-  .directory thead th:nth-child(3) {
+  #directory thead th:nth-child(3) {
     width: 4.6rem;
   }
-  .directory thead th:nth-child(5) {
+  #directory thead th:nth-child(5) {
     width: 4.4rem;
   }
   .directory thead th.col-verdict {
@@ -1019,5 +1019,129 @@ a.verdict-dot:hover {
     right: 0.7rem;
     max-width: none;
     bottom: calc(5.6rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* --- the meter --------------------------------------------------------------- */
+
+/* Unmeasured is a state, not an absence: muted, never a dash that reads as zero. */
+.is-unmeasured,
+.directory td.is-unmeasured {
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.meter__head {
+  margin-bottom: 1rem;
+}
+.meter__title {
+  margin: 0 0 0.3rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+}
+.meter__head p {
+  margin: 0;
+}
+.meter__basis {
+  margin: 1rem 0 0;
+}
+
+.meter-log {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1rem;
+}
+.meter-log__item {
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--rim-soft);
+  border-radius: calc(var(--radius) - 6px);
+  background: var(--glass-quiet);
+}
+.meter-log__item time {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+.meter-log__item p {
+  margin: 0.4rem 0;
+}
+.meter-log__tool {
+  margin: 0.3rem 0 0;
+  font-size: 1.05rem;
+}
+.meter-log__delta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.6rem;
+  margin: 0.5rem 0 0.6rem;
+  font-size: 0.86rem;
+}
+.meter-log__delta dt {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-2);
+}
+.meter-log__delta dd {
+  margin: 0.15rem 0 0;
+}
+.meter-log--compact {
+  margin-top: 1.1rem;
+}
+
+/* Homepage pointer to /meter: one line, sits between the tally and the table. */
+.meter-pointer {
+  margin: -0.6rem 0 1.4rem;
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+@media (max-width: 44rem) {
+  table.meter-table {
+    table-layout: fixed;
+  }
+  .meter-table thead th:nth-child(2) {
+    width: 4.4rem;
+  }
+  .meter-table thead th:nth-child(3),
+  .meter-table thead th:nth-child(4) {
+    width: 4.9rem;
+  }
+  .meter-table td,
+  .meter-table th button {
+    padding-inline: 0.55rem;
+  }
+  .meter-table td:first-child,
+  .meter-table th:first-child button {
+    padding-left: 0.95rem;
+  }
+  .meter-table th button {
+    min-width: 0;
+  }
+  .meter-table th:not([aria-sort]) button::after {
+    content: none;
+  }
+  .meter-table td.is-unmeasured {
+    font-size: 0.64rem;
+    white-space: normal;
+    line-height: 1.35;
+  }
+  .meter-table .col-name a {
+    overflow-wrap: anywhere;
+  }
+  .meter-table .col-name .meta {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

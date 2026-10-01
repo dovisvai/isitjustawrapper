@@ -56,6 +56,12 @@
     "automatable": false,
     "reason": "There is no crawlable pricing page at all: /pricing returns 404 and the home page describes the Plus plan without naming a figure."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

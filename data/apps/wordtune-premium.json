@@ -50,6 +50,12 @@
     "automatable": false,
     "reason": "The pricing page serves its annual-billing figures by default, so the month-to-month $19.99 never appears in the HTML an automated check receives. Confirmed by hand."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

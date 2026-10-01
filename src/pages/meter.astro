@@ -1,0 +1,168 @@
+---
+import Base from '../layouts/Base.astro';
+import { loadEntries, loadMeterChangelog } from '../lib/data.ts';
+import { NOT_MEASURED, meterPerDollar, money, price, longDate } from '../lib/format.ts';
+
+const entries = [...loadEntries()].sort((a, b) => a.app.name.localeCompare(b.app.name));
+const changes = loadMeterChangelog();
+const names = new Map(entries.map((e) => [e.app.slug, e.app.name]));
+---
+
+<Base
+  title="The Meter - what an AI seat actually includes | Is it just a wrapper?"
+  description="The sticker price of an AI plan rarely changes. The usage it includes, in API dollars, does. API value per seat for every product, and a dated, sourced changelog of every meter change."
+  current="meter"
+>
+  <h1>The Meter</h1>
+  <p class="lede">
+    The sticker price of an AI plan stays put, but the meter behind it moves. This page tracks what each seat includes
+    in API dollars, and logs every time a vendor retunes it.
+  </p>
+
+  <div class="table-scroll" style="margin-top:1.5rem">
+    <table class="directory meter-table" id="meter-table">
+      <caption>
+        <span class="directory__note">
+          API value per seat is the estimated API spend a month of the plan includes. Blank until sourced.
+        </span>
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col" data-sort="name" aria-sort="ascending"><button type="button">Tool</button></th>
+          <th scope="col" class="num" data-sort="price">
+            <button type="button"
+              ><span class="lbl-full">Sticker / mo</span><span class="lbl-short" aria-hidden="true">Price</span></button
+            >
+          </th>
+          <th scope="col" class="num" data-sort="value">
+            <button type="button"
+              ><span class="lbl-full">API value / seat</span><span class="lbl-short" aria-hidden="true">Value</span
+              ></button
+            >
+          </th>
+          <th scope="col" class="num" data-sort="ratio">
+            <button type="button"
+              ><span class="lbl-full">Value per $1</span><span class="lbl-short" aria-hidden="true">Per $1</span></button
+            >
+          </th>
+          <th scope="col" class="col-hide-sm" data-sort="changed"><button type="button">Last changed</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          entries.map(({ app }) => {
+            const value = app.meter?.apiValuePerSeat ?? null;
+            const ratio = meterPerDollar(value, app.pricing.monthlyUsd);
+            const changed = app.meter?.lastChanged ?? null;
+            return (
+              <tr
+                data-name={app.name.toLowerCase()}
+                data-price={app.pricing.monthlyUsd}
+                data-value={value ?? ''}
+                data-ratio={ratio ?? ''}
+                data-changed={changed ?? ''}
+              >
+                <td class="col-name">
+                  <a href={`/app/${app.slug}/`}>{app.name}</a>
+                  <span class="meta">{app.pricing.tier}</span>
+                </td>
+                <td class="num">{price(app.pricing.monthlyUsd)}</td>
+                <td class:list={['num', { 'is-unmeasured': value === null }]}>
+                  {value === null ? NOT_MEASURED : money(value)}
+                </td>
+                <td class:list={['num', { 'is-unmeasured': ratio === null }]}>
+                  {ratio === null ? NOT_MEASURED : money(ratio)}
+                </td>
+                <td class:list={['col-hide-sm', { 'is-unmeasured': !changed }]}>
+                  {changed ? longDate(changed) : NOT_MEASURED}
+                </td>
+              </tr>
+            );
+          })
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <section class="clause" style="margin-top:2.5rem" aria-labelledby="changelog">
+    <h2 id="changelog">Changelog</h2>
+    <p class="small muted">
+      Every meter change we can source, newest first. Plans not listed in the directory are included when the change is
+      on the record. Know of one? Email it with a link, or open an issue.
+    </p>
+    {
+      changes.length === 0 ? (
+        <p class="empty-state">No meter changes logged yet.</p>
+      ) : (
+        <ol class="meter-log">
+          {changes.map((c) => (
+            <li class="meter-log__item">
+              <time datetime={c.date}>{longDate(c.date)}</time>
+              <h3 class="meter-log__tool">
+                {c.slug && names.has(c.slug) ? <a href={`/app/${c.slug}/`}>{c.tool}</a> : c.tool}
+              </h3>
+              <p>{c.summary}</p>
+              {(c.before || c.after) && (
+                <dl class="meter-log__delta">
+                  {c.before && (
+                    <div>
+                      <dt>Before</dt>
+                      <dd>{c.before}</dd>
+                    </div>
+                  )}
+                  {c.after && (
+                    <div>
+                      <dt>After</dt>
+                      <dd>{c.after}</dd>
+                    </div>
+                  )}
+                </dl>
+              )}
+              <a href={c.source} rel="nofollow noopener" target="_blank">
+                Source
+              </a>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+  </section>
+</Base>
+
+<script>
+  // Same pattern as the directory: rows are server-rendered, sorting reorders them
+  // and records the state on the header via aria-sort. Unmeasured values sort last
+  // in either direction, so the measured ones stay together at the top.
+  const table = document.getElementById('meter-table') as HTMLTableElement | null;
+  const body = table?.tBodies[0];
+  if (table && body) {
+    const rows = Array.from(body.rows);
+    let sortKey = 'name';
+    let descending = false;
+
+    const sort = (key: string) => {
+      if (key === sortKey) descending = !descending;
+      else {
+        sortKey = key;
+        descending = key !== 'name';
+      }
+      const val = (r: HTMLTableRowElement) => r.dataset[sortKey] ?? '';
+      rows.sort((a, b) => {
+        const x = val(a);
+        const y = val(b);
+        if (x === '' || y === '') return x === y ? 0 : x === '' ? 1 : -1;
+        const result = sortKey === 'name' || sortKey === 'changed' ? x.localeCompare(y) : Number(x) - Number(y);
+        return descending ? -result : result;
+      });
+      for (const r of rows) body.appendChild(r);
+      for (const th of table.tHead!.rows[0]!.cells) {
+        if (th.dataset.sort === sortKey) th.setAttribute('aria-sort', descending ? 'descending' : 'ascending');
+        else th.removeAttribute('aria-sort');
+      }
+    };
+
+    for (const th of table.tHead!.rows[0]!.cells) {
+      th.querySelector('button')?.addEventListener('click', () => sort(th.dataset.sort!));
+    }
+  }
+</script>

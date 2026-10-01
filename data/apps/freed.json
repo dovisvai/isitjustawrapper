@@ -54,6 +54,12 @@
       "url": "https://www.getfreed.ai/security"
     }
   ],
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

@@ -51,6 +51,12 @@
     "automatable": false,
     "reason": "Pricing renders client-side and changes with the monthly/annual toggle, so no dollar figure appears in the served HTML."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

@@ -112,3 +112,12 @@ export const CATEGORY_LABELS: Record<string, string> = {
   research: 'Research',
   education: 'Education',
 };
+
+/** Shown wherever a meter value has no verified source behind it. */
+export const NOT_MEASURED = 'Not yet measured';
+
+/** API dollars included per $1 of sticker price, or null when the meter is unmeasured. */
+export function meterPerDollar(apiValue: number | null | undefined, monthlyUsd: number): number | null {
+  if (apiValue == null || monthlyUsd <= 0) return null;
+  return apiValue / monthlyUsd;
+}

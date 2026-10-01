@@ -73,9 +73,16 @@ const nav = [
   {
     href: '/',
     label: 'Directory',
-    short: 'Directory',
+    short: 'Home',
     key: 'directory',
     icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/>',
+  },
+  {
+    href: '/meter/',
+    label: 'Meter',
+    short: 'Meter',
+    key: 'meter',
+    icon: '<path d="M4 16a8 8 0 0 1 16 0"/><path d="m12 16 4.2-5"/><path d="M4 20h16"/>',
   },
   {
     href: '/methodology/',
@@ -216,7 +223,7 @@ const nav = [
         </p>
         <p class="mono small">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> ·
-          <a href="/methodology/#corrections">File a correction</a> · <a href={REPO_URL}>Source on GitHub</a> ·
+          <a href="/meter/">The Meter</a> · <a href="/methodology/#corrections">File a correction</a> · <a href={REPO_URL}>Source on GitHub</a> ·
           <a href="/privacy/">Privacy</a> ·
           <button type="button" class="linklike" id="consent-open">Cookie settings</button> · Data licensed CC BY 4.0 ·
           Code MIT

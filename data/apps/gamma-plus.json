@@ -57,6 +57,12 @@
     "automatable": false,
     "reason": "The pricing page renders entirely client-side; no dollar figure appears in the served HTML for an automated check to match against."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

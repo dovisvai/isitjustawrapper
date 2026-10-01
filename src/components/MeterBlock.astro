@@ -1,0 +1,78 @@
+---
+/**
+ * The meter for one product: what the seat includes in API dollars, beside what it
+ * costs. Unmeasured fields say so in muted grey rather than showing a guess.
+ */
+import type { App, MeterChange } from '../schema.ts';
+import { NOT_MEASURED, meterPerDollar, money, longDate } from '../lib/format.ts';
+
+interface Props {
+  app: App;
+  changes: MeterChange[];
+}
+
+const { app, changes } = Astro.props;
+const meter = app.meter;
+const value = meter?.apiValuePerSeat ?? null;
+const ratio = meterPerDollar(value, app.pricing.monthlyUsd);
+---
+
+<section class="form-head meter" aria-labelledby="meter-title">
+  <div class="meter__head">
+    <h2 id="meter-title" class="meter__title">Meter</h2>
+    <p class="small muted">
+      The sticker is what you pay. The meter is what the seat includes, in API dollars, and vendors retune it without
+      changing the price. <a href="/meter/">All meters</a>
+    </p>
+  </div>
+  <dl class="field-grid">
+    <div class="field">
+      <dt class="field__label">API value / seat / mo</dt>
+      <dd class:list={['field__value', { 'is-unmeasured': value === null }]}>
+        {value === null ? NOT_MEASURED : money(value)}
+      </dd>
+    </div>
+    <div class="field">
+      <dt class="field__label">Value per $1 of sticker</dt>
+      <dd class:list={['field__value', { 'is-unmeasured': ratio === null }]}>
+        {ratio === null ? NOT_MEASURED : money(ratio)}
+      </dd>
+    </div>
+    <div class="field">
+      <dt class="field__label">Last changed</dt>
+      <dd class:list={['field__value', { 'is-unmeasured': !meter?.lastChanged }]}>
+        {meter?.lastChanged ? longDate(meter.lastChanged) : NOT_MEASURED}
+      </dd>
+    </div>
+    <div class="field">
+      <dt class="field__label">Source</dt>
+      <dd class:list={['field__value', { 'is-unmeasured': !meter?.source }]}>
+        {
+          meter?.source ? (
+            <a href={meter.source} rel="nofollow noopener" target="_blank">
+              Link
+            </a>
+          ) : (
+            NOT_MEASURED
+          )
+        }
+      </dd>
+    </div>
+  </dl>
+  {meter?.basis && <p class="small muted meter__basis">Basis: {meter.basis}</p>}
+  {
+    changes.length > 0 && (
+      <ol class="meter-log meter-log--compact">
+        {changes.map((c) => (
+          <li class="meter-log__item">
+            <time datetime={c.date}>{longDate(c.date)}</time>
+            <p>{c.summary}</p>
+            <a href={c.source} rel="nofollow noopener" target="_blank">
+              Source
+            </a>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</section>

@@ -54,6 +54,12 @@
       "url": "https://www.notion.com/product/ai"
     }
   ],
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

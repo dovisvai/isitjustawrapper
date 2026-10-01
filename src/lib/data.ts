@@ -5,6 +5,7 @@ import {
   RateCardSchema,
   SponsorsSchema,
   CorrectionsSchema,
+  MeterChangelogSchema,
   WatchReportSchema,
   SPONSOR_SLOT_COUNT,
   STALE_AFTER_DAYS,
@@ -106,6 +107,12 @@ export function loadSponsors() {
 export function loadCorrections() {
   const corrections = CorrectionsSchema.parse(readJson(join(DATA_DIR, 'corrections.json')));
   return [...corrections].sort((a, b) => b.date.localeCompare(a.date));
+}
+
+/** Newest first. */
+export function loadMeterChangelog() {
+  const changes = MeterChangelogSchema.parse(readJson(join(DATA_DIR, 'meter-changelog.json')));
+  return [...changes].sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export function countBy<T, K extends string>(items: T[], key: (item: T) => K): Record<K, number> {

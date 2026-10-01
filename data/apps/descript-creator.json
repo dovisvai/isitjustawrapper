@@ -60,6 +60,12 @@
       "url": "https://openai.com/api/pricing/"
     }
   ],
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

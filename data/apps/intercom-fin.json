@@ -58,6 +58,12 @@
     "automatable": false,
     "reason": "The recorded monthly figure is derived from a stated volume — 300 outcomes at $0.99 — rather than being a price Intercom publishes, so it can never appear on the pricing page. The figure to watch here is the $0.99 per-outcome rate, which the page does carry."
   },
+  "meter": {
+    "apiValuePerSeat": null,
+    "basis": null,
+    "lastChanged": null,
+    "source": null
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",
