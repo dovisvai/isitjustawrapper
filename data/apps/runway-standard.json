@@ -47,10 +47,10 @@
     }
   ],
   "meter": {
-    "apiValuePerSeat": null,
-    "basis": null,
+    "apiValuePerSeat": 6.25,
+    "basis": "625 credits per month at Runway's public API price of $0.01 per credit.",
     "lastChanged": null,
-    "source": null
+    "source": "https://docs.dev.runwayml.com/guides/pricing/"
   },
   "verification": {
     "status": "verified",

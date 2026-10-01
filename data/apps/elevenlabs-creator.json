@@ -46,10 +46,10 @@
     }
   ],
   "meter": {
-    "apiValuePerSeat": null,
-    "basis": null,
+    "apiValuePerSeat": 9.68,
+    "basis": "121,000 credits at 1 credit = 1 character, priced at the $0.08 per 1K characters API rate; assumes all credits go to text-to-speech.",
     "lastChanged": null,
-    "source": null
+    "source": "https://elevenlabs.io/pricing/api"
   },
   "verification": {
     "status": "verified",

@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { loadEntries, loadMeterChangelog, loadMeterMeasurements } from '../lib/data.ts';
-import { NOT_MEASURED, meterPerDollar, money, price, longDate } from '../lib/format.ts';
+import { NOT_MEASURED, meterPerDollar, changeDate, money, price, longDate } from '../lib/format.ts';
 
 const entries = [...loadEntries()].sort((a, b) => a.app.name.localeCompare(b.app.name));
 const changes = loadMeterChangelog();
@@ -25,7 +25,9 @@ const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 10
     <table class="directory meter-table" id="meter-table">
       <caption>
         <span class="directory__note">
-          API value per seat is the estimated API spend a month of the plan includes. Blank until sourced.
+          API value per seat is the estimated API spend a month of the plan includes, valued at the vendor's own API
+          or stated credit rate. Blank means the vendor publishes no usable rate. Some vendors, such as Cursor and
+          Windsurf, stopped publishing one.
         </span>
       </caption>
       <thead>
@@ -71,6 +73,7 @@ const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 10
                 <td class="num">{price(app.pricing.monthlyUsd)}</td>
                 <td class:list={['num', { 'is-unmeasured': value === null }]}>
                   {value === null ? NOT_MEASURED : money(value)}
+                  {app.meter?.isFloor && <span class="meter-floor">floor</span>}
                 </td>
                 <td class:list={['num', { 'is-unmeasured': ratio === null }]}>
                   {ratio === null ? NOT_MEASURED : money(ratio)}
@@ -168,7 +171,7 @@ const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 10
         <ol class="meter-log">
           {changes.map((c) => (
             <li class="meter-log__item">
-              <time datetime={c.date}>{longDate(c.date)}</time>
+              <time datetime={c.date}>{changeDate(c.date, c.approximate)}</time>
               <h3 class="meter-log__tool">
                 {c.slug && names.has(c.slug) ? <a href={`/app/${c.slug}/`}>{c.tool}</a> : c.tool}
               </h3>

@@ -121,3 +121,8 @@ export function meterPerDollar(apiValue: number | null | undefined, monthlyUsd: 
   if (apiValue == null || monthlyUsd <= 0) return null;
   return apiValue / monthlyUsd;
 }
+
+/** A changelog date, hedged when the source only places it roughly. */
+export function changeDate(iso: string, approximate?: boolean): string {
+  return approximate ? `around ${longDate(iso)}` : longDate(iso);
+}

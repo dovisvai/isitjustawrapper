@@ -56,10 +56,10 @@
     }
   ],
   "meter": {
-    "apiValuePerSeat": null,
-    "basis": null,
-    "lastChanged": null,
-    "source": null
+    "apiValuePerSeat": 15,
+    "basis": "1,500 AI credits per month (1,000 base + 500 flex) at GitHub's fixed 1 credit = $0.01; flex portion can change.",
+    "lastChanged": "2026-06-01",
+    "source": "https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals"
   },
   "verification": {
     "status": "verified",

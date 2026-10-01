@@ -85,6 +85,8 @@ export const MeterSchema = z
     basis: z.string().min(10).max(200).nullable(),
     lastChanged: isoDate.nullable(),
     source: httpsUrl.nullable(),
+    /** True when only part of the allowance has a published rate, so the value understates it. */
+    isFloor: z.boolean().optional(),
   })
   .strict()
   .refine((m) => m.apiValuePerSeat === null || (m.basis !== null && m.source !== null), {
@@ -315,6 +317,8 @@ export const CorrectionsSchema = z.array(CorrectionSchema);
 export const MeterChangeSchema = z
   .object({
     date: isoDate,
+    /** The source dates the change only roughly; shown as "around <date>". */
+    approximate: z.boolean().optional(),
     tool: z.string().min(2).max(80),
     slug: z.string().optional(),
     summary: z.string().min(10).max(400),

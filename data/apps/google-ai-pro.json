@@ -52,10 +52,11 @@
     "reason": "Google serves regional prices and rounded figures to automated requests ($20 rather than the US list price of $19.99), so an automated match against the recorded figure fails even when nothing has changed. Confirmed by hand."
   },
   "meter": {
-    "apiValuePerSeat": null,
-    "basis": null,
+    "apiValuePerSeat": 10,
+    "basis": "Only the $10 per month Google Cloud credit is priced; Gemini app limits have no published dollar rate, so this is a floor.",
     "lastChanged": null,
-    "source": null
+    "source": "https://support.google.com/googleone/answer/14534406?hl=en",
+    "isFloor": true
   },
   "verification": {
     "status": "verified",

@@ -4,7 +4,7 @@
  * costs. Unmeasured fields say so in muted grey rather than showing a guess.
  */
 import type { App, MeterChange } from '../schema.ts';
-import { NOT_MEASURED, meterPerDollar, money, longDate } from '../lib/format.ts';
+import { NOT_MEASURED, meterPerDollar, changeDate, money, longDate } from '../lib/format.ts';
 
 interface Props {
   app: App;
@@ -30,6 +30,7 @@ const ratio = meterPerDollar(value, app.pricing.monthlyUsd);
       <dt class="field__label">API value / seat / mo</dt>
       <dd class:list={['field__value', { 'is-unmeasured': value === null }]}>
         {value === null ? NOT_MEASURED : money(value)}
+        {meter?.isFloor && <span class="meter-floor">floor</span>}
       </dd>
     </div>
     <div class="field">
@@ -65,7 +66,7 @@ const ratio = meterPerDollar(value, app.pricing.monthlyUsd);
       <ol class="meter-log meter-log--compact">
         {changes.map((c) => (
           <li class="meter-log__item">
-            <time datetime={c.date}>{longDate(c.date)}</time>
+            <time datetime={c.date}>{changeDate(c.date, c.approximate)}</time>
             <p>{c.summary}</p>
             <a href={c.source} rel="nofollow noopener" target="_blank">
               Source

@@ -1217,3 +1217,35 @@ a.verdict-dot:hover {
     overflow-wrap: anywhere;
   }
 }
+
+/* Marks a meter value that prices only part of the allowance. */
+.meter-floor {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+/* Narrowest phones: give the tool name enough width that words wrap whole
+   instead of breaking mid-word. */
+@media (max-width: 22.5rem) {
+  .meter-table thead th:nth-child(2) {
+    width: 4.1rem;
+  }
+  .meter-table thead th:nth-child(3),
+  .meter-table thead th:nth-child(4) {
+    width: 3.85rem;
+  }
+  .meter-table td,
+  .meter-table th button {
+    padding-inline: 0.4rem;
+  }
+  .meter-table .col-name a {
+    font-size: 0.84rem;
+    overflow-wrap: break-word;
+  }
+}

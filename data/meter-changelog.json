@@ -1,5 +1,13 @@
 [
   {
+    "date": "2026-10-01",
+    "tool": "OpenAI Pro ($200 plan)",
+    "summary": "Per OpenAI's stated tiers, as reported by Pawel Huryn, the Pro $200 usage allowance is now 10x that of Plus, down from 20x.",
+    "before": "20x the Plus allowance",
+    "after": "10x the Plus allowance",
+    "source": "https://x.com/PawelHuryn/status/2105703147184239042"
+  },
+  {
     "date": "2026-09-29",
     "tool": "OpenAI Pro ($200 plan)",
     "summary": "OpenAI re-opened the Pro $200 subscription with a new usage calculation. Per OpenAI, usage now nets out at about half the API dollars of the old Pro $200 plan.",
@@ -8,11 +16,31 @@
     "source": "https://x.com/thsottiaux/status/2104823812042940713"
   },
   {
-    "date": "2026-10-01",
-    "tool": "OpenAI Pro ($200 plan)",
-    "summary": "Per OpenAI's stated tiers, as reported by Pawel Huryn, the Pro $200 usage allowance is now 10x that of Plus, down from 20x.",
-    "before": "20x the Plus allowance",
-    "after": "10x the Plus allowance",
-    "source": "https://x.com/PawelHuryn/status/2105703147184239042"
+    "date": "2026-08-30",
+    "approximate": true,
+    "tool": "Cursor Pro",
+    "slug": "cursor",
+    "summary": "Cursor stopped publishing a dollar amount for Pro's included usage; the docs now list the pools as 'Included'. Previously Pro showed $20 of usage.",
+    "before": "$20 of usage published",
+    "after": "no dollar figure published",
+    "source": "https://cursor.com/docs/models-and-pricing.md"
+  },
+  {
+    "date": "2026-03-19",
+    "tool": "Windsurf Pro",
+    "slug": "windsurf-pro",
+    "summary": "Moved from credits to a daily plus weekly usage quota with no published dollar value; extra usage billed at API prices.",
+    "before": null,
+    "after": null,
+    "source": "https://devin.ai/blog/windsurf-pricing-plans"
+  },
+  {
+    "date": "2026-02-12",
+    "tool": "Perplexity Pro",
+    "slug": "perplexity-pro",
+    "summary": "The $5 per month Sonar API credit included with Pro was discontinued, per Perplexity support as reported by a third party.",
+    "before": null,
+    "after": null,
+    "source": "https://goosed.ie/news/perplexity-pro-quietly-removes-free-api-credits/"
   }
 ]
