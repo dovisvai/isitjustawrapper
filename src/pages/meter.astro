@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { loadEntries, loadMeterChangelog, loadMeterMeasurements } from '../lib/data.ts';
-import { NOT_MEASURED, meterPerDollar, changeDate, money, price, longDate } from '../lib/format.ts';
+import { NOT_MEASURED, meterPerDollar, changeDate, lastChangedLabel, money, price, longDate } from '../lib/format.ts';
 
 const entries = [...loadEntries()].sort((a, b) => a.app.name.localeCompare(b.app.name));
 const changes = loadMeterChangelog();
@@ -79,7 +79,7 @@ const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 10
                   {ratio === null ? NOT_MEASURED : money(ratio)}
                 </td>
                 <td class:list={['col-hide-sm', { 'is-unmeasured': !changed }]}>
-                  {changed ? longDate(changed) : NOT_MEASURED}
+                  {lastChangedLabel(changed, value !== null)}
                 </td>
               </tr>
             );
@@ -200,6 +200,10 @@ const fmtMultiple = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(n < 10
         </ol>
       )
     }
+    <p class="small muted meter-sponsor">
+      Want your plan measured, or your allowance change listed? Sponsors get a placement, never a verdict.
+      <a href="/sponsor/">Sponsorship</a>
+    </p>
   </section>
 </Base>
 

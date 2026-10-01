@@ -1249,3 +1249,7 @@ a.verdict-dot:hover {
     overflow-wrap: break-word;
   }
 }
+
+.meter-sponsor {
+  margin-top: 1.6rem;
+}

@@ -116,6 +116,18 @@ export const CATEGORY_LABELS: Record<string, string> = {
 /** Shown wherever a meter value has no verified source behind it. */
 export const NOT_MEASURED = 'Not yet measured';
 
+/** A measured meter with no dated change on record. */
+export const NO_CHANGE = 'No change recorded';
+
+/**
+ * The "last changed" cell. Distinguishes "we have no meter at all" from "we have
+ * one, and nobody has recorded a change to it".
+ */
+export function lastChangedLabel(lastChanged: string | null | undefined, hasValue: boolean): string {
+  if (lastChanged) return longDate(lastChanged);
+  return hasValue ? NO_CHANGE : NOT_MEASURED;
+}
+
 /** API dollars included per $1 of sticker price, or null when the meter is unmeasured. */
 export function meterPerDollar(apiValue: number | null | undefined, monthlyUsd: number): number | null {
   if (apiValue == null || monthlyUsd <= 0) return null;
