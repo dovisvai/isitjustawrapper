@@ -6,9 +6,9 @@
   "url": "https://monica.im",
   "pricing": {
     "tier": "Pro",
-    "monthlyUsd": 8.3,
-    "billingNote": "$8.30/month. Tiers are bounded by a monthly quota of 'advanced' queries against frontier models, with cheaper models unmetered, so the quota matters more than the fee. Annual billing is advertised lower.",
-    "checkedOn": "2026-08-13"
+    "monthlyUsd": 9.9,
+    "billingNote": "$9.90/month billed monthly; the $8.30 Monica also advertises is the annual-billed equivalent. Tiers are bounded by a monthly quota of 'advanced' queries against frontier models, with cheaper models unmetered, so the quota matters more than the fee.",
+    "checkedOn": "2026-10-01"
   },
   "usageAssumption": {
     "description": "150 substantive queries a month against a frontier model — the quota the paid tier exists to sell — each carrying roughly 4,000 tokens of page or document context and returning 600.",
@@ -60,7 +60,7 @@
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",
-    "checkedOn": "2026-08-13"
+    "checkedOn": "2026-10-01"
   },
-  "lastReviewed": "2026-08-13"
+  "lastReviewed": "2026-10-01"
 }

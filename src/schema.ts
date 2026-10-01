@@ -243,6 +243,21 @@ export const AppSchema = z
 
     meter: MeterSchema.optional(),
 
+    /**
+     * An editorial notice shown at the top of the entry, for a change the data
+     * cannot yet express (a plan discontinued, a verdict under review). Sourced and
+     * dated like everything else.
+     */
+    notice: z
+      .object({
+        title: z.string().min(3).max(60),
+        body: z.string().min(20).max(500),
+        source: httpsUrl,
+        verifiedOn: isoDate,
+      })
+      .strict()
+      .optional(),
+
     verification: VerificationSchema,
     lastReviewed: isoDate,
   })

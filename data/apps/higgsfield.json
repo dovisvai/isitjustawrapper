@@ -6,9 +6,9 @@
   "url": "https://higgsfield.ai",
   "pricing": {
     "tier": "Starter",
-    "monthlyUsd": 15,
-    "billingNote": "Starter tier, billed monthly. Higgsfield sells credit-bounded tiers and runs frequent promotional pricing, so what counts as list price moves. Credits buy generation time, so a heavy month needs top-ups on top of the subscription.",
-    "checkedOn": "2026-08-13"
+    "monthlyUsd": 19,
+    "billingNote": "$19/month for Starter, billed monthly. Higgsfield sells credit-bounded tiers and runs frequent promotional pricing, so what counts as list price moves. Credits buy generation time, so a heavy month needs top-ups on top of the subscription.",
+    "checkedOn": "2026-10-01"
   },
   "usageAssumption": {
     "description": "Around three minutes of finished generated video a month with camera-motion control, priced against running open video weights on rented high-end GPUs.",
@@ -59,7 +59,7 @@
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",
-    "checkedOn": "2026-08-13"
+    "checkedOn": "2026-10-01"
   },
-  "lastReviewed": "2026-08-13"
+  "lastReviewed": "2026-10-01"
 }

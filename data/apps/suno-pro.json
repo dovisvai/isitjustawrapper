@@ -6,9 +6,9 @@
   "url": "https://suno.com",
   "pricing": {
     "tier": "Pro",
-    "monthlyUsd": 8,
-    "billingNote": "$8/month billed monthly, with an annual option the page advertises as saving $24 a year. Premier is $24/month. Pro includes a monthly credit allowance and grants a general commercial-use licence, which the free tier does not.",
-    "checkedOn": "2026-08-13"
+    "monthlyUsd": 10,
+    "billingNote": "$10/month billed monthly; annual billing works out to $8/month. Pro includes a monthly credit allowance and grants a general commercial-use licence, which the free tier does not.",
+    "checkedOn": "2026-10-01"
   },
   "usageAssumption": {
     "description": "150 generated tracks a month of around two minutes each. Suno publishes no API for its own models, so the comparison is running open music weights on rented high-end GPUs.",
@@ -54,7 +54,7 @@
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",
-    "checkedOn": "2026-08-13"
+    "checkedOn": "2026-10-01"
   },
-  "lastReviewed": "2026-08-13"
+  "lastReviewed": "2026-10-01"
 }

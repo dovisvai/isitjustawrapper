@@ -83,6 +83,21 @@ const jsonLd = {
   }
 
   {
+    app.notice && (
+      <div class="notice notice--warn">
+        <strong class="notice__title">{app.notice.title}</strong>
+        <p>
+          {app.notice.body} Verified {longDate(app.notice.verifiedOn)} against{' '}
+          <a href={app.notice.source} rel="nofollow noopener" target="_blank">
+            the vendor's pricing page
+          </a>
+          .
+        </p>
+      </div>
+    )
+  }
+
+  {
     watch && watch.status !== 'ok' && watch.status !== 'new' && (
       <div class="notice notice--warn">
         <strong class="notice__title">Price watcher · {watch.status}</strong>

@@ -60,6 +60,12 @@
     "lastChanged": null,
     "source": null
   },
+  "notice": {
+    "title": "Add-on discontinued",
+    "body": "Notion no longer sells the standalone $10 AI add-on. AI is now bundled into Notion Business at $24 per member per month, billed monthly. The $10 price on this entry is historical, and its verdict is under review.",
+    "source": "https://www.notion.com/pricing",
+    "verifiedOn": "2026-10-01"
+  },
   "verification": {
     "status": "verified",
     "checkedBy": "@dovisvai",

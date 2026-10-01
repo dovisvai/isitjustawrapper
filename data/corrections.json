@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "date": "2026-10-01",
+    "slug": "higgsfield",
+    "raisedBy": "maintainer",
+    "summary": "Recorded $15/month on tier \"Starter\". The Starter price has risen.",
+    "change": "Corrected to $19/month on tier \"Starter\", verified against https://higgsfield.ai/pricing by @dovisvai."
+  },
+  {
+    "date": "2026-10-01",
+    "slug": "monica-pro",
+    "raisedBy": "maintainer",
+    "summary": "Recorded $8.30/month on tier \"Pro\". The recorded figure was the annual-billed equivalent, not the month-to-month price.",
+    "change": "Corrected to $9.90/month on tier \"Pro\", verified against https://monica.im/pricing by @dovisvai."
+  },
+  {
+    "date": "2026-10-01",
+    "slug": "suno-pro",
+    "raisedBy": "maintainer",
+    "summary": "Recorded $8/month on tier \"Pro\". The recorded figure was the annual-billed equivalent, not the month-to-month price.",
+    "change": "Corrected to $10/month on tier \"Pro\", verified against https://suno.com/pricing by @dovisvai."
+  },
+  {
+    "date": "2026-10-01",
+    "slug": "notion-ai",
+    "raisedBy": "maintainer",
+    "summary": "Recorded $10/month on tier \"AI add-on (per member)\". Notion has discontinued the standalone AI add-on; AI is now bundled into Notion Business at $24 per member per month.",
+    "change": "Entry kept at the historical $10 with a notice on its page; the verdict is under review. Verified against https://www.notion.com/pricing by @dovisvai."
+  }
+]
