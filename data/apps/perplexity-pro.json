@@ -61,10 +61,8 @@
     "source": null
   },
   "verification": {
-    "status": "verified",
-    "checkedBy": "@dovisvai",
-    "checkedOn": "2026-08-11",
-    "note": "Price basis standardised to monthly billing on 2026-08-11. The page was checked by @dovisvai on the same day; only which advertised rate the entry headlines has changed."
+    "status": "unverified",
+    "note": "Demoted by the price watcher on 2026-10-19: the recorded price was not found at https://www.perplexity.ai/pro. A human must re-check before this can be published again."
   },
   "lastReviewed": "2026-08-11"
 }
