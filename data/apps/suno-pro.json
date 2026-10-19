@@ -52,9 +52,8 @@
     "source": null
   },
   "verification": {
-    "status": "verified",
-    "checkedBy": "@dovisvai",
-    "checkedOn": "2026-10-01"
+    "status": "unverified",
+    "note": "Demoted by the price watcher on 2026-10-19: the recorded price was not found at https://suno.com/pricing. A human must re-check before this can be published again."
   },
   "lastReviewed": "2026-10-01"
 }
