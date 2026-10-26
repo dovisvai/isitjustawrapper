@@ -1,35 +1,41 @@
 {
-  "generatedOn": "2026-09-18",
+  "generatedOn": "2026-10-26",
   "results": [
     {
       "slug": "adobe-firefly",
       "url": "https://www.adobe.com/products/firefly/plans.html",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "c16f92848e6e3ed7",
       "priceCandidates": []
     },
     {
       "slug": "chatbase-hobby",
       "url": "https://www.chatbase.co/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "11c38a0c7d9f6846",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "f65bdd3279703c15",
       "recordedPriceSeen": true,
       "priceCandidates": [
-        "$0",
-        "$25",
+        "$1,20",
+        "$32",
         "$40",
-        "$99",
+        "$96",
+        "$120",
         "$150",
-        "$500"
-      ]
+        "$300",
+        "$360",
+        "$400",
+        "$500",
+        "$1188"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "chatgpt-plus",
       "url": "https://openai.com/chatgpt/pricing/",
       "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "priceCandidates": [],
       "detail": "HTTP 403"
     },
@@ -37,37 +43,38 @@
       "slug": "chatpdf-plus",
       "url": "https://www.chatpdf.com",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "2ff8b70c0fc5ad1d",
       "priceCandidates": []
     },
     {
       "slug": "claude-pro",
       "url": "https://claude.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "d151d81e6df79005",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "e26f0f9cbf4e4858",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
+        "$0.01",
         "$0.05",
         "$0.08",
         "$0.10",
+        "$0.12",
         "$0.20",
         "$0.25",
         "$0.30",
         "$0.50",
-        "$1",
-        "$1.25",
-        "$2",
-        "$2.50"
-      ]
+        "$0.62",
+        "$1"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "copy-ai-chat",
       "url": "https://www.copy.ai/prices",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "553555689923ad27",
       "recordedPriceSeen": true,
       "priceCandidates": [
@@ -87,22 +94,25 @@
     {
       "slug": "cursor",
       "url": "https://cursor.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "c1716a7f74518fae",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "ac8f9d8baca6f8db",
       "recordedPriceSeen": true,
       "priceCandidates": [
-        "$20",
-        "$60",
+        "$0",
+        "$8",
+        "$30",
+        "$100",
         "$200"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "descript-creator",
       "url": "https://www.descript.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "c360bc88412158d6",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "0feb5704a0fc46a6",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -111,14 +121,15 @@
         "$35",
         "$50",
         "$65"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "elevenlabs-creator",
       "url": "https://elevenlabs.io/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "ca84cceaa4a524d2",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "d5080fe36a92e0e5",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -126,21 +137,22 @@
         "$0.18",
         "$0.20",
         "$0.36",
+        "$1",
         "$5",
         "$6",
         "$11",
         "$18.33",
         "$22",
-        "$82.50",
-        "$99"
-      ]
+        "$82.50"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "fireflies-pro",
       "url": "https://fireflies.ai/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "6a297a4a9c530133",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "869f9b552430903f",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -149,14 +161,15 @@
         "$19",
         "$29",
         "$39"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "freed",
       "url": "https://www.getfreed.ai/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "30f0b60704f5b526",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "e6f9a23797e00ade",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$39",
@@ -165,22 +178,23 @@
         "$104",
         "$119",
         "$149"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "gamma-plus",
       "url": "https://gamma.app/pricing",
       "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "priceCandidates": [],
       "detail": "HTTP 403"
     },
     {
       "slug": "github-copilot",
       "url": "https://github.com/features/copilot/plans",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "1db1c619d07148b0",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "20e54fcc48adbb2e",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -193,35 +207,41 @@
         "$70",
         "$100",
         "$200"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "google-ai-pro",
       "url": "https://one.google.com/about/google-ai-plans/",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "03c07d025025489f",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "8ab0696c2b745f1f",
       "priceCandidates": [
+        "$8",
         "$10",
         "$20",
         "$40",
         "$100"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "grammarly-pro",
       "url": "https://www.grammarly.com/plans",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "b68d656d75ccec3a",
-      "priceCandidates": []
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "987caa82775052fe",
+      "priceCandidates": [
+        "$0"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "heygen-creator",
       "url": "https://www.heygen.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "65cf2c6dd29996a3",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "d888f34f6513db05",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -231,57 +251,64 @@
         "$29",
         "$49",
         "$149"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "higgsfield",
       "url": "https://higgsfield.ai/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "71d4fff094f5e3cb",
-      "priceCandidates": []
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "1a920397cff5fbf6",
+      "priceCandidates": [],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "intercom-fin",
       "url": "https://www.intercom.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "d8122ef1fa41aa04",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "033520bc2b92c694",
       "priceCandidates": [
         "$0.01",
         "$0.99",
+        "$19",
         "$29",
         "$35",
         "$85",
         "$99",
+        "$100",
         "$132"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "jasper-pro",
       "url": "https://www.jasper.ai/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "553ee0cddb5948ae",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "7779a34e963c7b59",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$59",
         "$69"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "lovable-pro",
       "url": "https://lovable.dev/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "a8c5cf6a8e5706ba",
-      "priceCandidates": []
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "a687cc91d8922701",
+      "priceCandidates": [],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "midjourney-standard",
       "url": "https://www.midjourney.com/pricing",
       "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "priceCandidates": [],
       "detail": "HTTP 403"
     },
@@ -289,28 +316,31 @@
       "slug": "monica-pro",
       "url": "https://monica.im/pricing",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "253e8fb1b969dcbd",
       "priceCandidates": []
     },
     {
       "slug": "notion-ai",
       "url": "https://www.notion.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "9e0049b5d49e5eea",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "c7f4dc966fedc764",
       "recordedPriceSeen": true,
       "priceCandidates": [
+        "$0",
         "$8",
-        "$10"
-      ]
+        "$10",
+        "$20"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "otter-ai-pro",
       "url": "https://otter.ai/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "10a142c8f2d932cc",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "4326d070e3b1b4a4",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$4",
@@ -324,21 +354,24 @@
         "$24",
         "$30",
         "$79.99"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "perplexity-pro",
       "url": "https://www.perplexity.ai/pro",
-      "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "status": "price-missing",
+      "checkedOn": "2026-10-26",
+      "contentHash": "cc0341d36a378af2",
+      "recordedPriceSeen": false,
       "priceCandidates": [],
-      "detail": "HTTP 403"
+      "detail": "recorded $20 not found on the page. Prices visible: none detected (page is probably rendered client-side)"
     },
     {
       "slug": "quillbot-premium",
       "url": "https://quillbot.com/premium",
       "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "priceCandidates": [],
       "detail": "HTTP 403",
       "contentHash": "d07136f038e1907e"
@@ -346,9 +379,9 @@
     {
       "slug": "runway-standard",
       "url": "https://runway.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "dfc3286c2f154d64",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "7c58ad9408509343",
       "recordedPriceSeen": true,
       "priceCandidates": [
         "$0",
@@ -361,39 +394,58 @@
         "$84",
         "$95",
         "$228"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "rytr-unlimited",
       "url": "https://rytr.me/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "baf14832ad755e57",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "cb29c3c2e9f29c32",
       "priceCandidates": [
-        "$0",
-        "$7.50",
-        "$24.16"
-      ]
+        "$9",
+        "$19",
+        "$49"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "suno-pro",
       "url": "https://suno.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "53df541ba2f73a3f",
-      "recordedPriceSeen": true,
+      "status": "price-missing",
+      "checkedOn": "2026-10-26",
+      "contentHash": "f1cf4f10ee514243",
+      "recordedPriceSeen": false,
       "priceCandidates": [
         "$0",
         "$8",
         "$24",
         "$72"
-      ]
+      ],
+      "detail": "recorded $10 not found on the page. Prices visible: $0, $8, $24, $72"
+    },
+    {
+      "slug": "windsurf-pro",
+      "url": "https://devin.ai/pricing",
+      "status": "new",
+      "checkedOn": "2026-10-26",
+      "contentHash": "fdfe4b16d4614e7f",
+      "recordedPriceSeen": true,
+      "priceCandidates": [
+        "$0",
+        "$20",
+        "$40",
+        "$80",
+        "$200"
+      ],
+      "detail": "first snapshot — nothing to compare against yet"
     },
     {
       "slug": "wordtune-premium",
       "url": "https://www.wordtune.com/pricing",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "f0f7998a0057e45f",
       "priceCandidates": [
         "$0.00",
@@ -405,29 +457,30 @@
     {
       "slug": "rate:frontier-large",
       "url": "https://claude.com/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "d151d81e6df79005",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "430d2e2bfa1813c6",
       "priceCandidates": [
         "$0",
+        "$0.01",
         "$0.05",
         "$0.08",
         "$0.10",
+        "$0.12",
         "$0.20",
         "$0.25",
         "$0.30",
         "$0.50",
-        "$1",
-        "$1.25",
-        "$2",
-        "$2.50"
-      ]
+        "$0.62",
+        "$1"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "rate:frontier-small",
       "url": "https://openai.com/api/pricing/",
       "status": "unreachable",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "priceCandidates": [],
       "detail": "HTTP 403"
     },
@@ -435,7 +488,7 @@
       "slug": "rate:image-gen-api",
       "url": "https://replicate.com/pricing",
       "status": "ok",
-      "checkedOn": "2026-09-18",
+      "checkedOn": "2026-10-26",
       "contentHash": "2ea582a53e1dcade",
       "priceCandidates": [
         "$0.00",
@@ -455,9 +508,9 @@
     {
       "slug": "rate:gpu-hour-highend",
       "url": "https://www.runpod.io/pricing",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "5bea1772ea1ffa4c",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "0cd3dc5cd387155e",
       "priceCandidates": [
         "$0.00",
         "$0.01",
@@ -471,18 +524,30 @@
         "$0.14",
         "$0.20",
         "$0.21"
-      ]
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     },
     {
       "slug": "rate:web-search-api",
       "url": "https://brave.com/search/api/",
-      "status": "ok",
-      "checkedOn": "2026-09-18",
-      "contentHash": "23bbfe7a49e4ca3a",
+      "status": "changed",
+      "checkedOn": "2026-10-26",
+      "contentHash": "781b81511bb9d449",
       "priceCandidates": [
+        "$0",
         "$4",
-        "$5"
-      ]
+        "$5",
+        "$18",
+        "$20",
+        "$40",
+        "$49",
+        "$60",
+        "$80",
+        "$84",
+        "$89",
+        "$100"
+      ],
+      "detail": "page text changed since the last check — re-read it and confirm the price still stands"
     }
   ]
 }
